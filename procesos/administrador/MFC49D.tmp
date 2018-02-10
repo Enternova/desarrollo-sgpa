@@ -1,0 +1,187 @@
+<? include("../../librerias/lib/@include.php");
+$trae_id_insrte = " select SCOPE_IDENTITY() AS [SCOPE_IDENTITY]"; // para optener elid del insert into SQL SERVER
+/*
+$delete = query_db("truncate table t2_archivos_sap");
+$delete = query_db("truncate table t2_archivos_sap_solped");
+$delete = query_db("truncate table t2_archivos_sap_pedido");
+exit;*/
+
+$cuantos=1;
+//$dir="ftp/otro";//Local
+
+
+$dir="../../archivos_sap/";//servidor AVIOR
+$dir="../../archivo_sap_prueba/";//servidor AVIOR
+
+$directorio=opendir($dir); 
+
+while ($archivo = readdir($directorio)){
+	echo "---".$cuantos."---";
+	echo $archivo;
+	$archivo_completo=$archivo; 
+	$archivo_explo = explode("_",$archivo_completo);
+	$archivo_explo_hora_ext = explode(".",$archivo_explo[3]);
+	$tipo_permiso_adj = 0;// es Adjudicacion
+	$nombre_tipo="N/A";
+	$id_archivo=0;
+	$ind_libe="";
+	if($archivo_explo_hora_ext[1]=="csv"){
+		
+	$fecha_job=$archivo_explo[2];
+	$hora_job=$archivo_explo_hora_ext[0];
+	$numero=$archivo_explo[1];
+	
+	
+	if($archivo_explo[0] == "S"){
+				$tipo_permiso_adj = 1;// es el permiso	
+				$nombre_tipo="Solped";
+		}
+	if($archivo_explo[0] == "P"){
+				$tipo_permiso_adj = 2;// es Adjudicacion
+				$nombre_tipo="Pedido";
+		}
+		
+	echo " numero ".$numero." Tipo ".$tipo_permiso_adj."<br />";
+	
+	
+	if($tipo_permiso_adj <> 0){
+		
+		
+		$sle_id = traer_fila_row(query_db("select id from t2_archivos_sap where numero = '".$numero."'"));
+		
+		$delete_numero_anteriores = query_db("delete from t2_archivos_sap where id = '".$sle_id[0]."'");
+		$delete_solped = query_db("delete from t2_archivos_sap_solped where  id_archivo_sap = '".$sle_id[0]."'");
+		$delete_pedido = query_db("delete from t2_archivos_sap_pedido where  id_archivo_sap = '".$sle_id[0]."'");
+		
+
+		
+		
+		
+		
+	$insert_archivo=" insert into t2_archivos_sap (numero, tipo, permiso_adj, nombre_archivo, fecha_job, hora_job) values ('".$numero."','".$nombre_tipo."', '".$tipo_permiso_adj."','".$archivo_completo."', '".$fecha_job."','".$hora_job."')";
+	
+	$sql_ex=query_db($insert_archivo.$trae_id_insrte);
+	$id_archivo = id_insert($sql_ex);//
+
+	
+	
+if($id_archivo <> 0){
+	$fp = fopen ( $dir."/".$archivo_completo , "r" ); 
+$fila=0;
+
+while (( $data = fgetcsv ( $fp , 2048, ";","\n" )) !== false ) { // Mientras hay líneas que leer...
+$estring_insert="";
+$i = 0; 
+if($fila>0){//si es mayor al titulo
+$num_item=0;
+foreach($data as $row) {
+
+//echo "Campo $i: $row fila $fila<br>\n"; // Muestra todos los campos de la fila actual 
+
+if($tipo_permiso_adj ==1 and $i==23){
+		$num_item = $row;
+	}
+if($tipo_permiso_adj ==2 and $i==20){
+		$num_item = $row;
+	}
+	
+if($i==3){
+		$ind_libe=$row;
+	}
+
+	
+if($i>0){
+	$comma= ",";
+	}else{
+		$comma="";
+		}	
+$estring_insert = $estring_insert.$comma." '".$row."'";
+$i++ ;
+
+}
+$insert_into="";
+
+$explode_num_item = explode("-",$num_item);
+$ano_item = $explode_num_item[0][1].$explode_num_item[0][2];
+$consecutivo_item = $explode_num_item[1] * 1;
+
+// ver el correo del lunes 14/04/2014 9:35
+if($ind_libe=="X"){
+		$accion = "Liberar";
+	}
+elseif($ind_libe=="2"){
+		$accion = "Aprobar";
+		}
+elseif($ind_libe=="P"){
+		$accion = "Liberar";
+		}
+elseif($ind_libe=="A"){
+		$accion = "Aprobar";
+		}
+		else{
+			$accion = "N/A";
+			}
+		
+if($sel_id_item[0]<=0){
+	$accion = "N/A";
+	}
+		
+
+	$sel_id_item = traer_fila_row(query_db("select id_item from t2_item_pecc where num2='".$ano_item."' and num3='".$consecutivo_item."'"));
+
+
+if($sel_id_item[0]>0 and $consecutivo_item >0){
+	$uda_archivo = query_db("update t2_archivos_sap set id_item='".$sel_id_item[0]."',num_item='".$num_item."',accion='".$accion."' where id = $id_archivo");
+	
+	
+	if($tipo_permiso_adj ==1){
+	$insert_into = "insert into t2_archivos_sap_solped (s_pedido, usuario, nombre_completo, ind_liberacion, fecha, hora, transaccion, ind_cambio, s_pedido_2, posicion, clase_doc, g_compras, texto, n_material, centro, almacen, gerente, g_articulo, cantidad, u_medida, fecha_s, organiz, v_total, mat_proveedor, den_grupo, moneda,id_archivo_sap) values (".$estring_insert.",$id_archivo)";
+	echo $insert_into;
+	
+	}
+if($tipo_permiso_adj ==2){
+	$insert_into="insert into t2_archivos_sap_pedido (doc_compra, usuario, nombre_completo, ind_liberacion, fecha, hora, trans, ind_cambio, f_entrega, doc_compra2, f_compra, proveedor, posicion, cantidad, u_medida, n_material, texto, v_bruto, nombre_proveedor, nit, mat_proveedor, moneda,id_archivo_sap) values (".$estring_insert.",$id_archivo)";
+	}
+	
+$insert_into_sq = query_db($insert_into);
+	
+	
+}else{
+	$delte = query_db("delete from t2_archivos_sap where id = ".$sle_id[0]);
+	
+	if($tipo_permiso_adj ==1){
+	$delte = query_db("delete from t2_archivos_sap_solped where id_archivo_sap = ".$sle_id[0]);
+	}
+	if($tipo_permiso_adj ==2){
+		$delte = query_db("delete from t2_archivos_sap_pedido where id_archivo_sap = ".$sle_id[0]);
+	}
+	}
+
+
+
+
+
+}
+$fila++;
+echo "<br /><br />\n\n";
+
+} //fin recorre archivo
+}//si tiene definido permiso
+fclose ( $fp ); 
+	
+	
+	
+	}//fin si es CSV
+	
+	//if($cuantos==5){exit;}
+  $cuantos=$cuantos+1;
+}
+  echo "<br />
+<br />
+";
+}//si no existe creelo
+  
+closedir($directorio); 
+
+
+?>

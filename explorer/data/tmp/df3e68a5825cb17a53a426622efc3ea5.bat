@@ -1,0 +1,2 @@
+php "D:\app\sgpa\explorer\data\cache\cli_test.php" > "D:\app\sgpa\explorer\data\cache\cmd_outputs/df3e68a5825cb17a53a426622efc3ea5.out"
+ DEL "D:\app\sgpa\explorer\data\tmp\df3e68a5825cb17a53a426622efc3ea5.bat"

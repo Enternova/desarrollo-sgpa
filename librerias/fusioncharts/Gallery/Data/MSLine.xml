@@ -1,0 +1,70 @@
+<graph caption='Daily Visits' subcaption='' hovercapbg='FFECAA' hovercapborder='F47E00' formatNumberScale='0' decimalPrecision='0' showvalues='0' numdivlines='10' numVdivlines='0' yaxisminvalue='0' yaxismaxvalue='120'  rotateNames='1'>
+<categories >
+		<category name='' />
+		<category name='Enero' /> 
+      <category name='Febrero' /> 
+	  <category name='Marzo' /> 
+	  <category name='Abril' /> 
+	  <category name='Mayo' /> 
+	  <category name='Junio' /> 
+	  <category name='Julio' /> 
+	  <category name='Agosto' /> 
+	  <category name='Septiembre' /> 
+	  <category name='Octubre' /> 
+	  <category name='Nobiembre' /> 
+	  <category name='Diciembre' /> 
+	  <category name='' />
+
+</categories>
+<dataset seriesName='Tiempo Ideal' color='000000' anchorBorderColor='000000' anchorBgColor='000000'>
+	<set value='65' />
+	<set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+      <set value='65' /> 
+	  <set value='65' /> 
+	</dataset>
+
+<dataset seriesName='Tiempo mas Bajo' color='CCFF00' anchorBorderColor='CCFF00' anchorBgColor='FFFFFF'>
+	<set value='' />
+	<set value='30' /> 
+      <set value='40' /> 
+	  <set value='10' /> 
+      <set value='5' /> 
+	  <set value='45' /> 
+      <set value='35' /> 
+	  <set value='30' /> 
+      <set value='50' /> 
+	  <set value='70' /> 
+      <set value='55' /> 
+	  <set value='37' /> 
+      <set value='40' /> 
+	  <set value='' />
+</dataset>
+
+<dataset seriesName='Tiempo mas Alto' color='FF0000' anchorBorderColor='FF0000' anchorBgColor='FFFFFF'>
+	<set value='' />
+	<set value='80' /> 
+      <set value='100' /> 
+	  <set value='80' /> 
+      <set value='67' /> 
+	  <set value='69' /> 
+      <set value='64' /> 
+	  <set value='60' /> 
+      <set value='85' /> 
+	  <set value='70' /> 
+      <set value='73' /> 
+	  <set value='71' /> 
+      <set value='50' />
+	  <set value='' />
+</dataset>
+
+</graph>
