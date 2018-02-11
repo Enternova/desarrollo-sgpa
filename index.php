@@ -175,7 +175,7 @@ setInterval( function() {
           <td class="titulo_tabla_azul_sin_bordes">Soporte T&eacute;cnico para Tarifas y SGPA</td>
         </tr>
         <tr>
-          <td width="43%" align="center" class="telefono_contacto"><div align="center">Front Desk (57 1) 488 4000 Ext 4444</div></td>
+          <td width="43%" align="center" class="telefono_contacto"><div align="center">Front Desk (57 1) 488 4000 Ext 4444 - prueba</div></td>
         </tr>
       </table>
       <br />
