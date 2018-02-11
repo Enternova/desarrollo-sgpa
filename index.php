@@ -365,7 +365,7 @@ setInterval( function() {
 
 
 <p>&nbsp;</p>
-<div id="cubo_pie">Enternova  2013 - Todos los derechos reservados info@enternova.net -</div>
+<div id="cubo_pie">Enternova  2013 - Todos los derechos reservados info@enternova.net - *</div>
 
 
 </body>
