@@ -2530,9 +2530,9 @@ $numero_contrato1 = "C";// los campos de la tabla t7_contratos_contrato
 								$asunto = " Aprobación tarifas contrato ".$contrato_ajus;
 								//SE MODIFICO PARA EL DES098
 								$texto_correo = 'Respetados Señores,.<br /><br />Las tarifas del contrato de la referencia, "'.$sel_contrato_modulo[4].'", han sido aprobadas, pueden proceder a elaborar su tiquete de servicio<br /><br />Recuerde que el gerente del contrato es el (la) señor(a) '.saca_nombre_lista($g1,$sel_contrato_modulo[5],'nombre_administrador','us_id').'.<br /><br />Por Favor tener en cuenta: <br />
-1.    La creación y/o modificación de tarifas que está efectuando no implica, de ninguna manera, incremento en el valor del contrato. <br />
-2.    La creación y/o modificación de la(s) tarifa(s) se requiere(n) esencialmente para cumplir con el objeto del mismo del contrato. <br />
-Estas creaciones y/o modificaciones se harán mediante una comunicación escrita, firmada y sellada por el gerente del contrato (contratos puntuales) y en los contratos marco tanto por la persona que solicita el trabajo como por el gerente del contrato de Hocol.
+1.    La creación y/o actualización de tarifas que está efectuando no implica, de ninguna manera, incremento en el valor del contrato. <br />
+2.    La creación y/o actualización de la(s) tarifa(s) se requiere(n) esencialmente para cumplir con el objeto del mismo del contrato. <br />
+Estas creaciones y/o actualizaciones se harán mediante una comunicación escrita, firmada y sellada por el gerente del contrato (contratos puntuales) y en los contratos marco tanto por la persona que solicita el trabajo como por el gerente del contrato de Hocol.
 								<br /><br />Cordial saludo, <br />';
 								echo "<br /><br />".$asunto;
 								echo $texto_correo;
