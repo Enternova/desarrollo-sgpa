@@ -1,5 +1,6 @@
 <? session_start();
    ob_start();
+
    
 //$verifica_https = $_SERVER['HTTPS'];
 		
@@ -36,7 +37,7 @@
 
 	$sitio_erro_local = explode("/",$HTTP_REFERER);
 	if($sitio_erro_local[3] == "sgpa_local"){
-		$erro = "<span class='texto_paginador_proveedor'>Error de ingreso automatico, su usuario no se encuentra registrado, ingrese su usuario y contraseña</span>";
+		$erro = "<span class='texto_paginador_proveedor'>Error de ingreso automatico, su usuario no se encuentra registrado, ingrese su usuario y contraseña </span>";
 		}
 		
 if($soporte==1)
@@ -364,7 +365,7 @@ setInterval( function() {
 
 
 <p>&nbsp;</p>
-<div id="cubo_pie">Enternova  2013 - Todos los derechos reservados info@enternova.net</div>
+<div id="cubo_pie">Enternova  2013 - Todos los derechos reservados info@enternova.net - *</div>
 
 
 </body>
