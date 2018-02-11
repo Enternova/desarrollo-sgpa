@@ -1,6 +1,6 @@
 <?	error_reporting("E_ERROR");
 	define("TITULO",".::SGPA HOCOL SA - V1");
-	define("SUE_PATH", "C:/app_sgpa/sistem_calidad_2018/");
+	define("SUE_PATH", "C:/app_sgpa/sistem_desarrollo/");
 	$fecha = date("Y-m-d");
 	//$fecha = $_SESSION["fecha"];
 	$hora = date("H:i:s");
