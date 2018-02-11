@@ -345,6 +345,7 @@ setInterval( function() {
           <td >&nbsp;</td>
         </tr>
         <tr>
+<!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git --><!--prueba de git -->
           <td colspan="2" >
             <textarea name="mensaje" id="mensaje" cols="45" rows="5"><?=$mensaje;?></textarea>
          </td>
