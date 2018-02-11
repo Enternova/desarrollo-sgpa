@@ -3,6 +3,10 @@
 
    
 //$verifica_https = $_SERVER['HTTPS'];
+//$verifica_https = $_SERVER['HTTPS'];
+//$verifica_https = $_SERVER['HTTPS'];
+//$verifica_https = $_SERVER['HTTPS'];
+//$verifica_https = $_SERVER['HTTPS'];
 		
 
    include("librerias/lib/@include.php");
