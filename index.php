@@ -163,7 +163,7 @@ setInterval( function() {
           <td class="titulo_tabla_azul_sin_bordes">Soporte t&eacute;cnico para la Urna Virtual</td>
           </tr>
         <tr>
-          <td width="43%" align="center" class="telefono_contacto"><div align="center"> (57) 316 526 3021 - (57 1) 381 6521 Opci&oacute;n 1<br />
+          <td width="43%" align="center" class="telefono_contacto"><div align="center"> (57) 316 526 3021 - (57 1) prueba 381 6521 Opci&oacute;n 1<br />
             E-mail
           : mesa-ayuda@enternova.net</div></td>
           </tr>
