@@ -151,6 +151,7 @@ setInterval( function() {
 </head>
 
 <body>
+<!-- prueba de git josef -->
 <div  class="">
 <?=banner_afuera();?>
 </div>
@@ -367,6 +368,6 @@ setInterval( function() {
 <p>&nbsp;</p>
 <div id="cubo_pie">Enternova  2013 - Todos los derechos reservados info@enternova.net - ******</div>
 
-
+<!-- prueba de git josef -->
 </body>
 </html>
