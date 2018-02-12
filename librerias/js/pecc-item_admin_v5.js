@@ -681,8 +681,7 @@ if ((forma.tipo_proceso.value == 6)) {
 			}else{
 				forma.llena_lista_sondeos_l.className = "";
 				}
-*/
-			
+	*/		
 
 	}
 				
@@ -736,7 +735,7 @@ if (forma.origen_pecc.value == "") {
 				}
 				
 
-			if(forma.linea_pecc.value == 0){
+			if(forma.linea_pecc.value <1){
 				msg = msg + "* Por favor digite la linea del PECC"
 				
 				}
@@ -993,13 +992,26 @@ function carga_detalle_subcategoria(linea, id_item){
 	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc=" + id_item+"&linea="+linea, "carga_detalle_subcategoria")
 	
 	}
-function activa_linea_pecc(pecc){
+function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales) {
 	
+	console.log(pecc);
+	console.log(id_item);
+	console.log(selec_item);
+	console.log(edicion_datos_generales);
+	/*dddsfds*/
 	if(pecc > 1){
-	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
-	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
-	}else{
 		
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=400&id_item_pecc="+id_item+"&selec_item="+selec_item+"&pecc="+pecc+"&edicion_datos_generales="+edicion_datos_generales, "carga_liena_pecc")
+	
+	
+	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
+	window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
+	
+	
+	
+	}else{
+		window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
 		window.parent.document.getElementById("carga_liena_pecc").style.display = "none"
 		window.parent.document.getElementById("carga_modificacion_pecc").style.display = "none"
 		window.parent.document.getElementById("carga_observacion_modifica_pecc").style.display = "none"
