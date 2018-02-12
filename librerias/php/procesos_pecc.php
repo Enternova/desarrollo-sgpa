@@ -1176,6 +1176,19 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 
 }
 if($_POST["accion"]=="graba_info_adjudica"){
+	//sin numero de incidente pecc inicio
+	if($origen_pecc=="1"){
+				
+			}else{
+			if($linea_pecc=="0"){
+			?><script>
+				window.parent.muestra_alerta_error_solo_texto('', 'Error', '*Por favor digite la linea del PECC', 40, 5, 12);
+			</script>
+			<?
+			exit();
+			}
+			}
+	//sin numero de incidente pecc fin
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
 actualiza_fecha_en_firme($id_item_pecc);
 $campo1 = elimina_comillas_2($_POST["objeto_contrato"]);
@@ -1188,6 +1201,23 @@ $antecedentes = elimina_comillas_2($_POST["antecedentes_texto"]);
 $requiere_ajustes=elimina_comillas_2($_POST["reajuste"]);
 $requiere_reembolsable=elimina_comillas_2($_POST["reembolsable"]);
 $como_reembolsable=elimina_comillas_2($_POST["como_reembolsable"]);
+
+
+//sin numero de incidente pecc inicio
+$cuenta_pecc = traer_fila_row(query_db("select count(*) from t1_lineas_pecc_sub where id_linea_pecc = ".$linea_pecc." and estado = 1"));
+
+if($cuenta_pecc[0]>0){
+	
+		$borra_pecc_rela = query_db("delete from t2_relacion_item_sub_linea_pecc where id_item = ".$id_item_pecc."");
+		$selec_pecc = query_db("select id, codigo, nombre from t1_lineas_pecc_sub where id_linea_pecc = ".$linea_pecc." and estado = 1");
+		while($selec_cont_pecc = traer_fila_db($selec_pecc)){		
+		if($_POST["linea_sub_".$selec_cont_pecc[0]] != "") {
+		$insert = query_db("insert into t2_relacion_item_sub_linea_pecc (id_item, id_sub_linea_pecc) values ('".$id_item_pecc."', '".$_POST["linea_sub_".$selec_cont_pecc[0]]."')");
+		}
+		}
+		
+}	
+//sin numero de incidente pecc fin
 ///SE ACTUALIZA EL REAJUSTE, RETENCIÓN EN GARANTÍAS, REEMBOLSABLES
 if ($como_reembolsable!=0) {
 	if ($requiere_reembolsable==1) {

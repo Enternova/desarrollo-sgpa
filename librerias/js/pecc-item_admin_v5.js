@@ -659,6 +659,8 @@ function valida_tipo_doc(id_item_pecc, tipo) {
 
 
 }
+
+//sin numero de incidente pecc inicio
 function grabar_informacion_adjudicacion() {
     var forma = document.principal
     var msg = ""
@@ -681,7 +683,8 @@ if ((forma.tipo_proceso.value == 6)) {
 			}else{
 				forma.llena_lista_sondeos_l.className = "";
 				}
-	*/		
+*/
+			
 
 	}
 				
@@ -728,31 +731,31 @@ if (forma.origen_pecc.value == "") {
             forma.origen_pecc.className = "";	
         }
 		
+		if(forma.linea_pecc=== undefined){
+			
+		}else{
 		if(forma.origen_pecc.value > 1 && forma.origen_pecc.value != ""){//si tiene un PECC realacionado
+			
+			
 			if(forma.linea_pecc.value == 0 && forma.pecc_modificado.value ==0){
 				msg = msg + "* Por favor seleccione la linea del PECC y si requiere modificacion"
 				
 				}
 				
-
-			if(forma.linea_pecc.value <1){
+			
+			
+			/*if(forma.linea_pecc.value == 0){
 				msg = msg + "* Por favor digite la linea del PECC"
 				
-				}
-
-			if(forma.pecc_modificado.value ==0){
-				msg = msg + "* Por favor seleccione si el PECC requiere modificacion"
-				//return;
-				}else if(forma.pecc_modificado.value ==1){//si selecciono que el PECC fue modificado
+				}*/
+			if(forma.pecc_modificado.value ==1){//si selecciono que el PECC fue modificado
 					if(valida_texto_espacios(forma.pecc_observacion_modificacion.value) == "NO"  || characterCount(forma.pecc_observacion_modificacion.value,20) != ""){
 						msg = msg + "* Por favor digite la justificacion de la modificacion, esta debe tener como minimo 20 caracteres"
 						//return;
 						}
-					}
-				
-				
+					}	
 		}
-		
+		}
 	if(forma.reajuste.value==0){
         msg = msg + "* Seleccione si la solicitud tiene reajustes\n"
         forma.reajuste.className = "select_faltantes";
@@ -783,7 +786,7 @@ if (forma.origen_pecc.value == "") {
         //}
     }
 
-}
+}//sin numero de incidente pecc fin
 function imprimir_solictud(id_item) {
     var forma = document.principal
     forma.action = "../aplicaciones/pecc/imprimir.php";
@@ -987,39 +990,48 @@ function pone_datos_contrato(id_contra) {
     forma.submit()
 
 }
-function carga_detalle_subcategoria(linea, id_item){
+//sin numero de incidente pecc inicio
+function carga_detalle_subcategoria(linea, id_item,pecc1){
+
+	
 	window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = ""
-	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc=" + id_item+"&linea="+linea, "carga_detalle_subcategoria")
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc="+id_item+"&linea="+linea+"&pecc1="+pecc1, "carga_detalle_subcategoria")
 	
 	}
-function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales) {
+function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales){
 	
-	console.log(pecc);
-	console.log(id_item);
-	console.log(selec_item);
-	console.log(edicion_datos_generales);
-	/*dddsfds*/
+
+	
 	if(pecc > 1){
 		
 	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=400&id_item_pecc="+id_item+"&selec_item="+selec_item+"&pecc="+pecc+"&edicion_datos_generales="+edicion_datos_generales, "carga_liena_pecc")
+	window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+	window.parent.document.getElementById("carga_modificacion_pecc3").style.display = "none"
 	
 	
 	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
-	window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
 	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
 	
 	
 	
-	}else{
+	
+	}
+	if(pecc == 1 || pecc == 0){
+		
 		window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+		window.parent.document.getElementById("carga_modificacion_pecc3").style.display = "none"
+		
 		window.parent.document.getElementById("carga_liena_pecc").style.display = "none"
 		window.parent.document.getElementById("carga_modificacion_pecc").style.display = "none"
+		
 		window.parent.document.getElementById("carga_observacion_modifica_pecc").style.display = "none"
 		window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = "none"
 		
 	}
 	
 	}
+	
+//sin numero de incidente pecc fin
 
 function activa_filas_modifiaciones_xx(modifica){
 		if(modifica == 1){
