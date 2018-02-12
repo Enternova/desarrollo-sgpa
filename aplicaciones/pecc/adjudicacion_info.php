@@ -75,69 +75,82 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
 				
 				
 	  ?>
+	  <?//sin numero incidente inicio?>
   <tr>
     <td colspan="3" align="center"  class="fondo_3">Informaci&oacute;n de la Adjudicaci&oacute;n</td>
   </tr>
   <tr>
-    <td align="right"  class="letra-descuentos">Tipo de Solicitud:</td>
+    <td align="right"  class="letra-descuentos">Tipo de Solicitud:<?=$_GET['pecc']?></td>
     <td   class="letra-descuentos"><? echo traer_nombre_muestra($sel_item[4], $g11,"nombre","t1_tipo_contratacion_id");?></td>
     <td>&nbsp;</td>
   </tr>
-
   <?
-  if($sel_item[14]>=6 ){
-  ?>
+  if($sel_item[14]>=6){
+	  ?>
   <tr class="columna_subtitulo_resultados">
-    <td align="right">PECC de Origen de esta Solicitud:</td>
+    <td align="right">PECC de origen de esta solicitud:</td>
     <td>
-<? if($edicion_datos_generales == "SI"){ ?>
-      <select name="origen_pecc" id="origen_pecc" onchange="activa_linea_pecc(this.value)">
-        <option value="">Seleccione el origen de PECC</option>
-        <option value="1" <? if($sel_item[56] == 1) echo 'selected="selected"';?>>Ninguno</option>
-        <option value="2017" <? if($sel_item[56] == 2017) echo 'selected="selected"';?>>2017</option>
-        <?=solo_anos_actual($sel_item[56])?>
+	<? if($sel_item[56]==1){ ?>
+	
+	  
+	  <select name="origen_pecc" id="origen_pecc" onchange="activa_linea_pecc(this.value, '<?=$sel_item[0]?>','<?=$sel_item[71]?>','<?=$edicion_datos_generales?>')">
+        <option value="1">Ninguno</option>
+		<option value="2017">2017</option>
+		<option value="2018">2018</option>
       </select>
       <?
   }else{
 	  
-	  if($sel_item[56]==0 or $sel_item[56]==1) echo "Ninguno"; else echo $sel_item[56];
-	  
 	  ?>
-      <input type="hidden" name="origen_pecc" id="origen_pecc" value="<?=$sel_item[56]?>" />
-      <? }
+	  <select name="origen_pecc" id="origen_pecc" onchange="activa_linea_pecc(this.value, '<?=$sel_item[0]?>','<?=$sel_item[71]?>','<?=$edicion_datos_generales?>')">
+       <option value="">Seleccione el origen de PECC</option>
+        <option value="1" >Ninguno</option>
+		<option value="2017"<? if($sel_item[56] == 2017) echo 'selected="selected"';?>>2017</option>
+        <option value="2018"<? if($sel_item[56] == 2018) echo 'selected="selected"';?>>2018</option>
+      </select>
+	 
+  <? }
   ?></td>
     <td colspan="2">&nbsp;</td>
   </tr>
+    <?//sin numero incidente fin?>
   <?
   
   $oculata_no_aplica_pecc= 'style="display:none"';
   $oculta_modificacion_pecc = 'style="display:none"';
   $oculata_no_aplica_sub_categoria = 'style="display:none"';
   
-if($sel_item[56] >1 ){//aplica PECC
-	$oculata_no_aplica_pecc= '';
-	}
+
 if($sel_item[72] == 1){//si se modifico el PECC
 	$oculta_modificacion_pecc = '';
 	}
 	
 if($sel_item[71] > 0){//si se modifico el PECC
-	$sel_si_tiene_sub = traer_fila_row(query_db("select count(*) from t1_lineas_pecc_sub where id_linea_pecc = ".$sel_item[71]." and estado = 1 and origen_pec=".$sel_item[56]));
+	$sel_si_tiene_sub = traer_fila_row(query_db("select count(*) from t1_lineas_pecc_sub where id_linea_pecc = ".$sel_item[71]." and estado = 1"));
 	if($sel_si_tiene_sub[0]>0){
 		 $oculata_no_aplica_sub_categoria = '';
 		}
 	}
-
+		
+	
 	//subir arriba de los dos if cuando se pase a productivo
 //	$oculata_no_aplica_pecc= 'style="display:none"';
  // $oculta_modificacion_pecc = 'style="display:none"';
   
   ?>
-  <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_pecc;?> id="carga_liena_pecc" >
-    <td align="right">L&iacute;nea de la Subcategor&iacute;a Registrada en el PECC:</td>
-    <td><? if($edicion_datos_generales == "SI"){ ?>
-      <select name="linea_pecc" id="linea_pecc" onchange="carga_detalle_subcategoria(this.value, '<?=$sel_item[0]?>')">
-        <option value="0">Seleccione</option>
+ 
+   <?//sin numero incidente inicio?>
+ <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_pecc;?> id="carga_liena_pecc" >
+	
+ </tr> 
+ 
+
+ <tr  class="columna_subtitulo_resultados"  id="carga_liena_pecc3" >
+ 
+  
+	 <td align="right">L&iacute;nea de la Subcategor&iacute;a Registrada en el PECC:</td>
+	  <td>
+	   <select>
         <?
           $lineas_pecc = query_db("select * from t1_lineas_pecc as t1 where estado = 1 and origen_pec=".$sel_item[56]);
 		  while($ln_pecc = traer_fila_row($lineas_pecc)){
@@ -148,31 +161,24 @@ if($sel_item[71] > 0){//si se modifico el PECC
           <?=$ln_pecc[2]?>
         </option>
         <?
-		  }
+ } 
 		  ?>
       </select>
-      <?
-}else{
-	if($sel_item[71] > 0){
-	$sel_linea = traer_fila_row(query_db("select codigo, detalle from t1_lineas_pecc where id = '".$sel_item[71]."' and origen_pec=".$sel_item[56]));
-	echo $sel_linea[0]." - ".$sel_linea[1];
-	}
-	?>
-      <input type="hidden" name="linea_pecc" id="linea_pecc" value="<?=$sel_item[71]?>" />
-      <?
-	}
-	?></td>
-    <td colspan="2">&nbsp;</td>
-  </tr>
+	 
+	  </td><td colspan="2">&nbsp;</td>
+	
+	    </tr>
+  <?//sin numero incidente fin?>
+  
   <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_sub_categoria;?> id="id_fila_deallesubcategoria">
     <td align="right">Detalle de la Subcategor&iacute;a Registrada en el PECC:</td>
     <td><div id="carga_detalle_subcategoria">
       <table width="200" border="0">
         <?
 	if($edicion_datos_generales == "SI"){
-    $sel_si_tiene_sub = query_db("select id, codigo, nombre from t1_lineas_pecc_sub where id_linea_pecc = ".$sel_item[71]." and estado = 1 and origen_pec=".$sel_item[56]);
+    $sel_si_tiene_sub = query_db("select id, codigo, nombre from t1_lineas_pecc_sub where id_linea_pecc = ".$sel_item[71]." and estado = 1");
 	}else{
-		$sel_si_tiene_sub = query_db("select t1.id, t1.codigo, t1.nombre from t1_lineas_pecc_sub t1,t2_relacion_item_sub_linea_pecc t2  where t1.id = t2.id_sub_linea_pecc and t1.id_linea_pecc = ".$sel_item[71]." and t1.estado = 1 and id_item = ".$sel_item[0]." and t1.origen_pec=".$sel_item[56]);
+		$sel_si_tiene_sub = query_db("select t1.id, t1.codigo, t1.nombre from t1_lineas_pecc_sub t1,t2_relacion_item_sub_linea_pecc t2  where t1.id = t2.id_sub_linea_pecc and t1.id_linea_pecc = ".$sel_item[71]." and t1.estado = 1 and id_item = ".$sel_item[0]."");
 		}
 	while($sel_sub_lineas = traer_fila_db($sel_si_tiene_sub)){
 		$check = "";
@@ -202,8 +208,9 @@ if($sel_item[71] > 0){//si se modifico el PECC
         <option value="2" <? if($sel_item[72] == 2) echo 'selected="selected"'?>  >NO</option>
         <option value="1" <? if($sel_item[72] == 1) echo 'selected="selected"'?>>SI</option>
       </select>
-      <?
+      <? $dto="1";
 }else{
+	 $dto="2";
 	if($sel_item[72] == 1) echo "SI";
 	if($sel_item[72] == 2) echo "NO";
 	?>

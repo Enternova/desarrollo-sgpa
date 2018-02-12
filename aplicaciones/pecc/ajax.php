@@ -31,7 +31,43 @@ if($tipo_ajax == "carga_gerentes"){
 	
 }
 
+if($tipo_ajax == "400"){
+		
+	?>
+    <td align="right">L&iacute;nea de la Subcategor&iacute;a Registrada en el PECC:</td>
+    <td><? if($_GET['edicion_datos_generales'] == "SI"){ ?>
+      <select name="linea_pecc" id="linea_pecc" onchange="carga_detalle_subcategoria(this.value, '<?=$_GET['id_item_pecc']?>','<?=$_GET['pecc']?>')">
+        <option value="0">Seleccione</option>
+        <?
+          $lineas_pecc = query_db("select * from t1_lineas_pecc as t1 where estado = 1 and origen_pec=".$_GET['pecc']);
+		  while($ln_pecc = traer_fila_row($lineas_pecc)){
+		  ?>
+        <option value="<?=$ln_pecc[0]?>" <? if($ln_pecc[0] == $_GET['selec_item']) echo 'selected="selected"'?> >
+          <?=$ln_pecc[1]?>
+          -
+          <?=$ln_pecc[2]?>
+        </option>
+        <?
+		  }
+		  ?>
+      </select>
+      <?
+}else{
+	if($_GET['selec_item'] > 0){
+	$sel_linea = traer_fila_row(query_db("select codigo, detalle from t1_lineas_pecc where id = '".$_GET['selec_item']."' and origen_pec=".$_GET['pecc']));
+	echo $sel_linea[0]." - ".$sel_linea[1];
+	}
+	?>
+      <input type="hidden" name="linea_pecc" id="linea_pecc" value="<?=$_GET['selec_item']?>" />
+      <?
+	}
+	?></td>
+    <td colspan="2">&nbsp;</td>
+ 
 	
+	<?
+} 
+
 	if($tipo_ajax == "15"){
 	?>
 	
