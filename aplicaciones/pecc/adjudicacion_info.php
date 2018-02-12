@@ -73,9 +73,13 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
 				}
 				*/
 				
+			//sin numero de incidente pecc inicio	
+				$edicion_datos_generales=="SI";
+				
+			
 				
 	  ?>
-	  <?//sin numero incidente inicio?>
+	  
   <tr>
     <td colspan="3" align="center"  class="fondo_3">Informaci&oacute;n de la Adjudicaci&oacute;n</td>
   </tr>
@@ -99,6 +103,7 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
 		<option value="2018">2018</option>
       </select>
       <?
+	  $edicion_datos_generales=="";
   }else{
 	  
 	  ?>
@@ -113,13 +118,17 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
   ?></td>
     <td colspan="2">&nbsp;</td>
   </tr>
-    <?//sin numero incidente fin?>
+    <?//sin numero de incidente pecc fin?>
   <?
   
   $oculata_no_aplica_pecc= 'style="display:none"';
   $oculta_modificacion_pecc = 'style="display:none"';
   $oculata_no_aplica_sub_categoria = 'style="display:none"';
   
+  //sin numero de incidente pecc inicio
+  $oculata_linapecc3 = '';
+  $oculata_modificapec3 = '';
+//sin numero de incidente pecc fin
 
 if($sel_item[72] == 1){//si se modifico el PECC
 	$oculta_modificacion_pecc = '';
@@ -139,37 +148,54 @@ if($sel_item[71] > 0){//si se modifico el PECC
   
   ?>
  
-   <?//sin numero incidente inicio?>
- <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_pecc;?> id="carga_liena_pecc" >
+   <?//sin numero de incidente pecc inicio?>
+   
+    <tr  class="columna_subtitulo_resultados" <?=$oculata_linapecc3;?> id="carga_liena_pecc3" >
+ <?
+ if($sel_item[56]==1){
+	 $oculata_linapecc3 = 'style="display:none"';
+  $oculata_modificapec3 = 'style="display:none"';
+	$oculata_no_aplica_sub_categoria='style="display:none"';
+ }else{
+  
+  ?>
+ 
+   <td align="right">L&iacute;nea de la Subcategor&iacute;a Registrada en el PECC:</td>
+    <td><? if($edicion_datos_generales == "SI"){ 
+	
+	if($sel_item[71] > 0){
+	$sel_linea = traer_fila_row(query_db("select codigo, detalle from t1_lineas_pecc where id = '".$sel_item[71]."' and origen_pec=".$sel_item[56]));
+	echo $sel_linea[0]." - ".$sel_linea[1];
+	}
+	?>
+       <input type="hidden" name="linea_pecc" id="linea_pecc" value="<?=$sel_item[71]?>" />
+      <?
+}else{
+	if($sel_item[71] > 0){
+	$sel_linea = traer_fila_row(query_db("select codigo, detalle from t1_lineas_pecc where id = '".$sel_item[71]."' and origen_pec=".$sel_item[56]));
+	echo $sel_linea[0]." - ".$sel_linea[1];
+	}
+	?>
+      <input type="hidden" name="linea_pecc" id="linea_pecc" value="<?=$sel_item[71]?>" />
+      <?
+	}
+	?></td>
+    <td colspan="2">&nbsp;</td>
+  
+  
+  <?
+  
+} ?>
+
+  
+	
+	
+</tr>
+	
+  
+  <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_pecc;?> id="carga_liena_pecc" >
 	
  </tr> 
- 
-
- <tr  class="columna_subtitulo_resultados"  id="carga_liena_pecc3" >
- 
-  
-	 <td align="right">L&iacute;nea de la Subcategor&iacute;a Registrada en el PECC:</td>
-	  <td>
-	   <select>
-        <?
-          $lineas_pecc = query_db("select * from t1_lineas_pecc as t1 where estado = 1 and origen_pec=".$sel_item[56]);
-		  while($ln_pecc = traer_fila_row($lineas_pecc)){
-		  ?>
-        <option value="<?=$ln_pecc[0]?>" <? if($ln_pecc[0] == $sel_item[71]) echo 'selected="selected"'?> >
-          <?=$ln_pecc[1]?>
-          -
-          <?=$ln_pecc[2]?>
-        </option>
-        <?
- } 
-		  ?>
-      </select>
-	 
-	  </td><td colspan="2">&nbsp;</td>
-	
-	    </tr>
-  <?//sin numero incidente fin?>
-  
   <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_sub_categoria;?> id="id_fila_deallesubcategoria">
     <td align="right">Detalle de la Subcategor&iacute;a Registrada en el PECC:</td>
     <td><div id="carga_detalle_subcategoria">
@@ -200,6 +226,24 @@ if($sel_item[71] > 0){//si se modifico el PECC
     </div></td>
     <td colspan="2">&nbsp;</td>
   </tr>
+  <tr  class="columna_subtitulo_resultados" <?=$oculata_modificapec3;?> id="carga_modificacion_pecc3">
+    <td align="right">Requiere Modificaci&oacute;n:</td>
+    <td>
+	 <?
+	if($sel_item[72] == 1){
+		echo "SI";
+	}
+	if($sel_item[72] == 2){
+		echo "NO";
+	}
+	
+	?>
+      
+      <?
+	
+	?></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
   <tr  class="columna_subtitulo_resultados" <?=$oculata_no_aplica_pecc;?> id="carga_modificacion_pecc">
     <td align="right">Requiere Modificaci&oacute;n:</td>
     <td><? if($edicion_datos_generales == "SI"){ ?>
@@ -220,6 +264,8 @@ if($sel_item[71] > 0){//si se modifico el PECC
 	?></td>
     <td colspan="2">&nbsp;</td>
   </tr>
+  
+  <?//sin numero de incidente pecc fin?>
   <tr class="columna_subtitulo_resultados" <?=$oculta_modificacion_pecc?> id="carga_observacion_modifica_pecc">
     <td align="right">Justificaci&oacute;n  de la Modificaci&oacute;n <img src="../imagenes/botones/help.gif" alt="Cu&aacute;l es la raz&oacute;n de la modificaci&oacute;n?" title="Cu&aacute;l es la raz&oacute;n de la modificaci&oacute;n?" width="20" height="20" /></td>
     <td colspan="3"><?

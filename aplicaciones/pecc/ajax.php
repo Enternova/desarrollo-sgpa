@@ -31,6 +31,7 @@ if($tipo_ajax == "carga_gerentes"){
 	
 }
 
+//sin numero de incidente pecc inicio
 if($tipo_ajax == "400"){
 		
 	?>
@@ -66,7 +67,7 @@ if($tipo_ajax == "400"){
  
 	
 	<?
-} 
+} //sin numero de incidente pecc fin
 
 	if($tipo_ajax == "15"){
 	?>
