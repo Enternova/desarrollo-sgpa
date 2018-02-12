@@ -683,7 +683,8 @@ if ((forma.tipo_proceso.value == 6)) {
 			}else{
 				forma.llena_lista_sondeos_l.className = "";
 				}
-	*/		
+*/
+			
 
 	}
 				
@@ -741,7 +742,12 @@ if (forma.origen_pecc.value == "") {
 				
 				}
 				
-
+			
+			
+			/*if(forma.linea_pecc.value == 0){
+				msg = msg + "* Por favor digite la linea del PECC"
+				
+				}*/
 			if(forma.pecc_modificado.value ==1){//si selecciono que el PECC fue modificado
 					if(valida_texto_espacios(forma.pecc_observacion_modificacion.value) == "NO"  || characterCount(forma.pecc_observacion_modificacion.value,20) != ""){
 						msg = msg + "* Por favor digite la justificacion de la modificacion, esta debe tener como minimo 20 caracteres"
@@ -985,7 +991,45 @@ function pone_datos_contrato(id_contra) {
 
 }
 //sin numero de incidente pecc inicio
-function carga_detalle_subcategoria(linea, id_item,pecc1){carga_detalle_subcategoria}
+function carga_detalle_subcategoria(linea, id_item,pecc1){
+
+	
+	window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = ""
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc="+id_item+"&linea="+linea+"&pecc1="+pecc1, "carga_detalle_subcategoria")
+	
+	}
+function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales){
+	
+
+	
+	if(pecc > 1){
+		
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=400&id_item_pecc="+id_item+"&selec_item="+selec_item+"&pecc="+pecc+"&edicion_datos_generales="+edicion_datos_generales, "carga_liena_pecc")
+	window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+	window.parent.document.getElementById("carga_modificacion_pecc3").style.display = "none"
+	
+	
+	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
+	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
+	
+	
+	
+	
+	}
+	if(pecc == 1 || pecc == 0){
+		
+		window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+		window.parent.document.getElementById("carga_modificacion_pecc3").style.display = "none"
+		
+		window.parent.document.getElementById("carga_liena_pecc").style.display = "none"
+		window.parent.document.getElementById("carga_modificacion_pecc").style.display = "none"
+		
+		window.parent.document.getElementById("carga_observacion_modifica_pecc").style.display = "none"
+		window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = "none"
+		
+	}
+	
+	}
 	
 //sin numero de incidente pecc fin
 
