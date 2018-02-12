@@ -987,18 +987,37 @@ function pone_datos_contrato(id_contra) {
     forma.submit()
 
 }
-function carga_detalle_subcategoria(linea, id_item){
+//sin numero incidente inicio
+function carga_detalle_subcategoria(linea, id_item,pecc1){
+	
+	console.log(linea);
+	console.log(id_item);
+	console.log(pecc1);
+	
 	window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = ""
-	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc=" + id_item+"&linea="+linea, "carga_detalle_subcategoria")
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc="+id_item+"&linea="+linea+"&pecc1="+pecc1, "carga_detalle_subcategoria")
 	
 	}
-function activa_linea_pecc(pecc){
+function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales){
+	
+	console.log(pecc);
+	console.log(id_item);
+	console.log(selec_item);
+	console.log(edicion_datos_generales);
 	
 	if(pecc > 1){
-	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
-	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
-	}else{
 		
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=400&id_item_pecc="+id_item+"&selec_item="+selec_item+"&pecc="+pecc+"&edicion_datos_generales="+edicion_datos_generales, "carga_liena_pecc")
+	
+	
+	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
+	window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
+	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
+	
+	
+	
+	}else{
+		window.parent.document.getElementById("carga_liena_pecc3").style.display = "none"
 		window.parent.document.getElementById("carga_liena_pecc").style.display = "none"
 		window.parent.document.getElementById("carga_modificacion_pecc").style.display = "none"
 		window.parent.document.getElementById("carga_observacion_modifica_pecc").style.display = "none"
@@ -1007,6 +1026,8 @@ function activa_linea_pecc(pecc){
 	}
 	
 	}
+	
+//sin numero incidente fin
 
 function activa_filas_modifiaciones_xx(modifica){
 		if(modifica == 1){
