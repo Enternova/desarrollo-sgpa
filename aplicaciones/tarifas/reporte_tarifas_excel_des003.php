@@ -170,16 +170,28 @@ if($tipo_reporte == "c_aprobaciones"){
 		{ 			
 			$tipo_modifica="IPC";
 		}
-			$busca_tarifa_padre_act=  "select valor from $v_t_3 where tarifa_padre = $lista_detalle[15] and t6_tarifas_estados_tarifas_id = 1";
-	 		$busca_detalle_padre = traer_fila_row(query_db($busca_tarifa_padre_act));
-
-
-
-			$busca_detalle_padre = traer_fila_row(query_db("select valor from $v_t_3 where t6_tarifas_lista_id = $lista_detalle[15] "));
 			
-	 		if($busca_detalle_padre[0]==0){//si por alguna razon no carga la tarifa anterior, trae la original.
-				$busca_detalle_padre = traer_fila_row(query_db("select valor from $v_t_3 where tarifa_padre = $lista_detalle[15] "));
-				}
+			
+			
+		if($lista_detalle[13]==3 and ($lista_detalle[22]==4 or $lista_detalle[22]==2)){
+		 			
+			
+		$busca_tarifa_padre_act=  "select top(1) valor from v_tarifas_lista_estados where tarifa_padre = ".$lista_detalle[15]." and t6_tarifas_estados_tarifas_id = 1 order by consecutivo_tarifa desc";//busque la ultima actualizacion aprobada
+			$busca_detalle_padre = traer_fila_row(query_db($busca_tarifa_padre_act));
+			if($busca_detalle_padre[0]<=0){
+				$busca_tarifa_padre_act=  "select valor from  t6_tarifas_lista where t6_tarifas_lista_id = $lista_detalle[15]";
+				$busca_detalle_padre = traer_fila_row(query_db($busca_tarifa_padre_act));
+			}
+			if($busca_detalle_padre[0]<=0){
+				$busca_tarifa_padre_act=  "select top(1) valor from v_tarifas_lista_estados where tarifa_padre = ".$lista_detalle[15]." order by consecutivo_tarifa desc";
+				$busca_detalle_padre = traer_fila_row(query_db($busca_tarifa_padre_act));
+			}
+				
+		
+				
+		 }
+			
+			
 
 		
 				if($nobre_categori_impri!=$lista_detalle[2]){//si la categoria es una sola
