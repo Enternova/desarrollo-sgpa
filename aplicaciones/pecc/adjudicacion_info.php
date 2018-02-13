@@ -15,6 +15,7 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
   <?
         }else{
 	?>
+
   <input type="hidden" name="id_pecc_seleccion" id="id_pecc_seleccion" value="1" />
   <?
 	}
