@@ -366,7 +366,7 @@ while($sel_ap = traer_fila_db($sele_item_aprobados)){
 										$nuevafecha = strtotime ( '+2 month' , strtotime ( $sel_itemparafecha[0] ) ) ;
 										$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
 										
-										$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot=".$sel_itemparafecha[0].", fecha_fin_ot=".$fecha_fin_sm ." where id_item=".$id_item_pecc);
+										$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot='".$sel_itemparafecha[0]."', fecha_fin_ot='".$fecha_fin_sm ."' where id_item=".$id_item_pecc);
 										
 									}
 									
