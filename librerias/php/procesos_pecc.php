@@ -282,11 +282,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/afe_ceco/'.$id_afe_ceco."_8");
@@ -343,11 +343,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/afe_ceco/'.$id_afe_ceco."_8");
@@ -391,11 +391,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/afe_ceco/'.$id_afe_ceco."_8");
@@ -453,7 +453,7 @@ if($_POST["accion"]=="graba_validacion_modificacion"){
 						
 					}
 				
-				if($sel_item_fun[6] == 5 ){//si es otrosÌ
+				if($sel_item_fun[6] == 5 ){//si es otrosÔøΩ
 						crea_otro_si($sel_item_fun[0]);
 					}
 				if($sel_item_fun[6] == 8){//si es OT
@@ -522,7 +522,7 @@ window.parent.document.getElementById("cargando_pecc").style.display = "none"</s
 }
 
 
-if($_POST["accion"]=="graba_descarga_conflicto3"){//funciÛn para validar la descarga de conflictos de interes en el comite
+if($_POST["accion"]=="graba_descarga_conflicto3"){//funciÔøΩn para validar la descarga de conflictos de interes en el comite
 
 $filename="listado de conflicto de empleados Hocol ".$fecha." ".$hora_log.".xls";
 $query="update $c2 SET descarga_archivo_conflicto=1 WHERE id_comite = $id_comite";
@@ -534,7 +534,7 @@ log_agrega_detalle ($id_log, "Fecha del archivo descargado", $fecha." ".$hora_lo
 ?><script>
 window.parent.ajax_carga('../aplicaciones/comite/organiza-items.php?id_comite=<?=$id_comite?>','contenidos');
 window.parent.document.getElementById("cargando_pecc").style.display = "none"</script><?
-}//funciÛn para validar la descarga de conflictos de interes en el comite
+}//funciÔøΩn para validar la descarga de conflictos de interes en el comite
 if($_POST["accion"]=="graba_conflicto_comite"){
 	if($valor_solicitud_pasa==0){
 		$query="update $c2 SET revisa_archivo_conflicto=3 WHERE id_item=$id_solicitud_pasa";
@@ -583,7 +583,7 @@ if($_POST["accion"]=="quita_comite"){
 	$insert = query_db($query);
 		$id_log = log_de_procesos_sgpa(3, 93, 0, $_POST["id_comite"],0, 0);//agrega valores
 		log_agrega_detalle ($id_log, "Solicitud", $id_solicitud_pasa , "t2_item_pecc",1);
-		log_agrega_detalle ($id_log, "ObservaciÛn", $comite_coment , "",1);
+		log_agrega_detalle ($id_log, "ObservaciÔøΩn", $comite_coment , "",1);
 		log_agrega_detalle ($id_log, "Fecha", $fecha." ".$hora_log , "",2);
 	?>
 		<script>
@@ -608,7 +608,7 @@ $detalle_presupuesto = elimina_comillas_2($_POST["detalle_presupuesto"]);
 $update = query_db(" update t2_item_pecc set justificacion_presupuesto = '".$detalle_presupuesto."' where id_item = ".$_POST["id_item_pecc"]);
 ?><script>
 //alert("La justificacion del presupuesto se grabo con exito.");
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 window.parent.ajax_carga('../aplicaciones/administracion/maestra_area_proyecto.php', 'carga_admin');
 window.parent.document.getElementById("cargando_pecc").style.display = "none"</script><?
 }
@@ -661,7 +661,7 @@ $copiar = copy($campo_file_temp1,'../../archivo_ot/'.$nombre_file1);
 ?>
 <script>
 //alert("El archivo se cargo con exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 </script>
 <?
 }
@@ -698,7 +698,7 @@ log_agrega_detalle ($id_log, "Se Elimino la OT", $mo[2] , "",1);
 
 ?><script>
 //alert("El cambio se realizo con exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 </script><?
 
 }
@@ -788,7 +788,7 @@ envio_correo_ot($id_item_pecc);
 ?>
 <script>
     //alert("los correos se enviaron con exito")
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Correos se Enviar&oacute;n con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Correos se Enviar&oacute;n con ÔøΩxito', 40, 5, 12)
 </script>
 <?
 
@@ -870,7 +870,7 @@ $insrt_gestion_elabora_contra = query_db("insert into t2_nivel_servicio_gestione
 <script>
 
     //alert("El otro si se creo con exito")
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=<?= $id_item_pecc ?>&id_tipo_proceso_pecc=<?= $id_tipo_proceso_pecc ?>&aplica_log=no', 'contenidos');
 </script>
 <?
@@ -894,7 +894,7 @@ if($tipo_agrega_quita_correo_ot==1){
 	if($cuente_correos_ot[0]>30){
 		?>
 		<script>
-		window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No se pueden agregar m·s de 30 correos para el enviÛ de la orden de trabajo', 40, 5, 12)
+		window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No se pueden agregar mÔøΩs de 30 correos para el enviÔøΩ de la orden de trabajo', 40, 5, 12)
 		</script>
 		<?
 	}else{
@@ -936,7 +936,7 @@ log_agrega_detalle ($id_log, "Fecha: ",$fecha , "",2);
 ?>
 <script>
 //alert("El correo se agrego con exito con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.ajax_carga('../aplicaciones/pecc/correos_ot.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=<?=$id_tipo_proceso_pecc ?>&aplica_log=no', 'contenidos');
 </script>
 <?
@@ -965,7 +965,7 @@ log_agrega_detalle ($id_log, "Observacion",$ob_sap, "",2);
 
 ?><script>
 //alert("La revision se grabo con exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 </script><?
 }
 if($_POST["accion"]=="cambia_profesional_asignado_a_usua"){
@@ -1037,7 +1037,7 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 	if($_POST["tipo_proceso"]==5){//SI ES OTROSI
 ?>
 <script>
-	//para el desarrollo des071 para selecciÛnar area depependiendo del area del usuario
+	//para el desarrollo des071 para selecciÔøΩnar area depependiendo del area del usuario
 	window.parent.document.getElementById("area_usuaria_div").innerHTML = "<?=$options_select;?>";
 </script>
 <?
@@ -1152,7 +1152,7 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 	if($_POST["tipo_proceso"]==5){//SI ES OTROSI
 ?>
 <script>
-	//para el desarrollo des071 para selecciÛnar area depependiendo del area del usuario
+	//para el desarrollo des071 para selecciÔøΩnar area depependiendo del area del usuario
 	window.parent.document.getElementById("area_usuaria_div").innerHTML = "<?=$options_select;?>";
 </script>
 <?
@@ -1218,7 +1218,7 @@ if($cuenta_pecc[0]>0){
 		
 }	
 //sin numero de incidente pecc fin
-///SE ACTUALIZA EL REAJUSTE, RETENCI”N EN GARANTÕAS, REEMBOLSABLES
+///SE ACTUALIZA EL REAJUSTE, RETENCIÔøΩN EN GARANTÔøΩAS, REEMBOLSABLES
 if ($como_reembolsable!=0) {
 	if ($requiere_reembolsable==1) {
 		if($como_reembolsable!=0){
@@ -1309,11 +1309,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $tipo_anexo_nombre."_".$id_ingreso."_".$campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/'.$id_ingreso."_2");
@@ -1420,7 +1420,7 @@ $insert_into=query_db("update t2_objetivos_proceso set p_oportunidad='".$campo_i
 				}
 	
 ?><script>//alert("Los Cambios se Realizaron con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
    window.parent.ajax_carga("../aplicaciones/pecc/<?=$link_adjudicacion?>.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=1","contenidos");
 </script><?
 
@@ -1488,7 +1488,7 @@ log_agrega_detalle ($id_log, "Observacion Estado del Proceso",$ob5, "",4);
 /*--------------- LOG -----------------*/
 
 ?><script>//alert("Los Cambios se Realizaron con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.document.getElementById("cargando_pecc").style.display = "none"
 </script><?
 }
@@ -1631,7 +1631,7 @@ log_agrega_detalle ($id_log, "Observacion Estado del Proceso",$ob5."; ".$ob_cong
 /*--------------- LOG -----------------*/
 
 ?><script>//alert("Los Cambios se Realizaron con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.document.getElementById("cargando_pecc").style.display = "none"
 	window.parent.ajax_carga('../aplicaciones/pecc/admin_profesionales.php?id_item_pecc=<?=$id_item_pecc ?>&id_tipo_proceso_pecc=<?=$id_tipo_proceso_pecc ?>', 'contenidos');
 </script><?
@@ -1868,7 +1868,7 @@ log_agrega_detalle ($id_log, "Observacion Estado del Proceso",$ob5, "",9);
 /*--------------- LOG -----------------*/
 
 ?><script>//alert("Los Cambios se Realizaron con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.document.getElementById("cargando_pecc").style.display = "none"
 </script><?
 }
@@ -2015,7 +2015,7 @@ if($sel_item[16]== "SM"){
 	$nuevafecha = strtotime ( '+2 month' , strtotime ( $sel_itemparafecha[0] ) ) ;
 	$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
 	
-	$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot=".$sel_itemparafecha[0].", fecha_fin_ot=".$fecha_fin_sm ." where id_item=".$id_item_pecc);
+	$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot='".$sel_itemparafecha[0]."', fecha_fin_ot='".$fecha_fin_sm ."' where id_item=".$id_item_pecc);
 	
 }
 
@@ -2362,7 +2362,7 @@ $sel_aplica_comite = traer_fila_row(query_db("select count(*) from v_peec_agl_it
 if($sel_aplica_comite[0]>0){	
 			$sel_par_gerente = traer_fila_row(query_db("select par_tecnico, gerente_contrato from t2_item_pecc where id_item = ".$id_item_pecc));
 			if($sel_par_gerente[0] == "" or $sel_par_gerente[0] == "0" or $sel_par_gerente[1] == "" or $sel_par_gerente[1] == "0"){
-				$mensaje_err.= "* Por favor seleccione el Par TÈcnico y el Gerente de contrato";
+				$mensaje_err.= "* Por favor seleccione el Par TÔøΩcnico y el Gerente de contrato";
 				?><script>
 //			alert("ALERTA: Por favor seleccione el Par Tecnico y el Gerente de contrato")
 	//	   	window.parent.document.getElementById("cargando_pecc").style.display = "none";
@@ -2378,7 +2378,7 @@ $sel_aplica_comite = traer_fila_row(query_db("select count(*) from v_peec_agl_it
 if($sel_aplica_comite[0]>0){	
 			$sel_par_gerente = traer_fila_row(query_db("select par_tecnico_ad, gerente_contrato_ad from t2_item_pecc where id_item = ".$id_item_pecc));
 			if($sel_par_gerente[0] == "" or $sel_par_gerente[0] == "0" or $sel_par_gerente[1] == "" or $sel_par_gerente[1] == "0"){
-				$mensaje_err.= "* Por favor seleccione el Par TÈcnico y el Gerente de contrato";
+				$mensaje_err.= "* Por favor seleccione el Par TÔøΩcnico y el Gerente de contrato";
 				?><script>
 			//alert("ALERTA: Por favor seleccione el Par Tecnico y el Gerente de contrato")
 		   	//window.parent.document.getElementById("cargando_pecc").style.display = "none";
@@ -2401,14 +2401,14 @@ if($tiene[0]==1) {//SI tiene reembolasble/*
 	$anos_faltantes="";
 	$query="SELECT como_reembolsable FROM $pi2 WHERE id_item=$id_item_pecc";
 	$tiene=traer_fila_row(query_db($query));
-	if ($tiene[0]==1) {//SI ES POR A—O
+	if ($tiene[0]==1) {//SI ES POR AÔøΩO
 		$query="SELECT ano FROM $vpeec18 WHERE t2_item_pecc_id=$id_item_pecc GROUP BY ano";
 		$excec=query_db($query);
         while ($reslut=traer_fila_db($excec)) {//while
         	$query="SELECT count(*) FROM $pi21 WHERE id_item=$id_item_pecc AND ano=$reslut[0]";
             $resultado=traer_fila_row(query_db($query));
             if ($resultado[0]==0) {
-            	$anos_faltantes.="Para el aÒo ".$reslut[0].",";
+            	$anos_faltantes.="Para el aÔøΩo ".$reslut[0].",";
             }
         	
         }//FIN WHILE
@@ -2423,12 +2423,12 @@ if($tiene[0]==1) {//SI tiene reembolasble/*
                 $reslutado=traer_fila_row(query_db($query));
                 
                 if ($resultado[0]==0) {
-            		$anos_faltantes=$anos_faltantes."El proveedor ".$reslut[0]." para el aÒo ".$reslut2[0].",";
+            		$anos_faltantes=$anos_faltantes."El proveedor ".$reslut[0]." para el aÔøΩo ".$reslut2[0].",";
             	}
             }//hile 2
         }//while 1
 	}
-	if ($anos_faltantes!="" and $Bloquear == "bloeado") {//si falta alg˙n valor por diligenciar se no permite poner en firme?>
+	if ($anos_faltantes!="" and $Bloquear == "bloeado") {//si falta algÔøΩn valor por diligenciar se no permite poner en firme?>
 		<script type="text/javascript">
 			var msg="";
 			<?
@@ -2485,8 +2485,8 @@ if($sel_item[14]==6 and $es_pecc == "NO" and ($sel_item[6]==1 or $sel_item[6]==2
 	$sel_si_reemplazo = traer_fila_row(query_db("SELECT count(*) FROM tseg_reemplazos WHERE (estado = 1) AND (id_reemplazo = ".$sel_usaurio_gerente_firma[0].") AND (estado = 1) AND (id_us = ".$sel_item[3].")"));
 	if($sel_usaurio_gerente_firma[0] != $sel_item[3] and $sel_si_reemplazo[0]==0){
 		//$prueba = "* Reemplazo: ".$sel_si_reemplazo[0]." * Solicitante: ".$sel_item[3]." * Aprobador: ".$sel_usaurio_gerente_firma[0]." Secuencia aprobador: ".$sel_usuario_de_firma[0];
-		$mensaje_err.= "* Por favor verificar el usuario solicitante que se encuentra en la informacion general, pues no coincide con el que se enuentra en las firmas. NOTA: Recuerde que es el solicitante quien debe registrar la firma por favor devolver la solicitud a Èste.".$prueba;
-		?><script>//alert("ATENCION: Por favor verificar el usuario solicitante que se encuentra en la informacion general, pues no coincide con el que se enuentra en las firmas. \n\n NOTA: Recuerde que es el solicitante quien debe registrar la firma por favor devolver la solicitud a Èste. ")</script>
+		$mensaje_err.= "* Por favor verificar el usuario solicitante que se encuentra en la informacion general, pues no coincide con el que se enuentra en las firmas. NOTA: Recuerde que es el solicitante quien debe registrar la firma por favor devolver la solicitud a ÔøΩste.".$prueba;
+		?><script>//alert("ATENCION: Por favor verificar el usuario solicitante que se encuentra en la informacion general, pues no coincide con el que se enuentra en las firmas. \n\n NOTA: Recuerde que es el solicitante quien debe registrar la firma por favor devolver la solicitud a ÔøΩste. ")</script>
             <script>//window.parent.document.getElementById("cargando_pecc").style.display = "none"</script>
 			<?
 		//	exit;
@@ -2510,9 +2510,9 @@ while($sel_ct_obligatorio = traer_fila_db($seleccione_categorias_obligatorias)){
 	}
 	}
 	if($falta_alguna_categoria == "SI" and $es_pecc == "NO"){
-		$mensaje_err.= "* Por favor agregar en los anexos, los correspondientes a las categorÌas ".$campos_falta;
+		$mensaje_err.= "* Por favor agregar en los anexos, los correspondientes a las categorÔøΩas ".$campos_falta;
 		?><script>
-			//alert("ATENCION: Por favor agregar en los anexos, los correspondientes a las categorÌas <?=$campos_falta?>")
+			//alert("ATENCION: Por favor agregar en los anexos, los correspondientes a las categorÔøΩas <?=$campos_falta?>")
 		   	//window.parent.document.getElementById("cargando_pecc").style.display = "none";
 			</script>
 		<?
@@ -2534,9 +2534,9 @@ while($sel_ct_obligatorio = traer_fila_db($seleccione_categorias_obligatorias)){
 	}
 	}
 	if($falta_alguna_categoria == "SI" and $es_pecc == "NO"){
-		$mensaje_err.=  "* Por favor agregar en los anexos, los correspondientes a las categorÌas".$campos_falta;
+		$mensaje_err.=  "* Por favor agregar en los anexos, los correspondientes a las categorÔøΩas".$campos_falta;
 		?><script>
-			////alert("ATENCION: Por favor agregar en los anexos, los correspondientes a las categorÌas <?=$campos_falta?>")
+			////alert("ATENCION: Por favor agregar en los anexos, los correspondientes a las categorÔøΩas <?=$campos_falta?>")
 		   //	window.parent.document.getElementById("cargando_pecc").style.display = "none";
 			</script>
 		<?
@@ -2585,14 +2585,14 @@ $sel_valor_1 = traer_fila_row(query_db("select sum(valor_usd), sum(valor_cop) fr
 			
 			$v_2 = traer_fila_row(query_db("select sum(valor_usd), sum(valor_cop) from t2_presupuesto, t1_campo where t2_presupuesto.t1_campo_id = t1_campo.t1_campo_id and t1_naturaleza_contratacion_id= 2  and  t2_item_pecc_id=".$id_item_pecc." and al_valor_inicial_para_marco =1 and permiso_o_adjudica = 1 "));//recorre todos los valores que son de socios y que se seleccionaron del saldo
 			
-			/*para validar los valores, son pasados a dolares con la TRM del aÒo*/
+			/*para validar los valores, son pasados a dolares con la TRM del aÔøΩo*/
 			$v_1_usd = number_format($v_1[0] + ($v_1[1]/$trm=trm_presupuestal()), 0);
 			$v_2_usd = number_format($v_2[0] + ($v_2[1]/$trm=trm_presupuestal()), 0);
 			
 			if($v_1_usd != $v_2_usd and $v_1_usd >0){
-				$mensaje_err.= "* Para poder reclasificar valores de La CaÒada, el valor que solicita del saldo, debe ser el mismo que reclasifica";
+				$mensaje_err.= "* Para poder reclasificar valores de La CaÔøΩada, el valor que solicita del saldo, debe ser el mismo que reclasifica";
 			}
-			/* FIN para validar los valores, son pasados a dolares con la TRM del aÒo*/
+			/* FIN para validar los valores, son pasados a dolares con la TRM del aÔøΩo*/
 			
 		}
 		
@@ -2624,7 +2624,7 @@ if($sel_item[7] < $fecha and $sel_item[14]==6){
 /*VERIFICA SI ES UN OTRO SI QUE SEA OBLIGATORIO EL ANTECEDENTE PARA COMITE*/
 if((($sel_item[6]==5 or $sel_item[6]== 7 or $sel_item[6]==15) and $sel_item[14]==6) or ($sel_item[6]==16 and $sel_item[14]==13)){
 	if($sel_item[54]=="" or $sel_item[54]==" " or $sel_item[54]=="  " or $sel_item[54]=="	" or $sel_item[54]=="   "){
-		$mensaje_err.= "* Es obligatorio incluir el antecedente, el cual se mostrara en el comitÈ";
+		$mensaje_err.= "* Es obligatorio incluir el antecedente, el cual se mostrara en el comitÔøΩ";
 		?><script >//alert("No se puede poner en firme la solicitud por que es obligatorio incluir el antecedente");
 			//window.parent.document.getElementById("cargando_pecc").style.display = "none";
 		</script><?
@@ -2633,7 +2633,7 @@ if((($sel_item[6]==5 or $sel_item[6]== 7 or $sel_item[6]==15) and $sel_item[14]=
 		if($sel_item[6]!=16){
 	$sel_si_antecedente_anexo = traer_fila_row(query_db("select count(*) from t2_anexo where t2_item_pecc_id = ".$sel_item[0]." and  tipo='antecedente' and adjunto <> '' and estado =1"));
 			if($sel_si_antecedente_anexo[0]==0){
-				$mensaje_err.= "* Es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comitÈ";
+				$mensaje_err.= "* Es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comitÔøΩ";
 				?><script >//alert("ATENCION: No se puede poner en firme la solicitud por que es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comite");
 					////window.parent.document.getElementById("cargando_pecc").style.display = "none";
 				</script><?
@@ -2648,7 +2648,7 @@ echo "aca 3";
 /*VERIFICA SI ES adjudicacion QUE SEA OBLIGATORIO EL ANTECEDENTE PARA COMITE*/
 if(($sel_item[6]==1 or $sel_item[6]== 2 or $sel_item[6]==3 or $sel_item[6]==6 or $sel_item[6]==15) and $sel_item[14]==14){
 	if($sel_item[55]=="" or $sel_item[55]==" " or $sel_item[55]=="  " or $sel_item[55]=="	" or $sel_item[55]=="   "){
-		$mensaje_err.= "* Es obligatorio incluir el antecedente, el cual se mostrara en el comitÈ";
+		$mensaje_err.= "* Es obligatorio incluir el antecedente, el cual se mostrara en el comitÔøΩ";
 		?><script >//alert("No se puede poner en firme la solicitud por que es obligatorio incluir el antecedente, el cual se mostrara en el comite");
 			//window.parent.document.getElementById("cargando_pecc").style.display = "none";
 		</script><?
@@ -2656,7 +2656,7 @@ if(($sel_item[6]==1 or $sel_item[6]== 2 or $sel_item[6]==3 or $sel_item[6]==6 or
 		}
 	$sel_si_antecedente_anexo = traer_fila_row(query_db("select count(*) from t2_anexo where t2_item_pecc_id = ".$sel_item[0]." and  tipo='antecedente' and adjunto <> '' and estado =1"));
 	if($sel_si_antecedente_anexo[0]==0){
-		$mensaje_err.= "* Es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comitÈ";
+		$mensaje_err.= "* Es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comitÔøΩ";
 		?><script >//alert("ATENCION: No se puede poner en firme la solicitud por que es obligatorio incluir un adjunto en el antecedente, el cual se mostrara en el comite");
 			//window.parent.document.getElementById("cargando_pecc").style.display = "none";
 		</script><?
@@ -2684,7 +2684,7 @@ $desierto = traer_fila_row(query_db("select count(*) from t2_relacion_proveedor 
 	if($sel_presu_cuantos[0]==0){
 			$mensaje_err.= "* Todos los procesos del SGPA deben tener un valor, para declarar desierto el proceso debe incluir cero (0) un valor mayor a 1 para adjudicar a un proveedor ";
 	}elseif($desierto[0]>0 and $valor_solicitud >0 ){//si esta declarando desierto
-				$mensaje_err.= "* Si est· declarando desierto este Servicio Menor, debe incluir valor cero (0)";
+				$mensaje_err.= "* Si estÔøΩ declarando desierto este Servicio Menor, debe incluir valor cero (0)";
 
 		}else{
 	if(($valor_solicitud <=0 or $valor_solicitud >$_SESSION["valor_maximo_ser_menor"]) and $desierto[0] == 0){
@@ -3106,7 +3106,7 @@ $sel_sql_roles_repetidos = traer_fila_row(query_db("select * from $pi14 as t1, t
 
 
 if($sel_sql_roles_repetidos[0]>0){
-	$mensaje_err.= "* El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobaciÛn I, II, III, IV";
+	$mensaje_err.= "* El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobaciÔøΩn I, II, III, IV";
 ?><script>
 	//alert("El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobacion I, II, III, IV")
 	//window.parent.document.getElementById("cargando_pecc").style.display = "none"
@@ -3315,7 +3315,7 @@ $sel_usua_solictante = traer_fila_row(query_db("select id_usuario, id_usuario_or
 //echo $ssql_repetidos;
 $sel_sql_roles_repetidos = traer_fila_row(query_db($ssql_repetidos));
 if($sel_sql_roles_repetidos[0]>0){
-	$mensaje_err.= "* El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobaciÛn I, II, III, IV";
+	$mensaje_err.= "* El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobaciÔøΩn I, II, III, IV";
 ?><script>//alert("El solicitante no puede firmar a su vez como gerente de activo, tampoco como nivel de aprobacion I, II, III, IV")window.parent.document.getElementById("cargando_pecc").style.display = "none"
 </script><?
 	//exit;
@@ -3921,7 +3921,7 @@ log_agrega_detalle ($id_log, "Proveedores Sugeridos", $prove_sugiere, "",1);
 ?>
 <script>
     //alert("Los Proveedores se Editaron con Exito")
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 </script>
 <?
 }
@@ -3949,7 +3949,7 @@ if($_POST["accion"]=="graba_proveedor_elimina_sm_urna"){
 			$id_log = log_de_procesos_sgpa(2, 5, 15, $id_item_pecc, $_POST["estado_actual_del_proceso"], $_POST["estado_actual_del_proceso"]);//agrega valores
 			log_agrega_detalle ($id_log, "Proveedor",$sel_si_elimina[2] , "t1_proveedor",1);
 			log_agrega_detalle ($id_log, "Fecha",$fecha , "",2);
-			log_agrega_detalle ($id_log, "ObservaciÛn de eliminaciÛn", $_POST["comment_elimina"], "",3);
+			log_agrega_detalle ($id_log, "ObservaciÔøΩn de eliminaciÔøΩn", $_POST["comment_elimina"], "",3);
 
 			$link = mysql_connect($host_mys,$usr_mys, $pwd_mys);
 				mysql_select_db($dbbase_mys, $link);
@@ -4026,7 +4026,7 @@ if($_POST["accion"]=="graba_proveedor_elimina"){
 			$id_log = log_de_procesos_sgpa(2, 5, 15, $id_item_pecc, $_POST["estado_actual_del_proceso"], $_POST["estado_actual_del_proceso"]);//agrega valores
 			log_agrega_detalle ($id_log, "Proveedor",$sel_si_elimina[2] , "t1_proveedor",1);
 			log_agrega_detalle ($id_log, "Fecha",$fecha , "",2);
-			log_agrega_detalle ($id_log, "ObservaciÛn de eliminaciÛn", $_POST["comment_elimina"], "",3);
+			log_agrega_detalle ($id_log, "ObservaciÔøΩn de eliminaciÔøΩn", $_POST["comment_elimina"], "",3);
 
 			$link = mysql_connect($host_mys,$usr_mys, $pwd_mys);
 				mysql_select_db($dbbase_mys, $link);
@@ -4440,11 +4440,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $tipo_anexo_nombre."_".$id_ingreso."_".$campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/'.$id_ingreso."_2");
@@ -4480,7 +4480,7 @@ if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_a
 ?>
 <script>
     //alert("El numero de solped se grabo con exito");
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
 </script>
 <?
 
@@ -4608,9 +4608,9 @@ $sel_tipo_reclasificacion = traer_fila_row(query_db("select t1_tipo_documento_id
 
 if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servicios se inserta fecha inicio y fecha fin de ot y no la fecha para cuando se requiere
 	$sel_item2=traer_fila_row(query_db("select duracion_ots from $pi2 where id_item = $id_item_pecc"));
-	if($sel_item2[0]!=NULL or $sel_item2[0]!=""){//para las que ya han sido creadas antes de la actulaizaciÛn
+	if($sel_item2[0]!=NULL or $sel_item2[0]!=""){//para las que ya han sido creadas antes de la actulaizaciÔøΩn
 		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."', fecha_inicio_ot='".$_POST["fecha_inicio_ot"]."', fecha_fin_ot= '".$_POST["fecha_fin_ot"]."'  where id_item = $id_item_pecc");
-	}else{//para las que fueron creadas despues de la actulaizaciÛn
+	}else{//para las que fueron creadas despues de la actulaizaciÔøΩn
 		
 		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."', fecha_inicio_ot='".$_POST["fecha_inicio_ot"]."', fecha_fin_ot= '".$_POST["fecha_fin_ot"]."'  where id_item = $id_item_pecc");
 		
@@ -4624,13 +4624,13 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		$inicio_ot=date("Y-m-d", strtotime($_POST["fecha_inicio_ot"]));
 		$fin_ot=date("Y-m-d", strtotime($_POST["fecha_fin_ot"]));
 		if($fin_contato < $inicio_ot or  $fin_contato < $fin_ot){
-			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÛn de esta Orden de Trabajo no puede ser mayor que la fecha de finalizaciÛn del contrato (".$fin_contato.").".$id_contrato_ot[0];
+			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÔøΩn de esta Orden de Trabajo no puede ser mayor que la fecha de finalizaciÔøΩn del contrato (".$fin_contato.").".$id_contrato_ot[0];
 		}
 		if($inicio_contato > $inicio_ot or  $inicio_contato > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÛn de esta Orden de Trabajo no puede ser nenor  que la fecha de inicio del contrato (".$inicio_contato.").";
+			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÔøΩn de esta Orden de Trabajo no puede ser nenor  que la fecha de inicio del contrato (".$inicio_contato.").";
 		}
 		if($inicio_ot > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÛn de la OT.";
+			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÔøΩn de la OT.";
 		}
 	}
 }elseif($_POST["tipo_proceso"]==16){ //si servicios servicios se inserta fecha inicio y fecha fin
@@ -4649,7 +4649,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		$inicio_ot=date("Y-m-d", strtotime($_POST["fecha_inicio_ot"]));
 		$fin_ot=date("Y-m-d", strtotime($_POST["fecha_fin_ot"]));
 		if($inicio_ot > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio del servicio menor no puede ser mayor a la fecha de finalizaciÛn del servicio menor.";
+			$mensaje_err.= "* La fecha de inicio del servicio menor no puede ser mayor a la fecha de finalizaciÔøΩn del servicio menor.";
 		}*/
 	 // comentariado las fechas de inicio y fin del servicio menor   fin	
 				
@@ -4829,11 +4829,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $nombre_file = $tipo_anexo_nombre."_".$id_ingreso."_".$campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
 $copiar = carga_archivo($campo_file_temp,'pecc/'.$id_ingreso."_2");
@@ -4965,7 +4965,7 @@ agrega_gestion_pecc($id_item_pecc, 2, $fecha, 0);
 ?>
 <script>
     //alert("El numero de solped se grabo con exito");
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=<?= $id_item_pecc ?>&id_tipo_proceso_pecc=<?= $id_tipo_proceso_pecc ?>', 'contenidos');
 </script>
 <?
@@ -5080,8 +5080,8 @@ if ($_POST["es_admin_ot"] == "SI" && $_POST["tipo_proceso"] == 8) {// Tipo proce
 /**** PARA EL DES 071 SE MODIFICA EL TIPO 12 QUE CORRESPONDE A CONTRATOS ****/
 $options_select="";
 $id_contrato_otrosi=explode("----,",elimina_comillas_2($_POST["contratos_normales"]));
-if($id_contrato_otrosi[1]=="" or $id_contrato_otrosi[1]==" " or $id_contrato_otrosi[1]==null){//eval˙a si el contrato seleccionado es v·lido
-		$options_select="Por favor seleccione un contrato v·lido";
+if($id_contrato_otrosi[1]=="" or $id_contrato_otrosi[1]==" " or $id_contrato_otrosi[1]==null){//evalÔøΩa si el contrato seleccionado es vÔøΩlido
+		$options_select="Por favor seleccione un contrato vÔøΩlido";
 }
 if($_POST["tipo_proceso"] == 5){//si es otrosi contrato puntual
 	if($options_select==""){//si encuentra un id de contrato
@@ -5096,7 +5096,7 @@ if($_POST["tipo_proceso"] == 5){//si es otrosi contrato puntual
 		}
 		if($options_select==""){
 			?><script>
-			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No Tiene Ninguna ¡rea Relacionada para este contrato', 40, 5, 12)
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No Tiene Ninguna ÔøΩrea Relacionada para este contrato', 40, 5, 12)
 			window.parent.document.getElementById('contratos_normales').className = "campos_faltantes";
 			//alert("ALERTA:  ")
 			</script><?
@@ -5149,14 +5149,14 @@ $sel_tipo_reclasificacion = traer_fila_row(query_db("select t1_tipo_documento_id
 			
 			$v_2 = traer_fila_row(query_db("select sum(valor_usd), sum(valor_cop) from t2_presupuesto, t1_campo where t2_presupuesto.t1_campo_id = t1_campo.t1_campo_id and t1_naturaleza_contratacion_id= 1  and  t2_item_pecc_id=".$id_item_pecc." and al_valor_inicial_para_marco =1 and permiso_o_adjudica = 1 "));//recorre todos los valores que son de socios y que se seleccionaron del saldo
 			
-			/*para validar los valores, son pasados a dolares con la TRM del aÒo*/
+			/*para validar los valores, son pasados a dolares con la TRM del aÔøΩo*/
 			$v_1_usd = number_format($v_1[0] + ($v_1[1]/$trm=trm_presupuestal()), 0);
 			$v_2_usd = number_format($v_2[0] + ($v_2[1]/$trm=trm_presupuestal()), 0);
 			
 			if($v_1_usd != $v_2_usd and $v_1_usd >0){
-				$mensaje_err.= "* Para poder reclasificar valores de La CaÒada, el valor que solicita del saldo, debe ser el mismo que reclasifica.".$v_1_usd." <> ".$v_2_usd;
+				$mensaje_err.= "* Para poder reclasificar valores de La CaÔøΩada, el valor que solicita del saldo, debe ser el mismo que reclasifica.".$v_1_usd." <> ".$v_2_usd;
 			}
-			/* FIN para validar los valores, son pasados a dolares con la TRM del aÒo*/
+			/* FIN para validar los valores, son pasados a dolares con la TRM del aÔøΩo*/
 			
 		}
 		
@@ -5170,9 +5170,9 @@ $sel_tipo_reclasificacion = traer_fila_row(query_db("select t1_tipo_documento_id
 
 if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servicios se inserta fecha inicio y fecha fin de ot y no la fecha para cuando se requiere
 	$sel_item2=traer_fila_row(query_db("select duracion_ots from $pi2 where id_item = $id_item_pecc"));
-	if($sel_item2[0]!=NULL or $sel_item2[0]!=""){//para las que ya han sido creadas antes de la actulaizaciÛn
+	if($sel_item2[0]!=NULL or $sel_item2[0]!=""){//para las que ya han sido creadas antes de la actulaizaciÔøΩn
 		$sql_edicion = "update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='$justificacion',justificacion_tecnica='$justificacion2',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', contrato_id = '$id_contrato_otro_si',aprobacion_comite_adicional='".$requiere_comite_extra."',dondeo_adicional='".$_POST["req_sondeo"]."', id_us = ".$_POST["gerente_contra"].", cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."', id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco = '$convierte_marco', num_solped='".$num_solped."', id_proveedor_relacionado='".$id_proveedor_relacionado."' ".$comple_update.",req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', origen_pecc = '".$_POST["origen_pecc"]."', tiene_reajuste='".$_POST["reajuste"]."', tiene_reembolsable = '".$_POST["reembolsable"]."', fecha_inicio_ot='".$_POST["fecha_inicio_ot"]."', fecha_fin_ot= '".$_POST["fecha_fin_ot"]."' where id_item = $id_item_pecc";
-	}else{//para las que fueron creadas despues de la actulaizaciÛn
+	}else{//para las que fueron creadas despues de la actulaizaciÔøΩn
 	$sql_edicion = "update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='$justificacion',justificacion_tecnica='$justificacion2',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', contrato_id = '$id_contrato_otro_si',aprobacion_comite_adicional='".$requiere_comite_extra."',dondeo_adicional='".$_POST["req_sondeo"]."', id_us = ".$_POST["gerente_contra"].", cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco = '$convierte_marco', num_solped='".$num_solped."', id_proveedor_relacionado='".$id_proveedor_relacionado."' ".$comple_update.",req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', origen_pecc = '".$_POST["origen_pecc"]."', tiene_reajuste='".$_POST["reajuste"]."', tiene_reembolsable = '".$_POST["reembolsable"]."', fecha_inicio_ot='".$_POST["fecha_inicio_ot"]."', fecha_fin_ot= '".$_POST["fecha_fin_ot"]."' where id_item = $id_item_pecc";
 		
 		//$id_contrato_ot= traer_fila_row(query_db("select id_item_peec_aplica from t2_item_pecc where id_item = ".$id_item_pecc));
@@ -5184,13 +5184,13 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		$inicio_ot=date("Y-m-d", strtotime($_POST["fecha_inicio_ot"]));
 		$fin_ot=date("Y-m-d", strtotime($_POST["fecha_fin_ot"]));
 		if($fin_contato < $inicio_ot or  $fin_contato < $fin_ot){
-			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÛn de esta Orden de Trabajo no puede ser mayor que la fecha de finalizaciÛn del contrato (".$sel_fecha_fin_contrato[0].").";
+			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÔøΩn de esta Orden de Trabajo no puede ser mayor que la fecha de finalizaciÔøΩn del contrato (".$sel_fecha_fin_contrato[0].").";
 		}
 		if($inicio_contato > $inicio_ot or  $inicio_contato > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÛn de esta Orden de Trabajo no puede ser nenor  que la fecha de inicio del contrato (".$inicio_contato.").";
+			$mensaje_err.= "* La fecha de inicio y la fecha de finalizaciÔøΩn de esta Orden de Trabajo no puede ser nenor  que la fecha de inicio del contrato (".$inicio_contato.").";
 		}
 		if($inicio_ot > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÛn de la OT.";
+			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÔøΩn de la OT.";
 		}
 	}
 }elseif($_POST["tipo_proceso"]==16){ //si servicios servicios se inserta fecha inicio y fecha fin
@@ -5210,7 +5210,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		$inicio_ot=date("Y-m-d", strtotime($_POST["fecha_inicio_ot"]));
 		$fin_ot=date("Y-m-d", strtotime($_POST["fecha_fin_ot"]));
 		if($inicio_ot > $fin_ot){
-			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÛn de la OT.";
+			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalizaciÔøΩn de la OT.";
 		}*/
 		// comentariado las fechas de inicio y fin del servicio menor   fin
 				
@@ -5359,7 +5359,7 @@ if($sel_item[6] == 1 or $sel_item[6] == 2 or $sel_item[6] == 6){
 	if($sel_si_tiene_comite[0]>0){
 			$sel_par_gerente = traer_fila_row(query_db("select par_tecnico, gerente_contrato from t2_item_pecc where id_item = ".$id_item_pecc));
 			if($sel_par_gerente[0] == "" or $sel_par_gerente[0] == "0" or $sel_par_gerente[1] == "" or $sel_par_gerente[1] == "0"){
-				$mensaje_err.= "* Por favor seleccione el Par TÈcnico y/o el Gerente de contrato";
+				$mensaje_err.= "* Por favor seleccione el Par TÔøΩcnico y/o el Gerente de contrato";
 				?><script>
 			//alert("ALERTA: Por favor seleccione el Par Tecnico y el Gerente de contrato")
 		   	//window.parent.document.getElementById("cargando_pecc").style.display = "none";
@@ -5428,9 +5428,9 @@ while($sel_ct_obligatorio = traer_fila_db($seleccione_categorias_obligatorias)){
 	}
 	}
 	if($falta_alguna_categoria == "SI"){
-		$mensaje_err.= "* Por favor agregar en los anexos, los correspondientes a las categorÌas <?=$campos_falta?>"
+		$mensaje_err.= "* Por favor agregar en los anexos, los correspondientes a las categorÔøΩas <?=$campos_falta?>"
 		?><script>
-//			alert("Por favor agregar en los anexos, los correspondientes a las categorÌas <?=$campos_falta?>)
+//			alert("Por favor agregar en los anexos, los correspondientes a las categorÔøΩas <?=$campos_falta?>)
 //		   	window.parent.document.getElementById("cargando_pecc").style.display = "none";
 			</script>
 		<?
@@ -5594,7 +5594,7 @@ $profesional_asig= $sel_profss_especifico_usuario_area[1];
 }
 if($sel_item[6]==16){//Si es servicios_menores
 	$profesional_asig= $sel_profss_especifico_usuario_area[1];
-	}elseif($sel_item[6]==8 or $sel_item[6]==7){//°°°°°°verificar como se saca el contrato de l as ampliaciones tipo proceso 7 
+	}elseif($sel_item[6]==8 or $sel_item[6]==7){//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩverificar como se saca el contrato de l as ampliaciones tipo proceso 7 
 	$sel_prfesional_contrato=traer_fila_row(query_db("select t3.especialista from t2_presupuesto as t1, t2_presupuesto_aplica_contrato as t2, t7_contratos_contrato as t3 where t1.t2_item_pecc_id = ".$id_item_pecc." and t1.permiso_o_adjudica =1 and t2.t2_presupuesto_id =t1.t2_presupuesto_id and t2.t7_contrato_id = t3.id"));
 	$profesional_asig= $sel_prfesional_contrato[0];
 	}elseif(($sel_item[6]!=8 and $sel_item[6]!=7 and $sel_item[6]!=16) and ($sel_item[21] >0 and $sel_item[21] != "" and $sel_item[21] != " ")){//identificar las solicitutudes que tengan relacionado un contrato, el campo contrato_id
@@ -5673,7 +5673,7 @@ $titulo_modal="<span style='font-size: 22px;'>La Solicitud Ha Sido Puesta En Fir
 			?>
 			<script>
 		
-			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La solicitud no relaciono ning˙n profesional de abastecimiento / comprador, por favor vuelva a intentarlo o pÛngase en contacto con el administrador del SGPA a la extensiÛn 4548', 40, 5, 12)
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La solicitud no relaciono ningÔøΩn profesional de abastecimiento / comprador, por favor vuelva a intentarlo o pÔøΩngase en contacto con el administrador del SGPA a la extensiÔøΩn 4548', 40, 5, 12)
 		    
 			</script>
 			<?
@@ -5703,7 +5703,7 @@ if($mensaje_adv !=""){
 ?>
 <script>
     //alert("<?= $mensaje ?>");
-	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'La Solicitud se Guardo con …xito', 40, 5, 12)
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'La Solicitud se Guardo con ÔøΩxito', 40, 5, 12)
     window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=<?=$id_tipo_proceso_pecc ?>&aplica_log=no', 'contenidos');
 </script>
 <?
@@ -5799,7 +5799,7 @@ if(verifica_usuario_si_tiene_el_permiso(8)=="SI" and $_POST["tipo_proceso"] == 6
     if ($validate[0]<=0)  {
         ?>
         <script>
-           	window.parent.muestra_alerta_error_solo_texto('', 'Error', 'El Gerente de Item no esta Asignado al ¡rea Relacionada', 40, 5, 12)
+           	window.parent.muestra_alerta_error_solo_texto('', 'Error', 'El Gerente de Item no esta Asignado al ÔøΩrea Relacionada', 40, 5, 12)
             window.parent.document.getElementById("cargando_pecc").style.display = "none";
         </script>
         <?php
@@ -5836,8 +5836,8 @@ $sel_tipo_reclasificacion = traer_fila_row(query_db("select t1_tipo_documento_id
 /**** PARA EL DES 071 SE MODIFICA EL TIPO 12 QUE CORRESPONDE A CONTRATOS ****/
 $options_select="";
 $id_contrato_otrosi=explode("----,",elimina_comillas_2($_POST["contratos_normales"]));
-if($id_contrato_otrosi[1]=="" or $id_contrato_otrosi[1]==" " or $id_contrato_otrosi[1]==null){//eval˙a si el contrato seleccionado es v·lido
-		$options_select="Por favor seleccione un contrato v·lido";
+if($id_contrato_otrosi[1]=="" or $id_contrato_otrosi[1]==" " or $id_contrato_otrosi[1]==null){//evalÔøΩa si el contrato seleccionado es vÔøΩlido
+		$options_select="Por favor seleccione un contrato vÔøΩlido";
 }
 if($_POST["tipo_proceso"] == 5){//si es otrosi contrato puntual
 	if($options_select==""){//si encuentra un id de contrato
@@ -5852,7 +5852,7 @@ if($_POST["tipo_proceso"] == 5){//si es otrosi contrato puntual
 		}
 		if($options_select==""){
 			?><script>
-			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No Tiene Ninguna ¡rea Relacionada para este contrato', 40, 5, 12)
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'No Tiene Ninguna ÔøΩrea Relacionada para este contrato', 40, 5, 12)
 			window.parent.document.getElementById('contratos_normales').className = "campos_faltantes";
 			//alert("ALERTA:  ")
 			</script><?
@@ -6005,7 +6005,7 @@ if($tipo_proceso == 1 or $tipo_proceso == 2 or $tipo_proceso == 6){
 			if($sel_par_gerente[0] == "" or $sel_par_gerente[0] == "0" or $sel_par_gerente[1] == "" or $sel_par_gerente[1] == "0"){
 				?><script>
 		
-			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Por favor seleccione el Par TÈcnico y el Gerente de contrato', 40, 5, 12)
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Por favor seleccione el Par TÔøΩcnico y el Gerente de contrato', 40, 5, 12)
 		    //window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=< ?= $id_ingreso ?>&id_tipo_proceso_pecc=< ?= $id_tipo_proceso_pecc ?>&aplica_log=no', 'contenidos');
 			//window.parent.document.getElementById("cargando_pecc").style.display = "none";
 			</script>
@@ -6663,11 +6663,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 $campo_file_nombre = str_replace("&","",$campo_file_nombre);
 
 $nombre_file = $tipo_anexo_nombre."_".$id_ingreso."_".$campo_file_nombre;
@@ -6747,11 +6747,11 @@ $campo_file_nombre = str_replace("√â","e",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≠","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ç","i",$campo_file_nombre);
 $campo_file_nombre = str_replace("√≥","o",$campo_file_nombre);
-$campo_file_nombre = str_replace("√","o",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ","o",$campo_file_nombre);
 $campo_file_nombre = str_replace("√∫","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√ö","u",$campo_file_nombre);
 $campo_file_nombre = str_replace("√±","n",$campo_file_nombre);
-$campo_file_nombre = str_replace("√'","n",$campo_file_nombre);
+$campo_file_nombre = str_replace("ÔøΩ'","n",$campo_file_nombre);
 
 $nombre_file = $tipo_anexo_nombre."_".$id_ingreso."_".$campo_file_nombre;
 //$copiar = copy($campo_file_temp,'../../attfiles/pecc/'.$nombre_file);
@@ -7115,7 +7115,7 @@ if($_POST["accion"] == "graba_reembolsable"){
 		$valor.=$arreglo[$i];
 	}
 	
-	if($valor_razon_social==""){//si la agrpaciÛn es por aÒos
+	if($valor_razon_social==""){//si la agrpaciÔøΩn es por aÔøΩos
 		$query="SELECT COUNT(*) FROM $pi21 WHERE id_item=$id_item_pecc AND ano=$valor_ano AND proveedor=NULL";
 		$reslut=traer_fila_row(query_db($query));
 		if($reslut[0]!=0){//si ya hay un registro insertado lo actualiza
@@ -7124,7 +7124,7 @@ if($_POST["accion"] == "graba_reembolsable"){
 			$query="INSERT INTO $pi21 (id_item, ano, valor, estado, proveedor) VALUES ($id_item_pecc, $valor_ano, $valor, 1, NULL)";
 		}
 		
-	}else{//si la agrupaciÛn es por proveedor
+	}else{//si la agrupaciÔøΩn es por proveedor
 		$query="SELECT COUNT(*) FROM $pi21 WHERE id_item=$id_item_pecc AND ano=$valor_ano AND proveedor='$valor_razon_social'";
 		$reslut=traer_fila_row(query_db($query));
 		if($reslut[0]!=0){//si ya hay un registro insertado lo actualiza
@@ -7137,7 +7137,7 @@ if($_POST["accion"] == "graba_reembolsable"){
 	$excec=query_db($query);
 ?>
 	<script type="text/javascript">
-		alert('El procesos se creÛ con Èxito');
+		alert('El procesos se creÔøΩ con ÔøΩxito');
 		window.parent.ajax_carga("../aplicaciones/pecc/adjudicacion.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=1","contenidos");
 	</script>
 <?
@@ -8364,7 +8364,7 @@ log_agrega_detalle ($id_log, "Observacion",$ob_area, "",4);
 /*--------------- LOG -----------------*/
 
 ?><script>//alert("Los Cambios se Realizaron con Exito")
-window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÛn con …xito', 40, 5, 12)
+window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se AlmacenarÔøΩn con ÔøΩxito', 40, 5, 12)
     window.parent.document.getElementById("cargando_pecc").style.display = "none"
 </script><?
 }
