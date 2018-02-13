@@ -1794,7 +1794,8 @@ if($edicion_datos_generales == "SI" and $campos_no_habilita_en_completamiento=="
       <?
       
 	  }
-	  if($sel_item[6] == 16){// PARA EL DESARROLLO DE MODULO DE DESEMPEÑO si es servicio menor se piden las fechas de inicio y fin
+	  // comentariado las fechas de inicio y fin del servicio menor   inicio
+	 /* if($sel_item[6] == 16){// PARA EL DESARROLLO DE MODULO DE DESEMPEÑO si es servicio menor se piden las fechas de inicio y fin
 		$fecha_actualizacion=date("Y-m-d", strtotime('2017-12-29'));
 		$fecha_actual=date("Y-m-d");
 		if($fecha_actualizacion<=$fecha_actual){
@@ -1834,7 +1835,10 @@ if($edicion_datos_generales == "SI" and $campos_no_habilita_en_completamiento=="
         <input name="fecha_fin_ot" type="hidden" id="fecha_fin_ot" size="5" value="<?=date('Y-m-d');?>"/>
 		<?
 		}
-	  }
+	  }  */
+	  // comentariado las fechas de inicio y fin del servicio menor   fin
+	  
+	  
       if($sel_item[6] == 8){//si es orden de trabajo
 	  ?>
       <tr>
