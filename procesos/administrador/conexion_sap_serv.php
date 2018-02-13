@@ -358,7 +358,17 @@ while($sel_ap = traer_fila_db($sele_item_aprobados)){
 								$upda_item = query_db("update $pi2 set estado=".$estado_item." where id_item=".$id_item_pecc);
 									
 									
-									
+									$sel_itemparaservi = traer_fila_row(query_db("select num1 from $pi2 where id_item=".$id_item_pecc));
+									if($sel_itemparaservi[0]== "SM"){
+	
+										$sel_itemparafecha = traer_fila_row(query_db("select fecha_se_requiere from $pi2 where id_item=".$id_item_pecc));
+										$sel_itemparafecha[0];
+										$nuevafecha = strtotime ( '+2 month' , strtotime ( $sel_itemparafecha[0] ) ) ;
+										$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
+										
+										$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot=".$sel_itemparafecha[0].", fecha_fin_ot=".$fecha_fin_sm ." where id_item=".$id_item_pecc);
+										
+									}
 									
 									
 									
