@@ -648,7 +648,7 @@ else
 {
 	
 	
-
+/*
 
 $dir="ftp://192.168.100.38/SGPA-PRODUCTIVO/";//servidor FTP
 $directorio=opendir($dir); 

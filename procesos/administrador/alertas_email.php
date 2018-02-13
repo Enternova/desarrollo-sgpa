@@ -37,7 +37,7 @@ if($_GET["frac_carga"] == 4){ $comple_us_carga = " and  us_id > 17976 and us_id 
 if($_GET["frac_carga"] == 5){ $comple_us_carga = " and  us_id > 18024 and us_id <= 18041";}
 if($_GET["frac_carga"] == 6){ $comple_us_carga = " and  us_id > 18041 and us_id <= 18076";}
 if($_GET["frac_carga"] == 7){ $comple_us_carga = " and  us_id > 18076 and us_id <= 18592";}
-if($_GET["frac_carga"] == 8){ $comple_us_carga = " and  us_id > 18592 ";}
+if($_GET["	frac_carga"] == 8){ $comple_us_carga = " and  us_id > 18592 ";}
 
 
 
@@ -131,8 +131,16 @@ $buscar_reemplazos = query_db("select id, id_us, id_reemplazo, observacion, desd
 	 
 	
 /*FIN verifica REEMPLAZOS*/
+		
+$sel_rol_usuario = traer_fila_row(query_db("select count(*) from  tseg12_relacion_usuario_rol where id_usuario =".$id_us_alerta." and id_rol_general in (13,17)"));
+		
+	if($sel_rol_usuario[0]==0){
+	$sql_no_congelados = " and (congelado is null or congelado = 2)";
 	
-	$sele_pecc_item = query_db("select id_item, num1, num2, num3, fecha_cuando_se_agendo, descrip1, descrip2, descrip3, id_pecc, estado, congelado, t2_nivel_servicio_encargado_id, nombre, id_us, id_us_profesional_asignado, contrato_id, t1_tipo_proceso_id, t1_area_id, t1_tipo_contratacion_id from $valer_1 where id_pecc = 1 and estado not in (12.1, 12.2) and (estado < 21 or estado = 34) $comple_sql_almace");
+}	
+		
+	
+	$sele_pecc_item = query_db("select id_item, num1, num2, num3, fecha_cuando_se_agendo, descrip1, descrip2, descrip3, id_pecc, estado, congelado, t2_nivel_servicio_encargado_id, nombre, id_us, id_us_profesional_asignado, contrato_id, t1_tipo_proceso_id, t1_area_id, t1_tipo_contratacion_id from $valer_1 where id_pecc = 1 and estado not in (12.1, 12.2) and (estado < 21 or estado = 34) $comple_sql_almace.$sql_no_congelados");
 	
 	
 	while($sel_item = traer_fila_db($sele_pecc_item)){
