@@ -1978,14 +1978,11 @@ if(($estado_item==0 or $estado_item=="") and ($sel_item[6] == 12 or $sel_item[6]
 if($estado_item != 19){
 $upda_item = query_db("update $pi2 set estado=".$estado_item." where id_item=".$id_item_pecc);
 
-if($sel_item[16]== "SM"){
+if($sel_item[16]== "SM" and $estado_item==32){
 	
-	$sel_itemparafecha = traer_fila_row(query_db("select fecha_se_requiere from $pi2 where id_item=".$id_item_pecc));
-	$sel_itemparafecha[0];
-	$nuevafecha = strtotime ( '+2 month' , strtotime ( $sel_itemparafecha[0] ) ) ;
-	$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
+	$fecha_sm=date('Y-m-d');
 	
-	$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot='".$sel_itemparafecha[0]."', fecha_fin_ot='".$fecha_fin_sm ."' where id_item=".$id_item_pecc);
+	$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot='".$fecha_sm."', fecha_fin_ot='".$fecha_sm."' where id_item=".$id_item_pecc);
 	
 }
 
