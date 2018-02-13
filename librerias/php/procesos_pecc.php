@@ -4609,7 +4609,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		$inicio_ot=date("Y-m-d", strtotime($_POST["fecha_inicio_ot"]));
 		$fin_ot=date("Y-m-d", strtotime($_POST["fecha_fin_ot"]));
 		if($fin_contato < $inicio_ot or  $fin_contato < $fin_ot){
-			$mensaje_err.= "* La fecha de inicio y la fecha de finalización de esta Orden de Trabajo no puede ser mayor que la fecha de finalización del contrato (".$fin_contato.").";
+			$mensaje_err.= "* La fecha de inicio y la fecha de finalización de esta Orden de Trabajo no puede ser mayor que la fecha de finalización del contrato (".$fin_contato.").".$id_contrato_ot[0];
 		}
 		if($inicio_contato > $inicio_ot or  $inicio_contato > $fin_ot){
 			$mensaje_err.= "* La fecha de inicio y la fecha de finalización de esta Orden de Trabajo no puede ser nenor  que la fecha de inicio del contrato (".$inicio_contato.").";
