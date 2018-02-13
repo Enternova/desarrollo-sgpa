@@ -2007,6 +2007,18 @@ if(($estado_item==0 or $estado_item=="") and ($sel_item[6] == 12 or $sel_item[6]
 
 if($estado_item != 19){
 $upda_item = query_db("update $pi2 set estado=".$estado_item." where id_item=".$id_item_pecc);
+
+if($sel_item[16]== "SM"){
+	
+	$sel_itemparafecha = traer_fila_row(query_db("select fecha_se_requiere from $pi2 where id_item=".$id_item_pecc));
+	$sel_itemparafecha[0];
+	$nuevafecha = strtotime ( '+2 month' , strtotime ( $sel_itemparafecha[0] ) ) ;
+	$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
+	
+	$upda_itemfecha = query_db("update $pi2 set fecha_inicio_ot=".$sel_itemparafecha[0].", fecha_fin_ot=".$fecha_fin_sm ." where id_item=".$id_item_pecc);
+	
+}
+
 }
 
 if($sel_item[69]==1){
@@ -2331,6 +2343,9 @@ $id_tipo_proceso_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_tip
 $sel_item = traer_fila_row(query_db("select * from $pi2 where id_item=".$id_item_pecc));
 $estado_actual = $sel_item[14];
 $id_tipo_contratacion = elimina_comillas(arreglo_recibe_variables($_POST["id_tipo_contratacion"]));
+
+
+
 
 $es_pecc = "NO";
 if($sel_item[56] > 1 and $sel_item[72] == 2){//si es de pecc y no requiere algunas validacioners
@@ -4636,10 +4651,9 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 		}*/
 	 // comentariado las fechas de inicio y fin del servicio menor   fin	
 				
-				$nuevafecha = strtotime ( '+2 month' , strtotime ( $fecha_requiere ) ) ;
-				$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
 				
-		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."', fecha_inicio_ot='".$fecha_requiere."', fecha_fin_ot= '".$fecha_fin_sm."'  where id_item = $id_item_pecc");
+				
+		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."'  where id_item = $id_item_pecc");
 	 // comentariado las fechas de inicio y fin del servicio menor   inicio
 	//}
 	 // comentariado las fechas de inicio y fin del servicio menor   fin
@@ -5194,10 +5208,9 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalización de la OT.";
 		}*/
 		// comentariado las fechas de inicio y fin del servicio menor   fin
-				$nuevafecha = strtotime ( '+2 month' , strtotime ( $fecha_requiere ) ) ;
-				$fecha_fin_sm = date ( 'Y-m-j' , $nuevafecha );
 				
-		$sql_edicion = "update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='$justificacion',justificacion_tecnica='$justificacion2',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', contrato_id = '$id_contrato_otro_si',aprobacion_comite_adicional='".$requiere_comite_extra."',dondeo_adicional='".$_POST["req_sondeo"]."', id_us = ".$_POST["gerente_contra"].", cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."', id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco = '$convierte_marco', num_solped='".$num_solped."', id_proveedor_relacionado='".$id_proveedor_relacionado."' ".$comple_update.",req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', origen_pecc = '".$_POST["origen_pecc"]."', tiene_reajuste='".$_POST["reajuste"]."', tiene_reembolsable = '".$_POST["reembolsable"]."', fecha_inicio_ot='".$fecha_requiere."', fecha_fin_ot= '".$fecha_fin_sm."'  where id_item = $id_item_pecc";
+				
+		$sql_edicion = "update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='$justificacion',justificacion_tecnica='$justificacion2',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', contrato_id = '$id_contrato_otro_si',aprobacion_comite_adicional='".$requiere_comite_extra."',dondeo_adicional='".$_POST["req_sondeo"]."', id_us = ".$_POST["gerente_contra"].", cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."', id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco = '$convierte_marco', num_solped='".$num_solped."', id_proveedor_relacionado='".$id_proveedor_relacionado."' ".$comple_update.",req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', origen_pecc = '".$_POST["origen_pecc"]."', tiene_reajuste='".$_POST["reajuste"]."', tiene_reembolsable = '".$_POST["reembolsable"]."' where id_item = $id_item_pecc";
 	// comentariado las fechas de inicio y fin del servicio menor   inicio
 	//}
 	// comentariado las fechas de inicio y fin del servicio menor   fin
