@@ -721,7 +721,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -731,7 +731,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_inicial>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -742,7 +742,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -752,7 +752,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_final<$sql_con_fecha[0]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -763,7 +763,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_inicial>$fecha_final){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del ticket.(<?=$fecha_final?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del tiquete.(<?=$fecha_final?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -773,7 +773,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_final<$fecha_inicial){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha inicial del ticket.(<?=$fecha_inicial?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser menor a la fecha inicial del tiquete.(<?=$fecha_inicial?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1233,7 +1233,7 @@ function valida_decimal($valor)
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1243,7 +1243,7 @@ function valida_decimal($valor)
 			if($fecha_inicial>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1254,7 +1254,7 @@ function valida_decimal($valor)
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1264,7 +1264,7 @@ function valida_decimal($valor)
 			if($fecha_final<$sql_con_fecha[0]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1275,7 +1275,7 @@ function valida_decimal($valor)
 			if($fecha_inicial>$fecha_final){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del ticket.(<?=$fecha_final?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del tiquete (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del tiquete.(<?=$fecha_final?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1285,7 +1285,7 @@ function valida_decimal($valor)
 			if($fecha_final<$fecha_inicial){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha inicial del ticket.(<?=$fecha_inicial?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser menor a la fecha inicial del tiquete.(<?=$fecha_inicial?>)', 20, 10, 18);
 					
 				</script>
 				<?
