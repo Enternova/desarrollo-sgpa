@@ -1,6 +1,6 @@
 <? include("../../librerias/lib/@session.php");
 	header('Content-Type: text/xml; charset=ISO-8859-1');
-    echo '<?xml version="1.0" encoding="ISO-8859-1"?>';	
+    echo '<?xml version="1.0" encoding="ISO-8859-1"?>';
     verifica_menu("principal.html");
 	$id_invitacion = elimina_comillas(arreglo_recibe_variables($pasa));
 	$busca_procesos = "select * from $t5 where pro1_id = $id_invitacion";
@@ -32,7 +32,9 @@
 			<legend>Crear pregunta</legend>
 
 <?
-	if($sql_e[15]==$_SESSION["id_us_session"]) {
+	/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+	if($sql_e[15]==$_SESSION["id_us_session"] or $sql_e[15]==a_quien_reemplaza($_SESSION["id_us_session"]) or $sql_e[15]==cual_es_el_reemplazo($_SESSION["id_us_session"])) {
+	/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 ?>
             <table width="95%" border="0" cellspacing="2" cellpadding="2">
               <tr>

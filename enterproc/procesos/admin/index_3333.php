@@ -555,6 +555,35 @@ $nombre_ie_css = "chips-ms12";
 </head>
 
 <?
+	/*
+	
+	function query_db_sql_server($query)
+{
+	$rs = mssql_query($query) ;
+	if (!$rs) return 0;
+	else return $rs;
+
+}
+function traer_fila_row_sql_server($rs)
+{
+	$row =  mssql_fetch_row($rs);
+	return $row;
+}
+	
+	function cual_es_el_reemplazo($id_usuario){
+global $fecha;
+		
+
+		//echo "select id_reemplazo from tseg_reemplazos where estado = 1 and id_us = ".$id_usuario." and  desde_cuando <='".$fecha."' and hasta_cuando >= '".$fecha."'";
+	$sel_reemplazo = traer_fila_row_sql_server(query_db_sql_server("select id_reemplazo from tseg_reemplazos where estado = 1 and id_us = ".$id_usuario." and  desde_cuando <='".$fecha."' and hasta_cuando >= '".$fecha."'" ));
+	if($sel_reemplazo[0]>0){
+		$id_usuario = $sel_reemplazo[0];
+		}
+	return $id_usuario;
+		
+	}*/
+
+	/* FIN funcion de SGPA*/
 	
 	if($_POST["id_procurement_alerta"]!=""){
 	
@@ -564,9 +593,7 @@ $nombre_ie_css = "chips-ms12";
 	if ($sql_b[2]<> $_SESSION["id_us_session"] and $_SESSION["id_us_session"] <> cual_es_el_reemplazo($sql_b[2])) 
 	
 		{
-			 /** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
-			 $busca_invitaciones = "select distinct pro1_id from v_vista_invitados_observadores where pro1_id = ".$_POST["id_procurement_alerta"]." and  us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).") and estado = 1";
-			/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+			 $busca_invitaciones = "select distinct pro1_id from v_vista_invitados_observadores where pro1_id = ".$_POST["id_procurement_alerta"]." and  us_id = ".$_SESSION["id_us_session"]." and estado = 1";	
 				$sql_invitados = mysql_fetch_row(mysql_query($busca_invitaciones));
 					
 					if($sql_invitados[0]>=1)

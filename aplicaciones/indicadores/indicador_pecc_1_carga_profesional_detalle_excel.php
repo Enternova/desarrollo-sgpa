@@ -68,10 +68,10 @@
 		$comple_sql.= " and id_us_profesional_asignado ".$_SESSION["ses_us_prof"];
 		$comple_mysql.=" and t1.us_id_contacto ".$_SESSION["ses_us_prof"];
 		}
-		echo $_SESSION["ses_area_usuaria"]."fer";
+		//echo $_SESSION["ses_area_usuaria"]."fer";
 	if($_SESSION["ses_area_usuaria"] != 'in ()' and $_SESSION["ses_area_usuaria"] != 'in (0)' and $_SESSION["ses_area_usuaria"] != '0'){
 		//echo "<br><br>";
-		$comple_mysql.=" and t1_area_id ".$_SESSION["ses_area_usuaria"];
+		//$comple_mysql.=" and t1_area_id ".$_SESSION["ses_area_usuaria"];
 		$comple_sql.= " and t1_area_id ".$_SESSION["ses_area_usuaria"];
 	}
 	$comple_sql.=" and  de_historico is null and (tiempos_estandar is null or tiempos_estandar =2)";
@@ -261,8 +261,10 @@ if($select_minmima_gestion[0]!=""){$fecha_puso_firme = $select_minmima_gestion[0
       </tr>
     <?
 		}//fin while sin urna
+		
 		if($_GET['tp_contratacion']==0 and $_GET['tp_contratacion']==0){//si se cuple es porque totaliza y busca en la urna
 		if($_GET['consulta_sondeo']==1){//si se consulta el sondeo
+			
 		$us_id=$_GET['id_profesional'];
 		$pos = strpos($_GET["fecha_filtra"], "-");
 		if ($pos !== false) {//si exixte en la cadena
@@ -276,7 +278,7 @@ if($select_minmima_gestion[0]!=""){$fecha_puso_firme = $select_minmima_gestion[0
 		//$fecha_filtra=explode('-',$_GET['fecha_filtra']);
 		//$ano=$fecha_filtra[0];
 		//$mes=$fecha_filtra[1];
-		$query='SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, t4.nombre as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp3_area_solicitante as t4, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp3_id=t4.tp3_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30'.$comple_mysql;
+		$query='SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, "" as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30 and t1.us_id_contacto='.$us_id.$comple_mysql;
 		$query_tecnico = mysql_query($query);
 		while($se_pro = mysql_fetch_row($query_tecnico)){//INICIO DEL WHILE
 		  $nombre_rol=$sel_item = traer_fila_row(query_db("select t1.nombre from tseg11_roles_general as t1, tseg12_relacion_usuario_rol as t2 where t2.id_rol_general=t1.id_rol and t2.id_rol_general in (13, 17) and t2.id_usuario=".$se_pro[7]));
@@ -334,9 +336,10 @@ if($select_minmima_gestion[0]!=""){$fecha_puso_firme = $select_minmima_gestion[0
 			$comple_mysql.=" and year(t1.fecha_creacion)=".$_GET['fecha_filtra'];
 		}
 		if($_SESSION["ses_area_usuaria"] != 'in ()' and $_SESSION["ses_area_usuaria"] != 'in (0)' and $_SESSION["ses_area_usuaria"] != '0'){
-			$comple_mysql.=" and t1_area_id ".$_SESSION["ses_area_usuaria"];
+	//		$comple_mysql.=" and t1_area_id ".$_SESSION["ses_area_usuaria"];
 		}
-		$query="SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, t4.nombre as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp3_area_solicitante as t4, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp3_id=t4.tp3_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30 ".$comple_mysql;
+		$query='SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, "" as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30 and t1.us_id_contacto='.$us_id.$comple_mysql;
+		
 		$query_tecnico = mysql_query($query);
 		while($se_pro = mysql_fetch_row($query_tecnico)){//INICIO DEL WHILE
 		  $nombre_rol=$sel_item = traer_fila_row(query_db("select t1.nombre from tseg11_roles_general as t1, tseg12_relacion_usuario_rol as t2 where t2.id_rol_general=t1.id_rol and t2.id_rol_general in (13, 17) and t2.id_usuario=".$se_pro[7]));

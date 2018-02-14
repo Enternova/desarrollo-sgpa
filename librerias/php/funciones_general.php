@@ -2083,7 +2083,7 @@ $sel_para_actualizar_ampliacion = query_db("select id_item_ots_aplica from v_pee
 
 			while($Sel_ac_ampl = traer_fila_db($sel_para_actualizar_ampliacion)){
 			if($Sel_ac_ampl[0]>0){//actualiza a finalizado la ampliacion
-		$upda = query_db("update $pi2 set estado = 32 where id_item=".$Sel_ac_ampl[0]);
+		//$upda = query_db("update $pi2 set estado = 32 where id_item=".$Sel_ac_ampl[0]);
 		}	
 			}
 
