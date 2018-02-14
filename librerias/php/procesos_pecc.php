@@ -5156,7 +5156,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalización de la OT.";
 		}
 	}
-}elseif($_POST["tipo_proceso"]==16){ //si servicios servicios se inserta fecha inicio y fecha fin
+}elseif($_POST["tipo_proceso"]==16 and $no_aplica_esta_fechas == "no aplica"){ //si servicios servicios se inserta fecha inicio y fecha fin
 	if($_POST["fecha_inicio_ot"]=="" or $_POST["fecha_fin_ot"]=="" or $_POST["fecha_inicio_ot"]==" " or $_POST["fecha_fin_ot"]==" "){
 		?>
 		<script>
