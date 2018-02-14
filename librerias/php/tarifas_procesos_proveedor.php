@@ -713,6 +713,75 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 				$id_contrato_arr = elimina_comillas(arreglo_recibe_variables($id_contrato));//recibe id
 			$id_tarifa_arr = elimina_comillas(arreglo_recibe_variables($id_tarifa));//recibe id
 			
+			//incidente sin numero validacion fecha inicio
+			 $busca_contrato_fecha = "select fecha_inicio,vigencia_mes from v_tarifas_contratos where tarifas_contrato_id= $id_contrato_arr";
+			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
+			
+			
+			if($fecha_inicial<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_inicial>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_final>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_inicial>$fecha_final){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del ticket.(<?=$fecha_final?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$fecha_inicial){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha inicial del ticket.(<?=$fecha_inicial?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			//incidente sin numero validacion fecha fin
 	
 					
 
@@ -1151,8 +1220,79 @@ function valida_decimal($valor)
 	if($_POST["accion"]=="prefactura_temporal")
 		{
 			
+			
+			
+			
 			$id_contrato_arr = elimina_comillas(arreglo_recibe_variables($id_contrato));//recibe id
 			$id_tarifa_arr = elimina_comillas(arreglo_recibe_variables($id_tarifa));//recibe id
+			//incidente sin numero validacion fecha inicio
+			 $busca_contrato_fecha = "select fecha_inicio,vigencia_mes from v_tarifas_contratos where tarifas_contrato_id= $id_contrato_arr";
+			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
+			
+			
+			if($fecha_inicial<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_inicial>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_final>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_inicial>$fecha_final){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del ticket (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del ticket.(<?=$fecha_final?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$fecha_inicial){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del ticket (<?=$fecha_final?>) no puede ser menor a la fecha inicial del ticket.(<?=$fecha_inicial?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			//incidente sin numero validacion fecha fin
 			
 			$cuenta_proyectos = count($ch_proyectos);
 			if($cuenta_proyectos==0) { echo "<script>window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Seleccione por lo menos un proyecto', 20, 10, 18);//alert('Seleccione por lo menos un proyecto'); window.parent.document.getElementById('cargando').style.display='none'; </script>";
@@ -1453,6 +1593,77 @@ REEMBOLSABLE
 			$id_contrato_arr = elimina_comillas(arreglo_recibe_variables($id_contrato));//recibe id
 			$id_reembolsable_porcentaje = elimina_comillas(arreglo_recibe_variables($id_reembolsable_porcentaje_or));//recibe id
 			$id_reembolsable_factura = elimina_comillas(arreglo_recibe_variables($id_reembolsable_factura_or));//recibe id
+			
+			//incidente sin numero validacion fecha inicio
+			$busca_contrato_fecha = "select fecha_inicio,vigencia_mes from v_tarifas_contratos where tarifas_contrato_id= $id_contrato_arr";
+			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
+			
+			
+			if($fecha_inicial<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_inicial>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_final>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_inicial>$fecha_final){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del reembolsable.(<?=$fecha_final?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$fecha_inicial){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser menor a la fecha inicial del reembolsable.(<?=$fecha_inicial?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			//incidente sin numero validacion fecha fin
+			
+			
 			if($_POST["tp_moneda"]==0 or $_POST["tp_moneda"]=="" or $_POST["tp_moneda"]==" "){//VALIDACION PARA EL DES001-18
 				?>
 				<script>
@@ -1681,7 +1892,77 @@ if($_POST["accion"]=="prefactura_reembolsable_enfirme")
 			$id_reembolsable_porcentaje = elimina_comillas(arreglo_recibe_variables($id_reembolsable_porcentaje_or));//recibe id
 			$id_reembolsable_factura = elimina_comillas(arreglo_recibe_variables($id_reembolsable_factura_or));//recibe id
 			
-				
+			//incidente sin numero validacion fecha inicio
+			$busca_contrato_fecha = "select fecha_inicio,vigencia_mes from v_tarifas_contratos where tarifas_contrato_id= $id_contrato_arr";
+			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
+			
+			
+			if($fecha_inicial<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_inicial>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_final>$sql_con_fecha[1]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$sql_con_fecha[0]){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser menor a la fecha de inicio del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
+			if($fecha_inicial>$fecha_final){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha inicial del reembolsable (<?=$fecha_inicial?>) no puede ser mayor a la fecha de finalización del reembolsable.(<?=$fecha_final?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			if($fecha_final<$fecha_inicial){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser menor a la fecha inicial del reembolsable.(<?=$fecha_inicial?>)', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			//incidente sin numero validacion fecha fin
+
+
+			
 				echo $cambia = "update $ta23 set t6_tarifas_reembosables1_contrato_id=$id_reembolsable_porcentaje, estado = 1, municipio= '$municipio_pre',fecha_ini='$fecha_inicial', fecha_fin='$fecha_final', tipo_contrato= $c_marco, orden_trabajo='$orden_trabajo' where t6_tarifas_reembolables_datos_id=$id_reembolsable_factura ";
 				$sql_cambia = query_db($cambia);
 				
