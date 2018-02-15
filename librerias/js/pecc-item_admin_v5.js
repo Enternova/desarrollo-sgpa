@@ -787,6 +787,76 @@ if (forma.origen_pecc.value == "") {
     }
 
 }//sin numero de incidente pecc fin
+/** INICIO PARA EL DES011-18 **/
+function muestra_reajuste_adj(){
+	var forma = document.principal
+	if(forma.reajuste.value==1){
+		window.parent.document.getElementById("observacion_reajuste1").style.display = ""
+		window.parent.document.getElementById("observacion_reajuste2").style.display = ""
+	}else{
+		window.parent.document.getElementById("observacion_reajuste1").style.display = "none"
+		window.parent.document.getElementById("observacion_reajuste2").style.display = "none"
+	}
+	//console.log(forma.reajuste.value)
+	//alert(forma.reajuste.value)
+}
+function muestra_reembolsable_adj(){
+	var forma = document.principal
+	if(forma.reembolsable.value==1){
+		window.parent.document.getElementById("observacion_reembolsable1").style.display = ""
+		window.parent.document.getElementById("observacion_reembolsable2").style.display = ""
+	}else{
+		window.parent.document.getElementById("observacion_reembolsable1").style.display = "none"
+		window.parent.document.getElementById("observacion_reembolsable2").style.display = "none"
+	}
+	//console.log(forma.reembolsable.value)
+	//alert(forma.reembolsable.value)
+}
+function guarda_coment_reajuste(){
+	var forma = document.principal
+	var cadena=forma.observacion_reajuste.value
+	forma.action = "procesos-pecc.html";
+	forma.accion.value = "graba_coment_reajuste"
+	forma.target = "grp"
+	forma.submit()
+}
+function guarda_coment_reembolsable(){
+	var forma = document.principal
+	var cadena=forma.observacion_reembolsable.value
+	forma.action = "procesos-pecc.html";
+	forma.accion.value = "graba_coment_reembolsable"
+	forma.target = "grp"
+	forma.submit()
+}
+function elimina_coment_reajuste_reembolsable(dato, tipo, activaalerta){
+	if(activaalerta == ""){
+		if(tipo==1){
+			window.parent.muestra_alerta_general_desde_select('elimina_coment_reajuste_reembolsable(-comillas-'+dato+'-comillas-, -comillas-'+tipo+'-comillas-,1)', 'Advertencia','* Esta Seguro de Eliminar el Comentario de Reajustes.', 40, 5, 12)
+			return;
+		}else if(tipo==2){
+			window.parent.muestra_alerta_general_desde_select('elimina_coment_reajuste_reembolsable(-comillas-'+dato+'-comillas-, -comillas-'+tipo+'-comillas-,1)', 'Advertencia','* Esta Seguro de Eliminar el Comentario de Reembolsable.', 40, 5, 12)
+			return;
+		}
+			
+	}else{
+		var forma = document.principal
+		var cadena=forma.observacion_reajuste.value
+		forma.action = "procesos-pecc.html";
+		forma.reembolsable_reajuste_pasa.value=dato
+		forma.accion.value = "elimina_reajuste_reembolsable"
+		forma.target = "grp"
+		forma.submit()
+	}
+}
+<<<<<<< HEAD
+/** FIN PARA EL DES011-18 **/
+=======
+<<<<<<< HEAD
+/** FIN PARA EL DES011-18 **/ 
+=======
+/** FIN PARA EL DES011-18 **/
+>>>>>>> jeison
+>>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
 function imprimir_solictud(id_item) {
     var forma = document.principal
     forma.action = "../aplicaciones/pecc/imprimir.php";
