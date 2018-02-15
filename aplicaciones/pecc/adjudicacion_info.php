@@ -23,7 +23,6 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
 	
 	if($sel_suario_ger_contrato[0]>0){$nombre_ger_contrato = "-".$sel_suario_ger_contrato[1]."----,".$sel_suario_ger_contrato[0];}
 ?>
-<h1>jason prueba carga</h1>
 <table width="99%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados">
   <?
         if($sel_item[1] != 1){
