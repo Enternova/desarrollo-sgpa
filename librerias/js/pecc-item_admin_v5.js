@@ -848,7 +848,11 @@ function elimina_coment_reajuste_reembolsable(dato, tipo, activaalerta){
 		forma.submit()
 	}
 }
+<<<<<<< HEAD
 /** FIN PARA EL DES011-18 **/ 
+=======
+/** FIN PARA EL DES011-18 **/
+>>>>>>> jeison
 function imprimir_solictud(id_item) {
     var forma = document.principal
     forma.action = "../aplicaciones/pecc/imprimir.php";
