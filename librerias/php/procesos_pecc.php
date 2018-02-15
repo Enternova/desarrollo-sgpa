@@ -1360,7 +1360,11 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		}
 	}
 }
+<<<<<<< HEAD
 /** FIN DES011-18 **/ 
+=======
+/** FIN DES011-18 **/
+>>>>>>> eb1053c92bfbf862600c5a8ec5395dc5ddb8ff37
 $exec=query_db($query);
 
 $explode = explode("----,",$_POST["contratos_normales"]);
