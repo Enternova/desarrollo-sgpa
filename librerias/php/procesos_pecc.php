@@ -1340,6 +1340,8 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		}else{
 			$_SESSION["estilo_reajustes"]=2;
 		}
+	}else{
+		$_SESSION["estilo_reajustes"]=0;
 	}
 	if($requiere_reembolsable!=0){
 		if($requiere_reembolsable==1){//si tiene reembolsables debe pedir un comnetario
@@ -1358,6 +1360,8 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		}else{
 			$_SESSION["estilo_reembolsable"]=2;
 		}
+	}else{
+		$_SESSION["estilo_reembolsable"]=0;
 	}
 }
 <<<<<<< HEAD
