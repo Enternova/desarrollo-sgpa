@@ -787,6 +787,7 @@ if (forma.origen_pecc.value == "") {
     }
 
 }//sin numero de incidente pecc fin
+
 /** INICIO PARA EL DES011-18 **/
 function muestra_reajuste_adj(){
 	var forma = document.principal
@@ -849,6 +850,7 @@ function elimina_coment_reajuste_reembolsable(dato, tipo, activaalerta){
 	}
 }
 /** FIN PARA EL DES011-18 **/
+
 function imprimir_solictud(id_item) {
     var forma = document.principal
     forma.action = "../aplicaciones/pecc/imprimir.php";

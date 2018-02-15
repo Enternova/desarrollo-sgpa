@@ -15,6 +15,7 @@ if($sel_item[80]==1 or $_SESSION["estilo_reembolsable"]==1){//si tiene reembolsa
 	$estilo_reembolsables2='style="display:none"';
 }
 /** PARA EL DES011-18 **/
+
 $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_administrador from t1_us_usuarios where us_id =".$sel_item[66]));
 
 	if($sel_suario_par_tecnico[0]>0){$nombre_par_tecnico = "-".$sel_suario_par_tecnico[1]."----,".$sel_suario_par_tecnico[0];}

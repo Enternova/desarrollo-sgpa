@@ -7,7 +7,6 @@ $hora_log = date("G:i:s");
 // window.parent.document.getElementById("cargando").style.display='block'
 </script>
 <?
-
 /*solo para pruebas borrar*/
 
 if($_POST["accion"]=="graba_gestion_economico"){
@@ -1175,6 +1174,7 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 
 
 }
+
 /** INICIO DES011-18 **/
 if($_POST["accion"]=="graba_coment_reajuste"){
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
@@ -1293,6 +1293,7 @@ if($_POST["accion"]=="elimina_reajuste_reembolsable"){
 		<?
 }
 /** FIN DES011-18 **/
+
 if($_POST["accion"]=="graba_info_adjudica"){
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
 actualiza_fecha_en_firme($id_item_pecc);
