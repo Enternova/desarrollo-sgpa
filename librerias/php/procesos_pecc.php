@@ -1340,6 +1340,8 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		}else{
 			$_SESSION["estilo_reajustes"]=2;
 		}
+	}else{
+		$_SESSION["estilo_reajustes"]=0;
 	}
 	if($requiere_reembolsable!=0){
 		if($requiere_reembolsable==1){//si tiene reembolsables debe pedir un comnetario
@@ -1358,13 +1360,11 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		}else{
 			$_SESSION["estilo_reembolsable"]=2;
 		}
+	}else{
+		$_SESSION["estilo_reembolsable"]=0;
 	}
 }
-<<<<<<< HEAD
-/** FIN DES011-18 **/ 
-=======
 /** FIN DES011-18 **/
->>>>>>> eb1053c92bfbf862600c5a8ec5395dc5ddb8ff37
 $exec=query_db($query);
 
 $explode = explode("----,",$_POST["contratos_normales"]);
