@@ -1175,6 +1175,124 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 
 
 }
+/** INICIO DES011-18 **/
+if($_POST["accion"]=="graba_coment_reajuste"){
+$id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
+$comentario_reajustes = elimina_comillas_2($_POST["observacion_reajuste"]);
+	/*?>
+		<script>
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reajustes debe tener mínimo 20 carcteres. <?=$id_item_pecc?>----<?=strlen($comentario_reajustes)?>', 40, 5, 12)
+		</script>
+	<?
+	exit();*/
+	if(strlen($comentario_reajustes) < 20){//valida la longitud de los caracteres si son menor a 20
+		?>
+			<script>
+				window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reajustes debe tener mínimo 20 carcteres.', 40, 5, 12)
+			</script>
+		<?
+		exit();
+	}elseif(strlen($comentario_reajustes) > 300){//valida la longitud de los caracteres si son menor a 20
+		?>
+			<script>
+				window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reajustes puede tener máximo 300 carcteres.', 40, 5, 12)
+			</script>
+		<?
+		exit();
+	}else{
+		$fecha_insert=date("Y-m-d");
+		$hora_insert=date("h:i:s a");
+		$insert=query_db("INSERT INTO t2_item_pecc_reembolsables_reajustes(t2_item_pecc_id, tipo_observacion, observacion, estado, id_us, fecha, hora) VALUES(".$id_item_pecc.", 1, '".$comentario_reajustes."', 1, ".$_SESSION["id_us_session"].", '".$fecha_insert."', '".$hora_insert."')");
+		$sele_tipo_doc = traer_fila_row(query_db("select count(*) from $vpeec25 where t2_item_pecc_id =".$id_item_pecc.""));
+		if($sele_tipo_doc[0]>0){
+			$link_adjudicacion = "adjudicacion-marco";
+		}else{
+			$sele_tipo_doc_desierto = traer_fila_row(query_db("select * from $vpeec18 where t2_item_pecc_id ='".$id_item_pecc."'"));
+			if($sele_tipo_doc_desierto[13]==4 or $sele_tipo_doc_desierto[13]==7){
+				$link_adjudicacion = "adjudicacion-desierto";
+			}else{			
+				$link_adjudicacion = "adjudicacion";
+			}
+		}
+		$_SESSION["estilo_reajustes"]=1;
+		?>
+			<script>//alert("Los Cambios se Realizaron con Exito")
+				window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se Almacenarón con Éxito', 40, 5, 12)
+				window.parent.ajax_carga("../aplicaciones/pecc/<?=$link_adjudicacion?>.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=1","contenidos");
+			</script>
+		<?
+	}
+}
+if($_POST["accion"]=="graba_coment_reembolsable"){
+$id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
+$comentario_reajustes = elimina_comillas_2($_POST["observacion_reembolsable"]);
+	/*?>
+		<script>
+			window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reajustes debe tener mínimo 20 carcteres. <?=$id_item_pecc?>----<?=strlen($comentario_reajustes)?>', 40, 5, 12)
+		</script>
+	<?
+	exit();*/
+	if(strlen($comentario_reajustes) < 20){//valida la longitud de los caracteres si son menor a 20
+		?>
+			<script>
+				window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reembolsables debe tener mínimo 20 carcteres.', 40, 5, 12)
+			</script>
+		<?
+		exit();
+	}elseif(strlen($comentario_reajustes) > 300){//valida la longitud de los caracteres si son menor a 20
+		?>
+			<script>
+				window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La observación de los reembolsables puede tener máximo 300 carcteres.', 40, 5, 12)
+			</script>
+		<?
+		exit();
+	}else{
+		$fecha_insert=date("Y-m-d");
+		$hora_insert=date("h:i:s a");
+		$insert=query_db("INSERT INTO t2_item_pecc_reembolsables_reajustes(t2_item_pecc_id, tipo_observacion, observacion, estado, id_us, fecha, hora) VALUES(".$id_item_pecc.", 2, '".$comentario_reajustes."', 1, ".$_SESSION["id_us_session"].", '".$fecha_insert."', '".$hora_insert."')");
+		$_SESSION["estilo_reembolsable"]=1;
+		$sele_tipo_doc = traer_fila_row(query_db("select count(*) from $vpeec25 where t2_item_pecc_id =".$id_item_pecc.""));
+		if($sele_tipo_doc[0]>0){
+			$link_adjudicacion = "adjudicacion-marco";
+		}else{
+			$sele_tipo_doc_desierto = traer_fila_row(query_db("select * from $vpeec18 where t2_item_pecc_id ='".$id_item_pecc."'"));
+			if($sele_tipo_doc_desierto[13]==4 or $sele_tipo_doc_desierto[13]==7){
+				$link_adjudicacion = "adjudicacion-desierto";
+			}else{			
+				$link_adjudicacion = "adjudicacion";
+			}
+		}
+		?>
+			<script>//alert("Los Cambios se Realizaron con Exito")
+				window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se Almacenarón con Éxito', 40, 5, 12)
+				window.parent.ajax_carga("../aplicaciones/pecc/<?=$link_adjudicacion?>.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=1","contenidos");
+			</script>
+		<?
+	}
+}
+if($_POST["accion"]=="elimina_reajuste_reembolsable"){
+	$id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));	
+	$id_elimina = elimina_comillas(arreglo_recibe_variables($_POST["reembolsable_reajuste_pasa"]));
+	$insert=query_db("UPDATE t2_item_pecc_reembolsables_reajustes SET estado=3 where id=".$id_elimina);
+		$sele_tipo_doc = traer_fila_row(query_db("select count(*) from $vpeec25 where t2_item_pecc_id =".$id_item_pecc.""));
+		if($sele_tipo_doc[0]>0){
+			$link_adjudicacion = "adjudicacion-marco";
+		}else{
+			$sele_tipo_doc_desierto = traer_fila_row(query_db("select * from $vpeec18 where t2_item_pecc_id ='".$id_item_pecc."'"));
+			if($sele_tipo_doc_desierto[13]==4 or $sele_tipo_doc_desierto[13]==7){
+				$link_adjudicacion = "adjudicacion-desierto";
+			}else{			
+				$link_adjudicacion = "adjudicacion";
+			}
+		}
+		?>
+			<script>//alert("Los Cambios se Realizaron con Exito")
+				window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'La observación fue eliminada correctamente.', 40, 5, 12)
+				window.parent.ajax_carga("../aplicaciones/pecc/<?=$link_adjudicacion?>.php?id_item_pecc=<?=$id_item_pecc?>&id_tipo_proceso_pecc=1","contenidos");
+			</script>
+		<?
+}
+/** FIN DES011-18 **/
 if($_POST["accion"]=="graba_info_adjudica"){
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
 actualiza_fecha_en_firme($id_item_pecc);
@@ -1203,6 +1321,46 @@ if ($como_reembolsable!=0) {
 }else{
 	$query="UPDATE $pi2 SET tiene_reajuste=".$requiere_ajustes.", tiene_reembolsable=".$requiere_reembolsable.", como_reembolsable=NULL where id_item = ".$id_item_pecc;
 }
+/** INICIO DES011-18 **/
+if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_proceso"] == 6){//evalúa si el tipo proceso que se va a actualiar o el tipo de proceso actual son 1=licitación, 2=negociación directa o 3=Adjudicación directa.
+	if($_POST["reajuste"]!=0){
+		if($_POST["reajuste"]==1){//si tiene reembolsables debe pedir un comnetario
+			$cont=traer_fila_row(query_db("SELECT count(*) FROM t2_item_pecc_reembolsables_reajustes WHERE t2_item_pecc_id=".$id_item_pecc." AND estado=1 and tipo_observacion=1"));
+			if($cont[0]==0){//si no tiene comentarios en los reajustes los pide
+				?>
+					<script>
+						//alert("ALERTA: Por favor verifique los valores reembolasbles de:\n"+msg);
+						window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Por favor ingrese por lo menos un comentario de reajustes.', 40, 5, 12)
+						//window.parent.document.getElementById("cargando_pecc").style.display = "none";
+						</script>
+				<?	
+					exit;
+			}
+			$_SESSION["estilo_reajustes"]=1;
+		}else{
+			$_SESSION["estilo_reajustes"]=2;
+		}
+	}
+	if($requiere_reembolsable!=0){
+		if($requiere_reembolsable==1){//si tiene reembolsables debe pedir un comnetario
+			$cont=traer_fila_row(query_db("SELECT count(*) FROM t2_item_pecc_reembolsables_reajustes WHERE t2_item_pecc_id=".$id_item_pecc." AND estado=1 and tipo_observacion=2"));
+			if($cont[0]==0){//si no tiene comentarios en los reembolsables los pide
+				?>
+					<script>
+						//alert("ALERTA: Por favor verifique los valores reembolasbles de:\n"+msg);
+						window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Por favor ingrese por lo menos un comentario de reembolsables.', 40, 5, 12)
+						//window.parent.document.getElementById("cargando_pecc").style.display = "none";
+						</script>
+				<?	
+					exit;
+			}
+			$_SESSION["estilo_reembolsable"]=1;
+		}else{
+			$_SESSION["estilo_reembolsable"]=2;
+		}
+	}
+}
+/** FIN DES011-18 **/ 
 $exec=query_db($query);
 
 $explode = explode("----,",$_POST["contratos_normales"]);
