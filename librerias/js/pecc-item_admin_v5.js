@@ -848,7 +848,19 @@ function elimina_coment_reajuste_reembolsable(dato, tipo, activaalerta){
 		forma.submit()
 	}
 }
+<<<<<<< HEAD
 /** FIN PARA EL DES011-18 **/
+=======
+<<<<<<< HEAD
+/** FIN PARA EL DES011-18 **/
+=======
+<<<<<<< HEAD
+/** FIN PARA EL DES011-18 **/ 
+=======
+/** FIN PARA EL DES011-18 **/
+>>>>>>> jeison
+>>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
+>>>>>>> 858fa811433ba23131cb372a3028e26364c21c65
 function imprimir_solictud(id_item) {
     var forma = document.principal
     forma.action = "../aplicaciones/pecc/imprimir.php";
