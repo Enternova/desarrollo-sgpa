@@ -912,7 +912,7 @@ if ($tiene[0]==1) {//valida si tiene reembolso
 	    <?
 	    	$cont++;
 	    	}//hile 2?>
-	    </table><br><br>
+	    </table>echo1<br>echo2<br>
 	    <? }//while 1
 	}//si es por año 
   	
