@@ -270,7 +270,7 @@ $sel_si_es_soporte_abas = traer_fila_row(query_db("select count(*) from v_seg1 w
           <td width="32%" align="left"><?=number_format($valor_total_cop)?></td>
         </tr>
 </table>
-<br>
+echo3<br>echo4<br>
 <?
 			  }// si no es adjudicacion directa
 ?>
@@ -866,7 +866,7 @@ if ($tiene[0]==1) {//valida si tiene reembolso
     <?
       $cont++;
     }//while?>
-    </table><br><br>
+    </table>echo5<br>echo6<br>
   <?}elseif ($tiene[1]==2){//si es por proveedor  	
     $query="SELECT razon_social FROM $vpeec18 WHERE t2_item_pecc_id=$id_item_pecc GROUP BY razon_social";?>
     
