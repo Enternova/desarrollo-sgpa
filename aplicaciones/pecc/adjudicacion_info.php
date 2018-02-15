@@ -1,5 +1,20 @@
 ﻿<?
-
+/** PARA EL DES011-18 **/
+if($sel_item[78]==1 or $_SESSION["estilo_reajustes"]==1){//si tiene reajustes
+	$estilo_reajustes1='';
+	$estilo_reajustes2='';
+}else{//si no tiene reajustes
+	$estilo_reajustes1='style="display:none"';
+	$estilo_reajustes2='style="display:none"';
+}
+if($sel_item[80]==1 or $_SESSION["estilo_reembolsable"]==1){//si tiene reembolsables
+	$estilo_reembolsables1='';
+	$estilo_reembolsables2='';
+}else{//si no tiene reembolsables
+	$estilo_reembolsables1='style="display:none"';
+	$estilo_reembolsables2='style="display:none"';
+}
+/** PARA EL DES011-18 **/
 $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_administrador from t1_us_usuarios where us_id =".$sel_item[66]));
 
 	if($sel_suario_par_tecnico[0]>0){$nombre_par_tecnico = "-".$sel_suario_par_tecnico[1]."----,".$sel_suario_par_tecnico[0];}
@@ -427,16 +442,30 @@ if($edicion_datos_generales == "SI"){
     <tr>
     <td align="right">Tiene Reajustes:</td>
     <td align="left">
-    <?php if($edicion_datos_generales == "SI"){ ?>
-    <select name="reajuste" id="reajuste">
+    <?php if($edicion_datos_generales == "SI"){ 
+		/** PARA EL DES011-18 **/
+		if($_SESSION["estilo_reajustes"]==1){
+			$tiene[0]=1;	
+		}
+		/** PARA EL DES011-18 **/
+	?>
+    <select name="reajuste" id="reajuste" onChange="muestra_reajuste_adj()">
       <option value="0">Seleccione</option>
       <option value="1" <? if($tiene[0] == 1) echo 'selected="selected"'?>>SI</option>
       <option value="2" <? if($tiene[0] == 2) echo 'selected="selected"'?>>NO</option>
     </select>
     <?php }else{
         if($tiene[0] == 1){
+			/** PARA EL DES011-18 **/
+			$estilo_reajustes1='style="display:none"';
+			$estilo_reajustes2='';
+			/** PARA EL DES011-18 **/
           echo "SI";
         }else if($tiene[0] == 2){
+			/** PARA EL DES011-18 **/
+			$estilo_reajustes1='style="display:none"';
+			$estilo_reajustes2='style="display:none"';
+			/** PARA EL DES011-18 **/
           echo "NO";
         }
       } ?>
@@ -444,11 +473,68 @@ if($edicion_datos_generales == "SI"){
     <td align="right">&nbsp;</td>
     <td align="left">&nbsp;</td>
     </tr>
+    <tr class="observacion_reajuste" <?=$estilo_reajustes1?> id="observacion_reajuste1">
+    	<td colspan="4">
+			<table width="100%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados" style="">
+				<tr>
+					<td align="right">Observaci&oacute;n de Reajustes:</td>
+					<td align="left">
+						<textarea rows="4" cols="50" name="observacion_reajuste" id="observacion_reajuste"></textarea>
+					</td>
+					<td>
+						<input type="button" value="Grabar" onClick="guarda_coment_reajuste()">
+					</td>
+				</tr>
+			</table>
+		</td>
+    </tr>
+    <tr class="observacion_reajuste" <?=$estilo_reajustes2?> id="observacion_reajuste2">
+    	<td colspan="4">
+			<table width="70%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados">
+				<tr>
+					<td colspan="4" align="center"  class="fondo_3">Observaciones Reajustes.</td>
+				</tr>
+				<tr>
+					<td align="center"  class="fondo_3" width="80%">Observaci&oacute;n</td>
+					<td align="center"  class="fondo_3" width="20%">Acci&oacute;n</td>
+				</tr>
+				<?
+				$query_rejustes="SELECT id, CAST(observacion AS text) as observacion FROM t2_item_pecc_reembolsables_reajustes WHERE t2_item_pecc_id=".$sel_item[0]." AND estado=1 and tipo_observacion=1";
+	  			$cont=0;
+	  			$rs=query_db($query_rejustes);
+	  			while($ls=traer_fila_db($rs)){
+					if($cont == 0){
+						$clase= "filas_resultados";
+						$cont = 1;
+					}else{
+						$clase= "";
+						$cont = 0;
+					}
+					?>
+				<tr class="<?=$clase?>">
+					<td align="center"><?=$ls[1]?></td>
+					<td align="center"><img src="../imagenes/botones/icono_X.gif" alt="Eliminar" width="14" height="15" onclick="elimina_coment_reajuste_reembolsable('<?=arreglo_pasa_variables($ls[0])?>', 1, '')"></td>
+				</tr>
+					<?
+					$cont++;
+				}
+				?>
+			</table>
+            
+		</td>
+    </tr>
   <tr>
   <tr>
+   	<input type="hidden" name="reembolsable_reajuste_pasa" id="reembolsable_reajuste_pasa"/>
     <td align="right">Tiene Reembolsables:</td>
     <td align="left">
-    <?php if($edicion_datos_generales == "SI"){ ?>
+    <?php if($edicion_datos_generales == "SI"){
+		/** PARA EL DES011-18 **/
+		if($_SESSION["estilo_reembolsable"]==1){
+			$tiene[2]=1;	
+		}
+		/** PARA EL DES011-18 **/	
+	?>
       <select name="reembolsable" id="reembolsable">
         <option value="0">Seleccione</option>
         <option value="1" <? if($tiene[2] == 1) echo 'selected="selected"'?>>SI</option>
@@ -457,15 +543,73 @@ if($edicion_datos_generales == "SI"){
     <?php }else{
         //echo $query;
          if($tiene[2] == 1){
+			/** PARA EL DES011-18 **/
+			$estilo_reembolsables1='style="display:none"';
+			$estilo_reembolsables2='';
+			/** PARA EL DES011-18 **/
           echo "SI";
         }else if($tiene[2] == 2){
+			/** PARA EL DES011-18 **/
+			$estilo_reembolsables1='style="display:none"';
+			$estilo_reembolsables2='style="display:none"';
+			/** PARA EL DES011-18 **/
           echo "NO";
         }
       } ?>
     </td>
     <td align="right">&nbsp;</td>
   </tr>
+  <tr class="observacion_reembolsable" <?=$estilo_reembolsables1?> id="observacion_reembolsable1">
+    	<td colspan="4">
+			<table width="100%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados" style="">
+				<tr>
+					<td align="right">Observaci&oacute;n de Reembolsables:</td>
+					<td align="left">
+						<textarea rows="4" cols="50" name="observacion_reembolsable" id="observacion_reembolsable"></textarea>
+					</td>
+					<td>
+						<input type="button" value="Grabar" onClick="guarda_coment_reembolsable()">
+					</td>
+				</tr>
+			</table>
+		</td>
+    </tr>
+    <tr class="observacion_reembolsable" <?=$estilo_reembolsables2?> id="observacion_reembolsable2">
+    	<td colspan="4">
+			<table width="70%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados">
+				<tr>
+					<td colspan="4" align="center"  class="fondo_3">Observaciones Reembolsables.</td>
+				</tr>
+				<tr>
+					<td align="center"  class="fondo_3" width="80%">Observaci&oacute;n</td>
+					<td align="center"  class="fondo_3" width="20%">Acci&oacute;n</td>
+				</tr>
+				<?
+				 $query_rejustes="SELECT id, CAST(observacion AS text) as observacion FROM t2_item_pecc_reembolsables_reajustes WHERE t2_item_pecc_id=".$sel_item[0]." AND estado=1 and tipo_observacion=2";
+	  			$cont=0;
+	  			$rs=query_db($query_rejustes);
+	  			while($ls=traer_fila_db($rs)){
+					if($cont == 0){
+						$clase= "filas_resultados";
+						$cont = 1;
+					}else{
+						$clase= "";
+						$cont = 0;
+					}
+					?>
+				<tr class="<?=$clase?>">
+					<td align="center"><?=$ls[1]?></td>
+					<td align="center"><img src="../imagenes/botones/icono_X.gif" alt="Eliminar" width="14" height="15" onclick="elimina_coment_reajuste_reembolsable('<?=arreglo_pasa_variables($ls[0])?>', 2, '')"></td>
+				</tr>
+					<?
+					$cont++;
+				}
+				?>
+			</table>
+		</td>
+    </tr>
       <input type="hidden" name="como_valida" id="como_valida" value="<?=$tiene[2]?>">
+      <input type="hidden" name="tipo_remmbolsable_reajuste" id="tipo_remmbolsable_reajuste" value="<?=$tiene[2]?>">
   <?
     if($tiene[2] == 1){//SI APLICA REEMBOLSABLE MUESTRA LA OPCCIÓN PARA ESCOGER COMO AGRUPAR LA SOLICITUD
   ?>
