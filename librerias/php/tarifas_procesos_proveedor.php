@@ -718,6 +718,17 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
 			
 			
+			if($sql_con_fecha[0]="" or $sql_con_fecha[0]=" " or $sql_con_fecha[1]="" or $sql_con_fecha[1]=" "){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Si desea crear un tiquete la fecha inicial o final del contrato no pueden estar vacías', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
@@ -742,7 +753,7 @@ if($_POST["accion"]=="elimina_crea_tarifa_manual_anexo")
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1230,6 +1241,18 @@ function valida_decimal($valor)
 			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
 			
 			
+			
+			if($sql_con_fecha[0]="" or $sql_con_fecha[0]=" " or $sql_con_fecha[1]="" or $sql_con_fecha[1]=" "){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Si desea crear un tiquete la fecha inicial o final del contrato no pueden estar vacías', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
@@ -1254,7 +1277,7 @@ function valida_decimal($valor)
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del tiquete (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1599,6 +1622,17 @@ REEMBOLSABLE
 			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
 			
 			
+			if($sql_con_fecha[0]="" or $sql_con_fecha[0]=" " or $sql_con_fecha[1]="" or $sql_con_fecha[1]=" "){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Si desea crear un reembolsable la fecha inicial o final del contrato no pueden estar vacías', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
@@ -1623,7 +1657,7 @@ REEMBOLSABLE
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?
@@ -1897,6 +1931,17 @@ if($_POST["accion"]=="prefactura_reembolsable_enfirme")
 			 $sql_con_fecha=traer_fila_row(query_db($busca_contrato_fecha));
 			
 			
+			if($sql_con_fecha[0]="" or $sql_con_fecha[0]=" " or $sql_con_fecha[1]="" or $sql_con_fecha[1]=" "){
+			?>
+				<script>
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'Si desea crear un reembolsable la fecha inicial o final del contrato no pueden estar vacías', 20, 10, 18);
+					
+				</script>
+				<?
+				exit();
+			
+			}
+			
 			if($fecha_inicial<$sql_con_fecha[0]){
 			?>
 				<script>
@@ -1921,7 +1966,7 @@ if($_POST["accion"]=="prefactura_reembolsable_enfirme")
 			if($fecha_final>$sql_con_fecha[1]){
 			?>
 				<script>
-					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[0]?>)', 20, 10, 18);
+					window.parent.muestra_alerta_error_solo_texto('', 'Error', 'La fecha final del reembolsable (<?=$fecha_final?>) no puede ser mayor a la fecha de finalización del contrato.(<?=$sql_con_fecha[1]?>)', 20, 10, 18);
 					
 				</script>
 				<?

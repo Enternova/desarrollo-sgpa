@@ -1365,7 +1365,19 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		$_SESSION["estilo_reembolsable"]=0;
 	}
 }
+<<<<<<< HEAD
 /** FIN DES011-18 **/
+=======
+<<<<<<< HEAD
+/** FIN DES011-18 **/
+=======
+<<<<<<< HEAD
+/** FIN DES011-18 **/ 
+=======
+/** FIN DES011-18 **/
+>>>>>>> jeison
+>>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
+>>>>>>> 858fa811433ba23131cb372a3028e26364c21c65
 $exec=query_db($query);
 
 $explode = explode("----,",$_POST["contratos_normales"]);
