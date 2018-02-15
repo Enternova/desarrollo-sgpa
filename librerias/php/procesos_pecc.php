@@ -1174,7 +1174,6 @@ $justifica = nl2br(imprime_texo_a_js($justifica));
 
 
 }
-
 /** INICIO DES011-18 **/
 if($_POST["accion"]=="graba_coment_reajuste"){
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
@@ -1293,7 +1292,6 @@ if($_POST["accion"]=="elimina_reajuste_reembolsable"){
 		<?
 }
 /** FIN DES011-18 **/
-
 if($_POST["accion"]=="graba_info_adjudica"){
 $id_item_pecc = elimina_comillas(arreglo_recibe_variables($_POST["id_item_pecc"]));
 actualiza_fecha_en_firme($id_item_pecc);
@@ -1365,19 +1363,7 @@ if($_POST["tipo_proceso"] == 1 or $_POST["tipo_proceso"] == 2 or $_POST["tipo_pr
 		$_SESSION["estilo_reembolsable"]=0;
 	}
 }
-<<<<<<< HEAD
 /** FIN DES011-18 **/
-=======
-<<<<<<< HEAD
-/** FIN DES011-18 **/
-=======
-<<<<<<< HEAD
-/** FIN DES011-18 **/ 
-=======
-/** FIN DES011-18 **/
->>>>>>> jeison
->>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
->>>>>>> 858fa811433ba23131cb372a3028e26364c21c65
 $exec=query_db($query);
 
 $explode = explode("----,",$_POST["contratos_normales"]);

@@ -1,17 +1,5 @@
 ﻿<?
-<<<<<<< HEAD
 /** PARA EL DES011-18 **/
-=======
-<<<<<<< HEAD
-/** PARA EL DES011-18 **/
-=======
-<<<<<<< HEAD
-/** PARA EL DES011-18 **/ 
-=======
-/** PARA EL DES011-18 **/
->>>>>>> jeison
->>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
->>>>>>> 858fa811433ba23131cb372a3028e26364c21c65
 if($sel_item[78]==1 or $_SESSION["estilo_reajustes"]==1){//si tiene reajustes
 	$estilo_reajustes1='';
 	$estilo_reajustes2='';
@@ -27,7 +15,6 @@ if($sel_item[80]==1 or $_SESSION["estilo_reembolsable"]==1){//si tiene reembolsa
 	$estilo_reembolsables2='style="display:none"';
 }
 /** PARA EL DES011-18 **/
-
 $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_administrador from t1_us_usuarios where us_id =".$sel_item[66]));
 
 	if($sel_suario_par_tecnico[0]>0){$nombre_par_tecnico = "-".$sel_suario_par_tecnico[1]."----,".$sel_suario_par_tecnico[0];}
@@ -36,6 +23,7 @@ $sel_suario_par_tecnico = traer_fila_row(query_db("select us_id , nombre_adminis
 	
 	if($sel_suario_ger_contrato[0]>0){$nombre_ger_contrato = "-".$sel_suario_ger_contrato[1]."----,".$sel_suario_ger_contrato[0];}
 ?>
+<h1>jason prueba carga</h1>
 <table width="99%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados">
   <?
         if($sel_item[1] != 1){
@@ -546,27 +534,9 @@ if($edicion_datos_generales == "SI"){
 		if($_SESSION["estilo_reembolsable"]==1){
 			$tiene[2]=1;	
 		}
-<<<<<<< HEAD
 		/** PARA EL DES011-18 **/	
 	?>
       <select name="reembolsable" id="reembolsable">
-=======
-<<<<<<< HEAD
-		/** PARA EL DES011-18 **/	
-	?>
-      <select name="reembolsable" id="reembolsable">
-=======
-<<<<<<< HEAD
-		/** PARA EL DES011-18 **/
-	?>
-      <select name="reembolsable" id="reembolsable" onChange="muestra_reembolsable_adj()">
-=======
-		/** PARA EL DES011-18 **/	
-	?>
-      <select name="reembolsable" id="reembolsable">
->>>>>>> jeison
->>>>>>> cd55fdf13d0b6e096fb3a8f12ec7a37d374ddac2
->>>>>>> 858fa811433ba23131cb372a3028e26364c21c65
         <option value="0">Seleccione</option>
         <option value="1" <? if($tiene[2] == 1) echo 'selected="selected"'?>>SI</option>
         <option value="2" <? if($tiene[2] == 2) echo 'selected="selected"'?>>NO</option>
