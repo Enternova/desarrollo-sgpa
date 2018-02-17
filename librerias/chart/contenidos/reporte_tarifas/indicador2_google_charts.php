@@ -671,8 +671,8 @@ while($sel_pro = traer_fila_db($selec_t_pro)){
 		<div class="titulos_secciones font" id="titulo_sub1" style="font-size:16pt !important; font-weight: 900 !important;"></div>
 		</div>
 		<div class="input-field col s12 m6 l6 right " id="boton1_sub1">
-			<!--a onclick="abrir_ventana('../../../../aplicaciones/reportes/reporte_variaciones_global_tabla_grafica1.php?tp_grafica1_sub1=area')" class="waves-effect waves-light btn" style="background-color: #229BFF; margin-top: 10% !important;" id=""><i class="material-icons left">&#xE8F0;</i>Generar Tabla</a -->
-			<a onclick="abrir_ventana('../../../../aplicaciones/reportes/reporte_variaciones_global_excel.php?tp_grafica=proveedor1_sub1')" class="waves-effect waves-light btn" style="background-color: #229BFF; margin-top: 10% !important;" id=""><i class="material-icons left">&#xE2C0;</i>Descargar Soporte a Excel</a>
+			<!--a onclick="abrir_ventana('../../../../aplicaciones/reportes/reporte_variaciones_global_tabla_grafica1.php?tp_grafica1_sub1=area')" class="waves-effect waves-light btn" style="background-color: #229BFF; margin-top: 10% !important;" id=""><i class="material-icons left">&#xE8F0;</i>Generar Tabla</a
+			<a onclick="abrir_ventana('../../../../aplicaciones/reportes/reporte_variaciones_global_excel.php?tp_grafica=proveedor1_sub1')" class="waves-effect waves-light btn" style="background-color: #229BFF; margin-top: 10% !important;" id=""><i class="material-icons left">&#xE2C0;</i>Descargar Soporte a Excel</a> -->
 		</div>
 	</div>
 	<div id="sub_nivel_1" style="width: 100% !important; height: 410px; margin-left: 0%!important;" class="grafica"></div>

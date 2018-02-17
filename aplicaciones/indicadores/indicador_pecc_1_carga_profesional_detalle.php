@@ -247,7 +247,7 @@ if($select_minmima_gestion[0]!=""){$fecha_puso_firme = $select_minmima_gestion[0
 		//$fecha_filtra=explode('-',$_GET['fecha_filtra']);
 		//$ano=$fecha_filtra[0];
 		//$mes=$fecha_filtra[1];
-		$query='SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, t4.nombre as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp3_area_solicitante as t4, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp3_id=t4.tp3_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30 and t1.us_id_contacto='.$us_id.$comple_mysql;
+		 $query='SELECT t1.detalle_objeto as objeto, t1.consecutivo, t1.fecha_creacion, t2.nombre_administrador, t3.nombre as estado, "" as area, t5.nombre as tipo_proceso, t2.us_id, t1.t1_area_id, t1.pro1_id, t1.tp1_id from pro1_proceso as t1, us_usuarios as t2, tp1_estado_proceso as t3, tp2_tipo_proceso t5 where t1.us_id_contacto=t2.us_id and t1.tp1_id=t3.tp1_id and t1.tp2_id=t5.tp2_id and t1.tp1_id in (4, 9, 11) and t1.tp2_id=30 and t1.us_id_contacto='.$us_id.$comple_mysql;
 		if($_SESSION["id_us_session"]==32){
 			//echo $query;
 		}

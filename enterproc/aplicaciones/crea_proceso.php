@@ -1,4 +1,4 @@
-﻿<? include("../librerias/lib/@session.php");
+<? include("../librerias/lib/@session.php");
 
 header('Content-Type: text/xml; charset=ISO-8859-1');
 echo '<?xml version="1.0" encoding="ISO-8859-1"?>';	
@@ -15,7 +15,7 @@ echo '<?xml version="1.0" encoding="ISO-8859-1"?>';
 //$dbbase="Hocol_sgpa_2016dic27";
 //$dbbase="Hocol_sgpa_2017feb28";
 global $host, $usr, $pwd, $dbbase, $dominio_logue;
-/*
+/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **
 $link = mssql_connect($host,$usr,$pwd);
 $sel = mssql_select_db($dbbase,$link);
 function query_db_sql_server($query)
@@ -31,7 +31,7 @@ function traer_fila_row_sql_server($rs)
 	return $row;
 }*/
 /***** PARA LA CONSULTA A LAS AREAS DE SQL SERVER ****/
-
+/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 
 
 
@@ -175,7 +175,7 @@ if($id_proceso!=""){
   if(($sql_e[2]==30 or $sql_e[2]=="") and $jeision=="Esto no esta cirbiendo por eso toco inhabilitarl, tampoco entiendo para que manda un area 999") {
   ?>
   <tr>
-    <td ><div align="right"><strong>��rea Usuaria:</strong></div></td>
+    <td ><div align="right"><strong>??rea Usuaria:</strong></div></td>
     <td><div align="left">
       <select name="id_tipo_proceso" id="id_tipo_proceso">
         <option selected="selected" value="0">Seleccione</option>

@@ -2083,7 +2083,7 @@ $sel_para_actualizar_ampliacion = query_db("select id_item_ots_aplica from v_pee
 
 			while($Sel_ac_ampl = traer_fila_db($sel_para_actualizar_ampliacion)){
 			if($Sel_ac_ampl[0]>0){//actualiza a finalizado la ampliacion
-		$upda = query_db("update $pi2 set estado = 32 where id_item=".$Sel_ac_ampl[0]);
+		//$upda = query_db("update $pi2 set estado = 32 where id_item=".$Sel_ac_ampl[0]);
 		}	
 			}
 
@@ -3173,6 +3173,27 @@ function accion_fecha($ano,$mes,$dia){
 		 if($dia == "16" and $mes == "10"){ $accion = "NA"; }
 		 if($dia == "06" and $mes == "11"){ $accion = "NA"; }
 		 if($dia == "13" and $mes == "11"){ $accion = "NA"; }
+		 }
+		 
+	if($ano=="18"){
+		 if($dia == "01" and $mes == "01"){ $accion = "NA";}
+		 if($dia == "08" and $mes == "01"){ $accion = "NA"; }
+		 if($dia == "19" and $mes == "03"){ $accion = "NA"; }
+		 if($dia == "29" and $mes == "03"){ $accion = "NA"; }
+		 if($dia == "30" and $mes == "03"){ $accion = "NA"; }
+		 if($dia == "01" and $mes == "05"){ $accion = "NA"; }
+		 if($dia == "14" and $mes == "05"){ $accion = "NA"; }
+		 if($dia == "04" and $mes == "06"){ $accion = "NA"; }
+		 if($dia == "11" and $mes == "06"){ $accion = "NA"; }
+		 if($dia == "02" and $mes == "07"){ $accion = "NA"; }
+		 if($dia == "20" and $mes == "07"){ $accion = "NA"; }
+		 if($dia == "07" and $mes == "08"){ $accion = "NA"; }
+		 if($dia == "20" and $mes == "08"){ $accion = "NA"; }
+		 if($dia == "15" and $mes == "10"){ $accion = "NA"; }
+		 if($dia == "05" and $mes == "11"){ $accion = "NA"; }
+		 if($dia == "12" and $mes == "11"){ $accion = "NA"; }
+		 if($dia == "08" and $mes == "12"){ $accion = "NA"; }
+		 if($dia == "25" and $mes == "12"){ $accion = "NA"; }
 		 }
 	 
 	$dia= date("w",mktime(0, 0, 0, $mes, $dia, $ano));

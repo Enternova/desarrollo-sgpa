@@ -1,7 +1,7 @@
 <? include("../../librerias/lib/@session.php");
 include("../../librerias/lib/leng_esp.php");
 header('Content-Type: text/xml; charset=ISO-8859-1');
-echo '<?xml version="1.0" encoding="ISO-8859-1"?>';	
+echo '<?xml version="1.0" encoding="ISO-8859-1"?>';
 
 
 
@@ -220,7 +220,9 @@ if ( ($numero_anexos>=1 ) || ($numero_texto>=1)){ //si tiene ofertas
 <?
 	 $porveedores_para_evaluar_tecnicamente = "select count(*) from evaluador11_proveedores_con_oferta_tec where pro1_id = $id_invitacion and estado = 1";
 	 $sql_cuenta_proveedores_tecnicos = traer_fila_row(query_db($porveedores_para_evaluar_tecnicamente));
-	 $busca_encargado_tecnico = "select count(*) from pro6_observadores_procesos where pro1_id = $id_invitacion and us_id = ".$_SESSION["id_us_session"]." and tipo = 2";
+	 /** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+	 $busca_encargado_tecnico = "select count(*) from pro6_observadores_procesos where pro1_id = $id_invitacion and us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).") and tipo = 2";
+	/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 	 $sql_busca_encargado_tecnico = traer_fila_row(query_db($busca_encargado_tecnico));
 	 
 	 if( ($sql_cuenta_proveedores_tecnicos[0]==1) && ($sql_busca_encargado_tecnico[0]>=1) ) {

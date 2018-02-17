@@ -62,8 +62,9 @@ if( ($_SESSION["id_us_session"]!=18194) or ($_SESSION["id_us_session"]!=19927) )
 //if( ($_SESSION["tipo_usuario"]==3) && ( $_SESSION["pv_principal"]!=1) ) {
 	
 if ($_SESSION["tipo_usuario"]==3)  {
-		
-	$busca_invitaciones = "select distinct pro1_id from $t11 where us_id = ".$_SESSION["id_us_session"];	
+	/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+	$busca_invitaciones = "select distinct pro1_id from $t11 where us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).", ".cual_es_el_reemplazo($_SESSION["id_us_session"]).")";
+	/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/	
 	$sql_invitados = query_db($busca_invitaciones);
 	while($bus_invo=traer_fila_row($sql_invitados))
 			{
@@ -80,7 +81,9 @@ if ($_SESSION["tipo_usuario"]==3)  {
 			if($_SESSION["pv_principal"]==0){//SI ES EL DUEÑO DEL PROCESO
 			//$complemento_bus.= " and ($t5.us_id_contacto = ".$_SESSION["id_us_session"]." or $t5.us_id = ".$_SESSION["id_us_session"]."   $comple_invotad) " ;
 			}
-			$complemento_bus.= "  and ($t5.us_id_contacto = ".$_SESSION["id_us_session"]." or $t5.us_id = ".$_SESSION["id_us_session"]."   $comple_invotad)  " ;
+			/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+			$complemento_bus.= "  and ($t5.us_id_contacto in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).", ".cual_es_el_reemplazo($_SESSION["id_us_session"]).") or $t5.us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).", ".cual_es_el_reemplazo($_SESSION["id_us_session"]).")   $comple_invotad)  " ;
+			/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 		}
 
 }//usuarios especiales
@@ -323,8 +326,9 @@ $complemento = " and	$t5.tp1_id not in (5, 7, 8) ";
 
                     
                     }
-            
-                $busca_invitaciones = traer_fila_row(query_db("select pro1_id, tipo from $t11 where us_id = ".$_SESSION["id_us_session"]." and pro1_id = $ls[0]"));	
+            	/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+                $busca_invitaciones = traer_fila_row(query_db("select pro1_id, tipo from $t11 where us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).", ".cual_es_el_reemplazo($_SESSION["id_us_session"]).") and pro1_id = $ls[0]"));
+				/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
                 $muestra_proceso="0";
                 $edicion="";
                 $evaluacion="";
@@ -358,13 +362,16 @@ $complemento = " and	$t5.tp1_id not in (5, 7, 8) ";
 			$evaluacion="<img src='../imagenes/botones/nuevo_1.png' title='Evaluar Proceso' width='16' height='16' onclick='javascript:abre_procesos_evaluacion_con($ls[0])'/>";
 			//$imagen_apertura="<img src='../imagenes/botones/sin_apertura.jpg' title='Proceso sin apertura' />";
              }       
-                if($ls[10]==$_SESSION["id_us_session"]){//SI ES EL DUEÑO DEL PROCESO
+                /** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+                if($ls[10]==$_SESSION["id_us_session"] or $ls[10]==a_quien_reemplaza($_SESSION["id_us_session"]) or $ls[10]==cual_es_el_reemplazo($_SESSION["id_us_session"])){//SI ES EL DUEÑO DEL PROCESO
+				/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
                     $muestra_proceso=1;
                     $edicion=$edicion_editar;
 					$elimina_peliminar = $proc_eliminar;
                     } //SI ES EL DUEÑO DEL PROCESO
-            
-                if($ls[13]==$_SESSION["id_us_session"]){//SI ES EL DUEÑO DEL PROCESO
+            	/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+                if($ls[13]==$_SESSION["id_us_session"] or $ls[13]==a_quien_reemplaza($_SESSION["id_us_session"]) or $ls[13]==cual_es_el_reemplazo($_SESSION["id_us_session"])){//SI ES EL DUEÑO DEL PROCESO
+				/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
                     $muestra_proceso=1;
                     $edicion=$edicion_editar;
 					$elimina_peliminar = $proc_eliminar;

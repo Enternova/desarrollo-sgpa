@@ -102,8 +102,9 @@ global $fecha, $hora,$total_confirmaciones,$t11;
 		{ //requiere apertura parciales
 		
 	if($termino==2){//bloqueo a usuario diferentes de tecnicos
-	
-		 $busca_invitaciones_observa = "select pro1_id, tipo from $t11 where us_id = ".$_SESSION["id_us_session"]." and pro1_id = $id_invitacion and tipo  = 2";	
+		/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+		 $busca_invitaciones_observa = "select pro1_id, tipo from $t11 where us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).") and pro1_id = $id_invitacion and tipo  = 2";
+		/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 			$busca_perimos_no_tecnicos=traer_fila_row(query_db($busca_invitaciones_observa));
 		
 	$porveedores_para_evaluar_tecnicamente = "select * from evaluador11_proveedores_con_oferta_tec where pro1_id = $id_invitacion";
@@ -369,7 +370,9 @@ $cuenta_lista_eco = traer_fila_row(query_db("select count(*) from $t95 where in_
 	$abre_certificados=0;	
 
 
-$busca_invitaciones = query_db("select pro1_id, tipo from $t11 where us_id = ".$_SESSION["id_us_session"]." and pro1_id = $id_invitacion");	
+/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+$busca_invitaciones = query_db("select pro1_id, tipo from $t11 where us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).") and pro1_id = $id_invitacion");
+/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 while($busca_perimos=traer_fila_row($busca_invitaciones)){
 	if($busca_perimos[1]==1) $abre_juridico=1;	
 	if($busca_perimos[1]==2) $abre_tecnico=1;
@@ -387,8 +390,10 @@ while($busca_perimos=traer_fila_row($busca_invitaciones)){
 	$permiso_cierre_procesos=0;
 	 $genera_adjudicacion=0;
 //	echo "rene".$sql_e[15]."renes".$_SESSION["id_us_session"];
-if($sql_e[15]==$_SESSION["id_us_session"]) { $permiso_total=1; $permiso_cierre_procesos=1; $genera_adjudicacion=1; }
-elseif($sql_e[33]==$_SESSION["id_us_session"]) { $permiso_total=1; $permiso_cierre_procesos=1;  $genera_adjudicacion=1;}
+/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+if($sql_e[15]==$_SESSION["id_us_session"] or $_SESSION["id_us_session"]==cual_es_el_reemplazo($sql_e[15])) { $permiso_total=1; $permiso_cierre_procesos=1; $genera_adjudicacion=1; }
+elseif($sql_e[33]==$_SESSION["id_us_session"] or $_SESSION["id_us_session"]==cual_es_el_reemplazo($sql_e[33])) { $permiso_total=1; $permiso_cierre_procesos=1;  $genera_adjudicacion=1;}
+/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 
 elseif ($_SESSION["tipo_usuario"]==1) { $permiso_total=1; $permiso_cierre_procesos=0;  $genera_adjudicacion=0;}
 elseif($_SESSION["tipo_usuario"]==4) { $permiso_total=1; $permiso_cierre_procesos=0;  $genera_adjudicacion=0;}
@@ -458,8 +463,9 @@ elseif($_SESSION["id_us_session"]==7)
 	$valida_us_administra_especial=1;
 else
 	$valida_us_administra_especial=0;
-	
-$busca_invitaciones_us_espe = "select * from pro6_observadores_procesos where us_id = ".$_SESSION["id_us_session"]." and pro1_id = $id_invitacion and tipo = 2 "; 
+/** INICIO PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
+$busca_invitaciones_us_espe = "select * from pro6_observadores_procesos where us_id in (".$_SESSION["id_us_session"].", ".a_quien_reemplaza($_SESSION["id_us_session"]).") and pro1_id = $id_invitacion and tipo = 2 ";
+/** FIN PARA EL INC025-18 DE REEMPLAZOS SE CAMBIA EL CONDICIONAL **/
 $sql_busca_in_esp = traer_fila_row(query_db($busca_invitaciones_us_espe));// pregunta si tiene evaluación tecnica invitada no muestra economica
 
 if( ($sql_busca_in_esp[0]>=1) && ($valida_us_administra_especial==1) ){

@@ -270,7 +270,7 @@ $sel_si_es_soporte_abas = traer_fila_row(query_db("select count(*) from v_seg1 w
           <td width="32%" align="left"><?=number_format($valor_total_cop)?></td>
         </tr>
 </table>
-<br>
+<br><br>
 <?
 			  }// si no es adjudicacion directa
 ?>
@@ -919,8 +919,9 @@ if ($tiene[0]==1) {//valida si tiene reembolso
   ?>
 <? }//valida si tiene reembolso*/
 
- include("../../aplicaciones/pecc/adjudicacion_info.php");?>
-<br />
+ include("../../aplicaciones/pecc/adjudicacion_info.php");
+?>
+
 
 <?
 
