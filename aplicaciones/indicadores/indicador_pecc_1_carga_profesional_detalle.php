@@ -232,6 +232,7 @@ if($select_minmima_gestion[0]!=""){$fecha_puso_firme = $select_minmima_gestion[0
     <?
 		}//fin while select normal
 		if($_GET['tp_contratacion']==0 and $_GET['tp_contratacion']==0){//si se cuple es porque totaliza y busca en la urna
+			echo $_GET['consulta_sondeo'];
 		if($_GET['consulta_sondeo']==1){//si se consulta el sondeo
 		$us_id=$_GET['id_profesional'];
 		$pos = strpos($_GET["fecha_filtra"], "-");
