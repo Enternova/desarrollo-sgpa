@@ -1816,6 +1816,7 @@ if($_SESSION["id_us_session"] == 32){
 
 	}
 /* Busca Super intendente o jefatura operacional*/	
+	echo "select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun." and t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1";
 	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun." and t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area superintendente, entonces solo busca gerente super intendente.
 		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
