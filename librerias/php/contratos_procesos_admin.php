@@ -821,11 +821,11 @@ $update_sql = query_db("update $co1 set aseguramiento_admin ='".elimina_comillas
 		/** FIN PARA EL DES-017-17*****/
 	
 	if($_POST["notifica_email"] == 1){
-		$tt_notificacion = "Se envio notificación de Cambio de Gerente";
+		$tt_notificacion = "Se Envio Notificación de Cambio de Gerente";
 		
 	}
 	if($_POST["notifica_email"] == 2){
-		$tt_notificacion = "Se envio notificación de Contrato Nuevo";
+		$tt_notificacion = "Se Envio Notificación de Contrato Nuevo";
 		
 	}
 		?>
