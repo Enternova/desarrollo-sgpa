@@ -84,7 +84,7 @@
 	
 
 
-
+echo "select actividad_estado,tiempo,fecha_se_requiere,fecha_real,tiempo_para_actividad,actividad_estado_id,dias_reales, estado,encargado from $vpeec_aplica where id_item =".$id_item_pecc."  ".$comple_sql." and actividad_estado_id <= 21 order by actividad_estado_id";
 	 	  $sel_actividades_resumen = query_db("select actividad_estado,tiempo,fecha_se_requiere,fecha_real,tiempo_para_actividad,actividad_estado_id,dias_reales, estado,encargado from $vpeec_aplica where id_item =".$id_item_pecc."  ".$comple_sql." and actividad_estado_id <= 21 order by actividad_estado_id");
 	$cont = 0;
   	$clase="";
