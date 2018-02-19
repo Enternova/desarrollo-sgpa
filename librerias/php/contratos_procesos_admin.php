@@ -819,9 +819,18 @@ $update_sql = query_db("update $co1 set aseguramiento_admin ='".elimina_comillas
 				//INC010-18 FIN
 			}
 		/** FIN PARA EL DES-017-17*****/
+	
+	if($_POST["notifica_email"] == 1){
+		$tt_notificacion = "Se envio notificación de Cambio de Gerente";
+		
+	}
+	if($_POST["notifica_email"] == 2){
+		$tt_notificacion = "Se envio notificación de Contrato Nuevo";
+		
+	}
 		?>
 		<script>
-		window.parent.muestra_alerta_iformativa_solo_texto('', 'Mensaje', 'El Contrato se Grabó con Exito', 20, 10, 18);
+		window.parent.muestra_alerta_iformativa_solo_texto('', 'Mensaje', 'El Contrato se Grabó con Exito <?=$tt_notificacion?>', 20, 10, 18);
         //alert("El Contrato se Grabó con Exito")
 		window.parent.ajax_carga('../aplicaciones/contratos/v_contratos.php?id=<?=$_POST["id_contrato_arr_envia"];?>','carga_acciones_permitidas');
         </script>
