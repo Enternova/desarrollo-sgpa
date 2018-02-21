@@ -31,6 +31,30 @@ if($explode_tp_rafica[0]==1){//grafica por area
 		$filtro_aplica_reporte =$_SESSION["comple_filtro_exepcion"]." and t6_tarifas_estados_contratos_id = 6 and t1_area_id= ".$sel_area[0];
 	}
 	
+	if($explode_tp_rafica[1]=="ESTADISTICADETARIFAS"){
+				if($explode_tp_rafica[2]=="TarifasContractuales" and $explode_tp_rafica[3]=="1"){//BARRAS CONTRATOS POR AREAS
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Total de Tarifas Contractuales</span>";
+				}
+				if($explode_tp_rafica[2]=="TarifasContractuales" and $explode_tp_rafica[3]=="2"){//BARRAS CONTRATOS POR AREAS
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Usadas</span>";
+				}
+				
+				if($explode_tp_rafica[2]=="TarifasNuevas" and $explode_tp_rafica[3]=="1"){//BARRAS CONTRATOS POR AREAS
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Total de Tarifas Nuevas</span>";
+				}
+				if($explode_tp_rafica[2]=="TarifasNuevas" and $explode_tp_rafica[3]=="2"){//BARRAS CONTRATOS POR AREAS
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Usadas</span>";
+				}
+		
+		
+		
+		$titulo_nombre_grafica = "Estad&iacute;stica de Tarifas";
+		
+		$sel_area = traer_fila_row(query_db("select t1_area_id from t1_area where replace(nombre, ' ', '')  like '%".trim(utf8_decode($explode_tp_rafica[2]))."%' and estado=1"));
+		$filtro_aplica_reporte =$_SESSION["comple_filtro_exepcion"]." and t6_tarifas_estados_contratos_id = 6 and t1_area_id= ".$sel_area[0];
+	}
+	
+	
 	
 }
 	?>

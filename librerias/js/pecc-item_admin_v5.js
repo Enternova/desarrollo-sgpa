@@ -1060,6 +1060,24 @@ function carga_detalle_subcategoria(linea, id_item,pecc1){
 	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=15&id_item_pecc="+id_item+"&linea="+linea+"&pecc1="+pecc1, "carga_detalle_subcategoria")
 	
 	}
+
+function activa_linea_pecc_info_gen(pecc,id_item){
+	
+	if(pecc > 1){
+	ajax_carga("../aplicaciones/pecc/ajax.php?tipo_ajax=401&id_item_pecc="+id_item+"&pecc="+pecc, "carga_lista_lineaspecc")
+	window.parent.document.getElementById("carga_liena_pecc").style.display = ""
+	window.parent.document.getElementById("carga_modificacion_pecc").style.display = ""
+	}else{
+		
+		window.parent.document.getElementById("carga_liena_pecc").style.display = "none"
+		window.parent.document.getElementById("carga_modificacion_pecc").style.display = "none"
+		window.parent.document.getElementById("carga_observacion_modifica_pecc").style.display = "none"
+		window.parent.document.getElementById("id_fila_deallesubcategoria").style.display = "none"
+		
+	}
+	
+	}
+
 function activa_linea_pecc(pecc,id_item,selec_item,edicion_datos_generales){
 	
 
