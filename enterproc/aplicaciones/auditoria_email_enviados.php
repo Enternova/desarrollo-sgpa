@@ -29,7 +29,7 @@ else
 
 $paginador = (($pag-1)*$numero_pagi);
 
-
+echo "select count(*) from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro	 ";
 	  $li_n_c=traer_fila_row(query_db("select count(*) from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro	 "));
 		  $total_r = $li_n_c[0];
 		  $pagina = ceil($total_r /$numero_pagi);
