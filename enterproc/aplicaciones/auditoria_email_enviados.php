@@ -186,8 +186,8 @@ else
               </tr>
               
               <?
-	echo "select nombre, razon_social, fecha_envio, asunto_envio, email_envio, pro34_id  from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro  or texto_envio like '%$sql_e[22]%' order by fecha_envio desc limit $paginador,$numero_pagi ";
-			  	$busca_provee = query_db("select nombre, razon_social, fecha_envio, asunto_envio, email_envio, pro34_id  from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro  or texto_envio like '%$sql_e[22]%' order by fecha_envio desc limit $paginador,$numero_pagi ");
+	//  	$busca_provee = query_db("select nombre, razon_social, fecha_envio, asunto_envio, email_envio, pro34_id  from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro  or texto_envio like '%$sql_e[22]%' order by fecha_envio desc limit $paginador,$numero_pagi ");
+	$busca_provee = query_db("select nombre, razon_social, fecha_envio, asunto_envio, email_envio, pro34_id  from v_auditoria_email where pro1_id =  $id_invitacion $complemnto_filtro  order by fecha_envio desc limit $paginador,$numero_pagi ");
 				while($lp = traer_fila_row($busca_provee)){
 				  
 		  	if($num_fila%2==0)
