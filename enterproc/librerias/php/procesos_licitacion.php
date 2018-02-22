@@ -2548,17 +2548,17 @@ if($accion=="crea_pregunta_general_admin")
 					auditor(27,$id_invitacion,$lp[2]." | Se envio email de ".listas_sin_select($tp1,$sql_e[1],1).", e-mail notificados: ".$graba_correo_pro2, "");
 					
 					
-						$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
-								while($destinatario = traer_fila_row($busca_dueno)){
-								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
-								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
-								//echo $destinatario[0];
-
-								}
+						
 			
 			}
 			
-			
+			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
+								while($destinatario = traer_fila_row($busca_dueno)){
+								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
+								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,4,0);
+								//echo $destinatario[0];
+
+								}
 			
 		
 		?>
