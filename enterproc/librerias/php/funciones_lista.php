@@ -306,7 +306,7 @@ if($cuenta_arr>=2)
 		}
 		
 
- echo $inserta_data = "insert into pro34_registro_correos (us_id, fecha_envio, pro1_id, id_primario_otros_email, id_secundario_otros_email,
+ $inserta_data = "insert into pro34_registro_correos (us_id, fecha_envio, pro1_id, id_primario_otros_email, id_secundario_otros_email,
  email_envio, asunto_envio, texto_envio, enviado,tipo_envio,tp17_id) values (
 ".$_SESSION["id_us_session"].",'$fecha $hora', $pro1_id, $var1,$var2,'$email','$asunto_envio','$texto_envio','$enviado',$tipo,$modulo) ";
 

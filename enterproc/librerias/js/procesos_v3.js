@@ -5414,7 +5414,7 @@ function crea_bitacora()
 	
 	}		
 	
-
+/*
 function crea_cartelera_final()
 	{
 
@@ -5443,8 +5443,7 @@ function crea_cartelera_final()
 
 
 		else{
-			/*var msg = confirm("ATENCION\n Esta a punto de enviar esta aclaración esta seguro ?")
-		if(msg){*/
+			
 			forma.target="grp";
 			forma.action = "../librerias/php/procesos_licitacion.php";
 			forma.accion.value="crea_pregunta_aclaracion_final";
@@ -5461,7 +5460,7 @@ function crea_cartelera_final()
 	
 	}	
 	
-	
+	*/
 function crea_proveedor_adentro(){
 		var forma = document.principal
 		var msg=""

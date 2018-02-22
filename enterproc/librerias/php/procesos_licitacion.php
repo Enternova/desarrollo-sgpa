@@ -3083,7 +3083,7 @@ if($accion=="crea_pregunta_aclaracion_final")
 			
 			$confirma_envio = envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);	
 			
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 				
 			
 /****envio de correo a los contactos*/
@@ -3099,7 +3099,7 @@ if($accion=="crea_pregunta_aclaracion_final")
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 			
 			$confirma_envio = envia_correos($lis_contactos[0],$asunto,$mensaje_envio,$cabesa);	
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 			
 				}
 	
@@ -3110,6 +3110,17 @@ if($accion=="crea_pregunta_aclaracion_final")
 
 
 		}// busca proveedor for
+		
+		
+			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
+								while($destinatario = traer_fila_row($busca_dueno)){
+								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
+								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,5,0);
+								
+
+								}
+			
+		
 		?>
       <script>
       	window.parent.muestra_alerta_iformativa_solo_texto('', 'Mensaje', 'La aclaración se envio con éxito', 20, 10, 18);
