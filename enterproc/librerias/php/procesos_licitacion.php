@@ -2851,7 +2851,7 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						 $confirma_envio=envia_correos($lp_contactos[0],$asunto_arrglo,$mensaje_envio,$cabesa);
-						 //registro_email_enviado_nuevo($id_invitacion_pasa, $lp_contactos[0], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
+						 registro_email_enviado_nuevo($id_invitacion_pasa, $lp_contactos[0], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
 						
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
