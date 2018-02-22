@@ -2531,13 +2531,13 @@ if($accion=="crea_pregunta_general_admin")
 					/****envio de correo a los contactos - real verificada*/
 					$graba_correo_pro.="<li>".$lp[4]."</li>";
 					$graba_correo_pro2.=$lp[4].", ";
-						echo "select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion and pv_id =$lp[0]";
+						
 					$busca_provee_contactos = query_db("select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion and pv_id =$lp[0]");
 						
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
-						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
 						
@@ -2546,6 +2546,15 @@ if($accion=="crea_pregunta_general_admin")
 					/****envio de correo a los contactos - real verificada*/
 					
 					auditor(27,$id_invitacion,$lp[2]." | Se envio email de ".listas_sin_select($tp1,$sql_e[1],1).", e-mail notificados: ".$graba_correo_pro2, "");
+					
+					
+						$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
+								while($destinatario = traer_fila_row($busca_dueno)){
+								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
+								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
+								//echo $destinatario[0];
+
+								}
 			
 			}
 			
