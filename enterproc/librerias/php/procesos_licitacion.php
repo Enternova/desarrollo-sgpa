@@ -2537,7 +2537,7 @@ if($accion=="crea_pregunta_general_admin")
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
-						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
+						registro_email_enviado_nuevo($id_invitacion, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
 						
