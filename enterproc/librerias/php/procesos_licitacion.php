@@ -1144,7 +1144,7 @@ if($busca_provee_sin_email[0]>=1)
 		$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 		while($destinatario = traer_fila_row($busca_dueno)){
 			$confirma_envio=envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
-			//registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,1,0);
+			registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,1,0);
 			
 			}
 		

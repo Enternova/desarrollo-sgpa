@@ -4651,7 +4651,7 @@ function crea_pregunta_general_cartelera_foro(id_pru, valica)
 		}
 	
 	}			
-	
+/*	
 function crea_pregunta_general_cartelera_admin()
 	{
 
@@ -4667,8 +4667,7 @@ function crea_pregunta_general_cartelera_admin()
 				
 				}
 		else{
-			/*var msg = confirm("ATENCION\n Esta a punto de enviar esta aclaración esta seguro.. ?")
-		if(msg){*/
+			
 			forma.target="grp";
 			forma.action = "../librerias/php/procesos_licitacion.php";
 			forma.accion.value="crea_pregunta_general_admin";
@@ -4684,7 +4683,7 @@ function crea_pregunta_general_cartelera_admin()
 		}
 	
 	}	
-
+*/
 function envia_armar_formula(id_campo, valor_forma, nombre_campo){
 	
 		var forma = document.principal
