@@ -3739,7 +3739,7 @@ function configura_grupo_evaluacion()
 				}
 	}
 	
-	
+	/*
 function notificar_provvedores(){
 	var forma = document.principal;
 	
@@ -3750,8 +3750,7 @@ function notificar_provvedores(){
 			return;
 			}
 	
-	/*var msg = confirm("ATENCION:\n Esta seguro de enviar la notificación a los proveedores ?\n Cualquier modificación futura al proceso sera notificada a los proveedores\n Esta seguro ? ");
-	if(msg)*/
+	
 					forma.action = "../librerias/php/procesos_licitacion.php";
 					forma.accion.value="notifica_proveedores"
 					forma.target="grp"
@@ -3761,7 +3760,7 @@ function notificar_provvedores(){
 					forma.accion.value=""
 					forma.target=""
 	}	
-	
+	*/
 	
 function modifica_proceso_notificado(conf)
 	{
