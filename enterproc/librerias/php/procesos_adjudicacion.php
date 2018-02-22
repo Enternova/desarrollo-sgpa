@@ -50,7 +50,7 @@ function valida_email_envio_correo_limpia_php($email){
 
 function envio_correos_php($asunto_msn,$correo_destino,$cuerpo,$ruta_ar,$nombre_archi){
 
-	//echo "Destino funciotn PHP: ".$correo_destino." Asunto: ".$correo_destino."<br>Cuerpo: ".$cuerpo;
+	
 $correo_autentica_phpmailer = "abastecimiento@hcl.com.co";
 $contrasena_autentica_phpmailer = "Colombia02";
 $servidor_phpmailer ="octans.hocol.com.co";

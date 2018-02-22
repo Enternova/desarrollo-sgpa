@@ -2849,7 +2849,7 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 					
 					$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 					$confirma_envio=envia_correos($lp[4],$asunto_arrglo,$mensaje_envio,$cabesa);
-					//registro_email_enviado_nuevo($id_invitacion_pasa, $lp[4], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
+					registro_email_enviado_nuevo($id_invitacion_pasa, $lp[4], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
 					//alertas_bitacora(8,$id_proceso,$lp[0],"",0);
 					
 					$sql_ex_no_ad = "insert into $t46 (pro1_id, pro27_id, pv_id, tipo_adj_no_adj, us_id, fecha_envio, notificado, observacion_admin) 
@@ -2889,7 +2889,7 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 				while($destinatario = traer_fila_row($busca_dueno)){
 				$confirma_envio=envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
-				registro_email_enviado_nuevo($id_invitacion_pasa, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,8,$lp[0]);
+				registro_email_enviado_nuevo($id_invitacion_pasa, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,8,0);
 				//echo $destinatario[0];
 			
 			}
