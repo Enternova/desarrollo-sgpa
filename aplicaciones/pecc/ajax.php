@@ -31,6 +31,21 @@ if($tipo_ajax == "carga_gerentes"){
 	
 }
 
+if($tipo_ajax == "401"){
+?><select name="linea_pecc" id="linea_pecc" onchange="carga_detalle_subcategoria(this.value, '<?=$_GET["id_item"]?>')">
+      <option value="0">Seleccione</option>
+     
+       <?
+          $lineas_pecc = query_db("select * from t1_lineas_pecc as t1 where estado = 1 and origen_pec=".$_GET["pecc"]);
+		  while($ln_pecc = traer_fila_row($lineas_pecc)){
+		  ?>
+          <option value="<?=$ln_pecc[0]?>" ><?=$ln_pecc[1]?> - <?=$ln_pecc[2]?></option>
+          <?
+		  }
+		  ?>
+          
+      </select><?
+					   }
 //sin numero de incidente pecc inicio
 if($tipo_ajax == "400"){
 		

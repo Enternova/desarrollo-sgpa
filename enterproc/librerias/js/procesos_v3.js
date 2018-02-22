@@ -3739,7 +3739,7 @@ function configura_grupo_evaluacion()
 				}
 	}
 	
-	
+	/*
 function notificar_provvedores(){
 	var forma = document.principal;
 	
@@ -3750,8 +3750,7 @@ function notificar_provvedores(){
 			return;
 			}
 	
-	/*var msg = confirm("ATENCION:\n Esta seguro de enviar la notificación a los proveedores ?\n Cualquier modificación futura al proceso sera notificada a los proveedores\n Esta seguro ? ");
-	if(msg)*/
+	
 					forma.action = "../librerias/php/procesos_licitacion.php";
 					forma.accion.value="notifica_proveedores"
 					forma.target="grp"
@@ -3761,7 +3760,7 @@ function notificar_provvedores(){
 					forma.accion.value=""
 					forma.target=""
 	}	
-	
+	*/
 	
 function modifica_proceso_notificado(conf)
 	{
@@ -4652,7 +4651,7 @@ function crea_pregunta_general_cartelera_foro(id_pru, valica)
 		}
 	
 	}			
-	
+/*	
 function crea_pregunta_general_cartelera_admin()
 	{
 
@@ -4668,8 +4667,7 @@ function crea_pregunta_general_cartelera_admin()
 				
 				}
 		else{
-			/*var msg = confirm("ATENCION\n Esta a punto de enviar esta aclaración esta seguro.. ?")
-		if(msg){*/
+			
 			forma.target="grp";
 			forma.action = "../librerias/php/procesos_licitacion.php";
 			forma.accion.value="crea_pregunta_general_admin";
@@ -4685,7 +4683,7 @@ function crea_pregunta_general_cartelera_admin()
 		}
 	
 	}	
-
+*/
 function envia_armar_formula(id_campo, valor_forma, nombre_campo){
 	
 		var forma = document.principal
@@ -5416,7 +5414,7 @@ function crea_bitacora()
 	
 	}		
 	
-
+/*
 function crea_cartelera_final()
 	{
 
@@ -5445,8 +5443,7 @@ function crea_cartelera_final()
 
 
 		else{
-			/*var msg = confirm("ATENCION\n Esta a punto de enviar esta aclaración esta seguro ?")
-		if(msg){*/
+			
 			forma.target="grp";
 			forma.action = "../librerias/php/procesos_licitacion.php";
 			forma.accion.value="crea_pregunta_aclaracion_final";
@@ -5463,7 +5460,7 @@ function crea_cartelera_final()
 	
 	}	
 	
-	
+	*/
 function crea_proveedor_adentro(){
 		var forma = document.principal
 		var msg=""

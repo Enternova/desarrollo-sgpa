@@ -1,4 +1,4 @@
-﻿<? include("../../librerias/lib/@session.php"); 
+<? include("../../librerias/lib/@session.php"); 
 	verifica_menu("administracion.html");
 	header('Content-Type: text/xml; charset=ISO-8859-1');
 	echo '<?xml version="1.0" encoding="ISO-8859-1"?>';	
@@ -552,7 +552,7 @@ if($cont == 0){
 					  $function_elimina = "elimina_proveedor_sm(".$se_prove[7].",1)";
 					  
 				  }
-			if($sel_item[23]==$_SESSION["id_us_session"]){//SÓLO SI ES EL PROFESIONAL ASIGNADO SE LE PIEDE COMENTARIOS
+			if($sel_item[23]==$_SESSION["id_us_session"]){//S�LO SI ES EL PROFESIONAL ASIGNADO SE LE PIEDE COMENTARIOS
 			?>
           		<textarea name="comment_elimina_<?=$se_prove[7]?>" id="comment_elimina_<?=$se_prove[7]?>" cols="60" rows="5" placeholder="Ingrese un comentario para poder eliminar el proveedor"></textarea>
           	<?

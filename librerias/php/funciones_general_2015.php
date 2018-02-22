@@ -1816,18 +1816,18 @@ if($_SESSION["id_us_session"] == 32){
 
 	}
 /* Busca Super intendente o jefatura operacional*/	
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area superintendente, entonces solo busca gerente super intendente.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 /* Busca Super intendente o jefatura operacional*/		
 	
 /*Busca Jefe de Area si no encuentra super*/	
 if($sele_jefe_area[0] == ""){	
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 /*Busca Jefe de Area si no encuentra super*/	
@@ -1835,15 +1835,15 @@ if($sele_jefe_area[0] == ""){
 /*Busca vice o director si no encuentra super ni gerente*/	
 if($sele_jefe_area[0] == ""){	//vicepresidente
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
 	}
 }
 if($sele_jefe_area[0] == ""){	//director
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 
@@ -1880,18 +1880,18 @@ if($_SESSION["id_us_session"] == 32){
 
 	}
 /* Busca Super intendente o jefatura operacional*/	
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area superintendente, entonces solo busca gerente super intendente.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 /* Busca Super intendente o jefatura operacional*/		
 	
 /*Busca Jefe de Area si no encuentra super*/	
 if($sele_jefe_area[0] == ""){	
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 /*Busca Jefe de Area si no encuentra super*/	
@@ -1899,15 +1899,15 @@ if($sele_jefe_area[0] == ""){
 /*Busca vice o director si no encuentra super ni gerente*/	
 if($sele_jefe_area[0] == ""){	//vicepresidente
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
 	}
 }
 if($sele_jefe_area[0] == ""){	//director
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3   , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 
@@ -1942,18 +1942,18 @@ if($_SESSION["id_us_session"] == 32){
 
 	}
 /* Busca Super intendente o jefatura operacional*/	
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t1.id_area = ".$id_area_fun." and t3.t1_area_id = t1.id_area and t3.estado = 1"));//busca super intendentes y area
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area superintendente, entonces solo busca gerente super intendente.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_superintendente  from tseg14_relacion_usuario_superintendente as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and  t1.id_superintendente = t2.us_id and t2.estado = 1 and t1.id_us = ".$id_ger_cont_fun." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 /* Busca Super intendente o jefatura operacional*/		
 	
 /*Busca Jefe de Area si no encuentra super*/	
 if($sele_jefe_area[0] == ""){	
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.id_area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_jefe_area  from tseg13_relacion_usuario_jefe as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_jefe_area = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 /*Busca Jefe de Area si no encuentra super*/	
@@ -1961,15 +1961,15 @@ if($sele_jefe_area[0] == ""){
 /*Busca vice o director si no encuentra super ni gerente*/	
 if($sele_jefe_area[0] == ""){	//vicepresidente
 
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t1.area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_vicepresidente  from tseg15_relacion_usuario_vicepresidente as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_vicepresidente = t2.us_id and t2.estado = 1 and t1.id_us = ".$sel_contrato[1]." and t3.t1_area_id = t1.area and t3.estado =1"));
 	}
 }
 if($sele_jefe_area[0] == ""){	//director
-	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
+	$sele_jefe_area = traer_fila_row(query_db("select t1.id_director from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t1.id_area = ".$sel_item_area[0]." and t1.area = t3.t1_area_id and t3.estado = 1"));
 	if($sele_jefe_area[0]=="" or $sele_jefe_area[0]==0 ){ // Si no encuentra la relacion gerente area jefe, entonces solo busca gerente jefe.
-		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3 where t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
+		$sele_jefe_area = traer_fila_row(query_db("select t1.id_director  from tseg15_relacion_usuario_director as t1, t1_us_usuarios as t2, t1_area as t3  , tseg3_usuario_areas as t4 where t4.id_usuario =".$id_ger_cont_fun."  and t3.t1_area_id = t4.id_area and t1.id_director = t2.us_id and t2.estado = 1 and t1.us_id = ".$sel_contrato[1]." and t3.t1_area_id = t1.id_area and t3.estado =1"));
 	}
 }
 

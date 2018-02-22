@@ -1,4 +1,4 @@
-Ôªø<?
+<?
 /** PARA EL DES011-18 **/
 if($sel_item[78]==1 or $_SESSION["estilo_reajustes"]==1){//si tiene reajustes
 	$estilo_reajustes1='';
@@ -401,7 +401,7 @@ if($edicion_datos_generales == "SI"){
 		?></td>
   </tr>
   <tr>
-    <td align="right"> Par T&eacute;cnico <img src="../imagenes/botones/help.gif" alt="Ac√° debe ingresar el nombre del profesional que apoyar√° la evaluaci√≥n t√©cnica del proceso, Este requisito aplica para los procesos que requieren aprobaci√≥n de comit√©." title="Ac√° debe ingresar el nombre del profesional que apoyar√° la evaluaci√≥n t√©cnica del proceso, Este requisito aplica para los procesos que requieren aprobaci√≥n de comit√©." width="20" height="20" /></td>
+    <td align="right"> Par T&eacute;cnico <img src="../imagenes/botones/help.gif" alt="Ac· debe ingresar el nombre del profesional que apoyar· la evaluaciÛn tÈcnica del proceso, Este requisito aplica para los procesos que requieren aprobaciÛn de comitÈ." title="Ac· debe ingresar el nombre del profesional que apoyar· la evaluaciÛn tÈcnica del proceso, Este requisito aplica para los procesos que requieren aprobaciÛn de comitÈ." width="20" height="20" /></td>
     <td colspan="2"><? if($edicion_datos_generales == "SI") {?>
       <input type="text" name="partecnico_bus_us" id="partecnico_bus_us" onkeypress="selecciona_lista()" value="<?=$nombre_par_tecnico?>"/>
       <? }else{
@@ -409,7 +409,7 @@ if($edicion_datos_generales == "SI"){
 			} ?></td>
   </tr>
   <tr>
-    <td align="right">Gerente de Contrato <img src="../imagenes/botones/help.gif" alt="Ac√° debe ingresar el nombre del profesional que administrar√° el contrato." title="Ac√° debe ingresar el nombre del profesional que administrar√° el contrato." width="20" height="20" /></td>
+    <td align="right">Gerente de Contrato <img src="../imagenes/botones/help.gif" alt="Ac· debe ingresar el nombre del profesional que administrar· el contrato." title="Ac· debe ingresar el nombre del profesional que administrar· el contrato." width="20" height="20" /></td>
     <td colspan="2"><? if($edicion_datos_generales == "SI") {?>
       <input type="text" name="gerente_contrato_bus_us" id="gerente_contrato_bus_us" onkeypress="selecciona_lista()" value="<?=$nombre_ger_contrato?>"/>
       <? }else{
@@ -611,7 +611,7 @@ if($edicion_datos_generales == "SI"){
       <input type="hidden" name="como_valida" id="como_valida" value="<?=$tiene[2]?>">
       <input type="hidden" name="tipo_remmbolsable_reajuste" id="tipo_remmbolsable_reajuste" value="<?=$tiene[2]?>">
   <?
-    if($tiene[2] == 1){//SI APLICA REEMBOLSABLE MUESTRA LA OPCCI√ìN PARA ESCOGER COMO AGRUPAR LA SOLICITUD
+    if($tiene[2] == 1){//SI APLICA REEMBOLSABLE MUESTRA LA OPCCI”N PARA ESCOGER COMO AGRUPAR LA SOLICITUD
   ?>
     <tr>
       <td align="right">Como Aplica Reembolsable:</td>
@@ -633,7 +633,7 @@ if($edicion_datos_generales == "SI"){
       <td align="right">&nbsp;</td>
     </tr>
   <?
-    }//SI APLICA REEMBOLSABLE MUESTRA LA OPCCI√ìN PARA ESCOGER COMO AGRUPAR LA SOLICITUD
+    }//SI APLICA REEMBOLSABLE MUESTRA LA OPCCI”N PARA ESCOGER COMO AGRUPAR LA SOLICITUD
     if(($sel_item[6] == 6 or $sel_item[6] == 15)  /*and $tiene_rol_profesional == "SI"*/){
     
   ?>
@@ -896,7 +896,7 @@ if($edicion_datos_generales == "SI"){
   </tr>
   <tr>
     <td align="right"><?
-    /*if($sel_item[4] <> 1){ //ESTAS LIEAS SE COMENTAREAN PORQUE EL ALCANCE YA EST√Å HABILITAQDO TAMB√çEN PARA BIENSE
+    /*if($sel_item[4] <> 1){ //ESTAS LIEAS SE COMENTAREAN PORQUE EL ALCANCE YA EST¡ HABILITAQDO TAMBÕEN PARA BIENSE
 		
 		echo "Si esta Adjudicaci&oacute;n Hace Parte de Otro Proceso, Relacionelo Aqu&iacute;";
 	}else{
@@ -935,7 +935,7 @@ if($edicion_datos_generales == "SI"){
          if($sel_textos_adjudicacion[3] != "" and $sel_textos_adjudicacion[3] != " " and $sel_textos_adjudicacion[3] != "   "){
          ?>
   <tr>
-    <td align="right">Justificaci&oacute;n Comercial <img src="../imagenes/botones/help.gif" alt="Indica el porqu√© se realiza la solicitud y porqu√© sugiere el Tipo de Proceso solicitado. Principal campo de consulta." title="Indica el porqu√© se realiza la solicitud y porqu√© sugiere el Tipo de Proceso solicitado. Principal campo de consulta." width="20" height="20" /></td>
+    <td align="right">Justificaci&oacute;n Comercial <img src="../imagenes/botones/help.gif" alt="Indica el porquÈ se realiza la solicitud y porquÈ sugiere el Tipo de Proceso solicitado. Principal campo de consulta." title="Indica el porquÈ se realiza la solicitud y porquÈ sugiere el Tipo de Proceso solicitado. Principal campo de consulta." width="20" height="20" /></td>
     <td colspan="2" class="linea_campo_sol"><?
 			echo $sel_textos_adjudicacion[3];
 			

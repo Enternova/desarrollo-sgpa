@@ -390,7 +390,7 @@ if($id_tipo_proceso_pecc == 3){
   <td>
   
   <? if($edicion_datos_generales_pecc == "SI"){ ?>
-  <select name="origen_pecc" id="origen_pecc" onchange="activa_linea_pecc(this.value)">
+  <select name="origen_pecc" id="origen_pecc" onchange="activa_linea_pecc_info_gen(this.value, '<?=$sel_item[0]?>')">
   <!-- <option value="">Seleccione el origen de PECC</option> -->
     <option value="1" <? if($sel_item[56] == 1) echo 'selected="selected"';?>>Ninguno</option>
      <?=solo_anos_actual($sel_item[56])?>
@@ -434,6 +434,7 @@ if($sel_item[71] > 0){//si se modifico el PECC
     <td>
     
 <? if($edicion_datos_generales_pecc == "SI"){ ?>
+       <div id="carga_lista_lineaspecc">
         <select name="linea_pecc" id="linea_pecc" onchange="carga_detalle_subcategoria(this.value, '<?=$sel_item[0]?>')">
       <option value="0">Seleccione</option>
      
@@ -447,6 +448,7 @@ if($sel_item[71] > 0){//si se modifico el PECC
 		  ?>
           
       </select>
+      </div>
    
     <?
 }else{

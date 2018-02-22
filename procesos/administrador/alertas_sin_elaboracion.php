@@ -151,7 +151,7 @@ $sel_aprobadores_de_firmas = traer_fila_row(query_db("select id_item_pecc,id_rol
 				if($sel_aprobadores_de_firmas[0] > 0){
 					$es_encargado = "SI";
 
-					if(permite_firmar_proceso_de_bienes($sel_item[0]) == "SI" or $sel_item[16]==16){//si es diferente a servicios o si es servicios menores
+					if(permite_firmar_proceso_de_bienes($sel_item[0]) == "SI"){//si es diferente a servicios o si es servicios menores
 					
 					
 			$sel_si_comite = traer_fila_row(query_db("select count(*) from t2_agl_secuencia_solicitud where id_item_pecc = ".$sel_item[0]." and id_rol = 10 and tipo_adj_permiso = ".$permiso_asdj." and estado = 1"));

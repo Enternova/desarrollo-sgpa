@@ -1104,7 +1104,7 @@ if($busca_provee_sin_email[0]>=1)
 					
 					$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 					$confirma_envio= envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);
-					//registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+					registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
 				//alertas_bitacora(8,$id_proceso,$lp[0],"",0);
 
 					$graba_correo_pro.="<li>".$lp[4]."</li>";
@@ -1115,7 +1115,7 @@ if($busca_provee_sin_email[0]>=1)
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
-						//registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
 						
@@ -1144,7 +1144,7 @@ if($busca_provee_sin_email[0]>=1)
 		$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 		while($destinatario = traer_fila_row($busca_dueno)){
 			$confirma_envio=envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
-			//registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,1,0);
+			registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,1,0);
 			
 			}
 		
@@ -2522,30 +2522,43 @@ if($accion=="crea_pregunta_general_admin")
 					alertas_bitacora(2,$id_invitacion,$lp[0],"Nueva notificación",0);
 			
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
-			//echo $lp[4]."<br>".$mensaje_envio;
+			
 			
 			$confirma_envio=envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);		
-			//registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
-			
-			}
-			
-			/****envio de correo a los contactos*/
-			
-				$busca_provee = query_db("select $t30.email_contacto, $t8.razon_social, $t8.email  from $t30,$t8 where
-					$t30.pro1_id =  $id_invitacion and  $t8.pv_id = $t30.pv_id $complemto_p");
-		
-				while($lp = traer_fila_row($busca_provee)){
-			
-					$id_subastas_arrglo_usuario = str_replace("---proveedor---",$lp[2], $id_subastas_arrglo);
-					$id_subastas_arrglo_usuario = str_replace('---usuario---', $lp[4], $id_subastas_arrglo_usuario);
+			registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
 					
-			
-			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
-			$confirma_envio=envia_correos($lp[0],$asunto,$mensaje_envio,$cabesa);		
-			//registro_email_enviado_nuevo($id_invitacion, $lp[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
+					
+					/****envio de correo a los contactos - real verificada*/
+					$graba_correo_pro.="<li>".$lp[4]."</li>";
+					$graba_correo_pro2.=$lp[4].", ";
+						
+					$busca_provee_contactos = query_db("select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion and pv_id =$lp[0]");
+						
+						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
+						
+						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
+						registro_email_enviado_nuevo($id_invitacion, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$lp[0]);
+						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
+						$graba_correo_pro2.=$lp_contactos[0].", ";
+						
+						}//contactos
+					
+					/****envio de correo a los contactos - real verificada*/
+					
+					auditor(27,$id_invitacion,$lp[2]." | Se envio email de ".listas_sin_select($tp1,$sql_e[1],1).", e-mail notificados: ".$graba_correo_pro2, "");
+					
+					
+						
 			
 			}
-			/****envio de correo a los contactos*/
+			
+			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
+								while($destinatario = traer_fila_row($busca_dueno)){
+								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
+								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,4,0);
+								//echo $destinatario[0];
+
+								}
 			
 		
 		?>
@@ -2836,7 +2849,7 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 					
 					$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 					$confirma_envio=envia_correos($lp[4],$asunto_arrglo,$mensaje_envio,$cabesa);
-					//registro_email_enviado_nuevo($id_invitacion_pasa, $lp[4], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
+					registro_email_enviado_nuevo($id_invitacion_pasa, $lp[4], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
 					//alertas_bitacora(8,$id_proceso,$lp[0],"",0);
 					
 					$sql_ex_no_ad = "insert into $t46 (pro1_id, pro27_id, pv_id, tipo_adj_no_adj, us_id, fecha_envio, notificado, observacion_admin) 
@@ -2849,9 +2862,8 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 					$busca_provee_contactos = query_db("select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion_pasa and pv_id =$lp[0]");
 						
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
-						
 						 $confirma_envio=envia_correos($lp_contactos[0],$asunto_arrglo,$mensaje_envio,$cabesa);
-						 //registro_email_enviado_nuevo($id_invitacion_pasa, $lp_contactos[0], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
+						 registro_email_enviado_nuevo($id_invitacion_pasa, $lp_contactos[0], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
 						
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
@@ -2876,8 +2888,9 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 			
 			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 				while($destinatario = traer_fila_row($busca_dueno)){
-				envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
-				echo $destinatario[0];
+				$confirma_envio=envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
+				registro_email_enviado_nuevo($id_invitacion_pasa, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,8,0);
+				//echo $destinatario[0];
 			
 			}
 			
@@ -3070,7 +3083,7 @@ if($accion=="crea_pregunta_aclaracion_final")
 			
 			$confirma_envio = envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);	
 			
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 				
 			
 /****envio de correo a los contactos*/
@@ -3086,7 +3099,7 @@ if($accion=="crea_pregunta_aclaracion_final")
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 			
 			$confirma_envio = envia_correos($lis_contactos[0],$asunto,$mensaje_envio,$cabesa);	
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 			
 				}
 	
@@ -3097,6 +3110,17 @@ if($accion=="crea_pregunta_aclaracion_final")
 
 
 		}// busca proveedor for
+		
+		
+			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
+								while($destinatario = traer_fila_row($busca_dueno)){
+								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
+								registro_email_enviado_nuevo($id_invitacion_ar, $destinatario[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+								
+
+								}
+			
+		
 		?>
       <script>
       	window.parent.muestra_alerta_iformativa_solo_texto('', 'Mensaje', 'La aclaración se envio con éxito', 20, 10, 18);

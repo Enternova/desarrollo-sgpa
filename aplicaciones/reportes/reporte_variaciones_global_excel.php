@@ -31,6 +31,74 @@ if($explode_tp_rafica[0]==1){//grafica por area
 		$filtro_aplica_reporte =$_SESSION["comple_filtro_exepcion"]." and t6_tarifas_estados_contratos_id = 6 and t1_area_id= ".$sel_area[0];
 	}
 	
+	if($explode_tp_rafica[1]=="ESTADISTICADETARIFAS"){
+		
+		$filtro_aplica_reporte =$_SESSION["comple_filtro_exepcion"]."";
+		
+		if($explode_tp_rafica[2]=="TarifasContractuales"){
+			$filtro_aplica_reporte.=" and tipo_tarifa_original = 1 ";
+				if($explode_tp_rafica[3]=="1"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Total de Tarifas Contractuales</span>";
+					$filtro_aplica_reporte.="  and tipo_creacion_modifica =1";
+				}
+				if($explode_tp_rafica[3]=="2"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Usadas</span>";
+					$filtro_aplica_reporte.=" and tarifa_usada > 0";
+				}		
+				if($explode_tp_rafica[3]=="3"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Modificadas por IPC</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =4";
+				}
+				if($explode_tp_rafica[3]=="4"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Modificadas por IPC Usadas</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =4 and tarifa_usada > 0";
+				}
+				if($explode_tp_rafica[3]=="5"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Modificadas Otros</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =2";
+				}
+				if($explode_tp_rafica[3]=="6"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Contractuales Modificadas Otros Usadas</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =2 and tarifa_usada > 0";
+				}
+		}
+		
+		if($explode_tp_rafica[2]=="TarifasNuevas"){
+				$filtro_aplica_reporte.=" and tipo_tarifa_original = 3";
+				if($explode_tp_rafica[3]=="1"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Total de Tarifas Nuevas</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =3 ";
+				}
+				if($explode_tp_rafica[3]=="2"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Usadas</span>";
+					$filtro_aplica_reporte.=" and tarifa_usada > 0";
+				}
+				if($explode_tp_rafica[3]=="3"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Modificadas por IPC</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =4";
+				}
+				if($explode_tp_rafica[3]=="4"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Modificadas por IPC Usadas</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =4 and tarifa_usada > 0";
+				}
+				if($explode_tp_rafica[3]=="5"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Modificadas Otros</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =2";
+				}
+				if($explode_tp_rafica[3]=="6"){
+					$titulo_filtro_muestra.="<br /><span style='font-size:14pt'>&nbsp;&#9679;Tarifas Nuevas Modificadas Otros Usadas</span>";
+					$filtro_aplica_reporte.=" and tipo_creacion_modifica =2 and tarifa_usada > 0";
+				}
+		
+		}
+		
+		$titulo_nombre_grafica = "Estad&iacute;stica de Tarifas";
+		
+		$sel_area = traer_fila_row(query_db("select t1_area_id from t1_area where replace(nombre, ' ', '')  like '%".trim(utf8_decode($explode_tp_rafica[2]))."%' and estado=1"));
+		
+	}
+	
+	
 	
 }
 	?>
