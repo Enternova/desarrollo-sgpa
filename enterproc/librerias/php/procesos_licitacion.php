@@ -3115,7 +3115,7 @@ if($accion=="crea_pregunta_aclaracion_final")
 			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 								while($destinatario = traer_fila_row($busca_dueno)){
 								$confirma_envio=envia_correos($destinatario[0],$asunto,$mensaje_envio,$cabesa);
-								registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $mensaje_envio,$confirma_envio,1,5,0);
+								registro_email_enviado_nuevo($id_invitacion_ar, $destinatario[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 								
 
 								}
