@@ -2522,30 +2522,34 @@ if($accion=="crea_pregunta_general_admin")
 					alertas_bitacora(2,$id_invitacion,$lp[0],"Nueva notificación",0);
 			
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
-			//echo $lp[4]."<br>".$mensaje_envio;
+			
 			
 			$confirma_envio=envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);		
-			//registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
-			
-			}
-			
-			/****envio de correo a los contactos*/
-			
-				$busca_provee = query_db("select $t30.email_contacto, $t8.razon_social, $t8.email  from $t30,$t8 where
-					$t30.pro1_id =  $id_invitacion and  $t8.pv_id = $t30.pv_id $complemto_p");
-		
-				while($lp = traer_fila_row($busca_provee)){
-			
-					$id_subastas_arrglo_usuario = str_replace("---proveedor---",$lp[2], $id_subastas_arrglo);
-					$id_subastas_arrglo_usuario = str_replace('---usuario---', $lp[4], $id_subastas_arrglo_usuario);
+			registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
 					
-			
-			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
-			$confirma_envio=envia_correos($lp[0],$asunto,$mensaje_envio,$cabesa);		
-			//registro_email_enviado_nuevo($id_invitacion, $lp[0], $asunto, $mensaje_envio,$confirma_envio,1,4,$id_p_archivo."|".$lp[0]);
+					
+					/****envio de correo a los contactos - real verificada*/
+					$graba_correo_pro.="<li>".$lp[4]."</li>";
+					$graba_correo_pro2.=$lp[4].", ";
+						echo "select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion and pv_id =$lp[0]";
+					$busca_provee_contactos = query_db("select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion and pv_id =$lp[0]");
+						
+						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
+						
+						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
+						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
+						$graba_correo_pro2.=$lp_contactos[0].", ";
+						
+						}//contactos
+					
+					/****envio de correo a los contactos - real verificada*/
+					
+					auditor(27,$id_invitacion,$lp[2]." | Se envio email de ".listas_sin_select($tp1,$sql_e[1],1).", e-mail notificados: ".$graba_correo_pro2, "");
 			
 			}
-			/****envio de correo a los contactos*/
+			
+			
 			
 		
 		?>
