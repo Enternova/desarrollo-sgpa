@@ -43,10 +43,14 @@ $nombre_from_phpmiler = "Bogota, Abastecimiento";
 	}
 
 
+function valida_email_envio_correo_limpia_php($email){
+	$email = str_replace(" ","", $email);
+	return $email;
+}
 
 function envio_correos_php($asunto_msn,$correo_destino,$cuerpo,$ruta_ar,$nombre_archi){
 
-	echo "Destino funciotn PHP: ".$correo_destino." Asunto: ".$correo_destino."<br>Cuerpo: ".$cuerpo;
+	//echo "Destino funciotn PHP: ".$correo_destino." Asunto: ".$correo_destino."<br>Cuerpo: ".$cuerpo;
 $correo_autentica_phpmailer = "abastecimiento@hcl.com.co";
 $contrasena_autentica_phpmailer = "Colombia02";
 $servidor_phpmailer ="octans.hocol.com.co";
@@ -69,7 +73,7 @@ $nombre_from_phpmiler = "Bogota, Abastecimiento";
 		$mail->Subject = $asunto_msn;
 		
 
-			$mail->AddAddress($correo_destino,$nombre);
+			$mail->AddAddress(valida_email_envio_correo_limpia_php($correo_destino),$nombre);
 			$mail->AddBCC("sgpa-notificaciones@enternova.net","SGPA Informaciones");
 			//echo $correo_destino."proveedoruno<br>";
 	
@@ -78,7 +82,8 @@ $nombre_from_phpmiler = "Bogota, Abastecimiento";
 		$mail->Body = $cuerpo;
 		$mail->AltBody = "SGPA Informaciones";
 		$confirma_envio = $mail->Send();	
-	echo "Confirmacion de Envio".$confirma_envio;
+	echo "<br />SE ENVIA EMAIL A LOS CORREOS ELECTRONICOS: -".valida_email_envio_correo_limpia_php($destino)."-<br />".$cuerpo."<br /><br />";
+	//echo "Confirmacion de Envio".$confirma_envio;
 	    $mail->clearAddresses();
    		$mail->clearAttachments();	
 	return $confirma_envio."<br><br>";
