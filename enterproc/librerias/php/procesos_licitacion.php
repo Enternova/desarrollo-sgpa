@@ -1104,7 +1104,7 @@ if($busca_provee_sin_email[0]>=1)
 					
 					$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 					$confirma_envio= envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);
-					//registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+					registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
 				//alertas_bitacora(8,$id_proceso,$lp[0],"",0);
 
 					$graba_correo_pro.="<li>".$lp[4]."</li>";
@@ -1115,7 +1115,7 @@ if($busca_provee_sin_email[0]>=1)
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
-						//registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
+						registro_email_enviado_nuevo($id_proceso, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,1,$lp[0]);
 						$graba_correo_pro.="<li>".$lp_contactos[0]."</li>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
 						
@@ -2849,7 +2849,6 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 					$busca_provee_contactos = query_db("select distinct email, contacto from v_relacion_contactos_procesos where pro1_id = $id_invitacion_pasa and pv_id =$lp[0]");
 						
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
-						
 						 $confirma_envio=envia_correos($lp_contactos[0],$asunto_arrglo,$mensaje_envio,$cabesa);
 						 registro_email_enviado_nuevo($id_invitacion_pasa, $lp_contactos[0], $asunto_arrglo, $mensaje_envio,$confirma_envio,1,8,$lp[0]);
 						
@@ -2876,8 +2875,9 @@ $duplica_documentos = mysql_query("select * from $t6 where pro1_id = $id_invitac
 			
 			$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33],$sql_e[44])");
 				while($destinatario = traer_fila_row($busca_dueno)){
-				envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
-				echo $destinatario[0];
+				$confirma_envio=envia_correos($destinatario[0],$asunto,$id_subastas_arrglo,$cabesa);
+				registro_email_enviado_nuevo($id_invitacion_pasa, $destinatario[0], $asunto, $id_subastas_arrglo,$confirma_envio,1,8,$lp[0]);
+				//echo $destinatario[0];
 			
 			}
 			
