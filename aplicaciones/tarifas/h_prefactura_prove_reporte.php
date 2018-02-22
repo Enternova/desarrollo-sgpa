@@ -83,6 +83,12 @@ if($con_tiquetes == 2){
 <body>
 <div id="carga_reporte">
 <table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td width="91%" class="titulos_secciones_tarifas">SECCION:<span class="titulos_resaltado_procesos_tarifas"> HISTORICO DE REEMBOLSABLES &gt;&gt; CONTRATO:
+       <?=numero_cotnrato_tarifas($id_contrato_arr);?>
+    </span></td>
+    <td width="9%" ><input type="button" name="button" class="boton_volver"  id="button" value="Volver al contrato" onclick="ajax_carga('../aplicaciones/tarifas/v_contratos.php?id_contrato=<?=arreglo_pasa_variables($id_contrato);?>','carga_acciones_permitidas')" /></td>
+  </tr>
   <tr class="titulos_secciones">
     <td class="titulos_secciones">SECCION: Reporte de Tiquetes de Servicio en Firme, generados por los proveedores</td>
   </tr>
@@ -162,20 +168,20 @@ if($con_tiquetes == 2){
   <tr>
     <td colspan="14" class="columna_titulo_resultados"><table width="100%" border="0" cellspacing="2" cellpadding="2" class="tabla_paginador">
       <tr>
-        <td width="3%">P&aacute;gina</td>
-        <td width="9%"><select name="pagina" id="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">
-          <? 
+        <td width="78%"><div align="left">Registros encontrados: <?=$sql_cuenta[0];?></div></td>
+        <td width="7%"><div align="center"><a href="javascript:busqueda_paginador_nuevo(<?=$anterior;?>,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">Anterior</a></div></td>
+        <td width="8%"><label>
+          <select name="pagina" id="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">
+            <? 
 		  for($i=1;$i<=$lista_pagina;$i++){
 		   ?>
-          <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
-            <?=$i;?>
-            </option>
-          <? } ?>
-        </select></td>
-        <td width="14%"><span class="letra-descuentos">Total de Tiquetes de Servicio:
-            <?=$sql_cuenta[0];?>
-        </span></td>
-        <td width="74%">&nbsp;</td>
+            <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
+              <?=$i;?>
+              </option>
+            <? } ?>
+          </select>
+        </label></td>
+        <td width="7%"><a href="javascript:busqueda_paginador_nuevo(<?=$proxima;?>,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">Siguiente</a></td>
       </tr>
     </table></td>
   </tr>
@@ -188,11 +194,11 @@ if($con_tiquetes == 2){
     <td width="8%" align="center" class="columna_subtitulo_resultados"><div align="center">Creaci&oacute;n Tiquete</div></td>
     <td width="6%" align="center" class="columna_subtitulo_resultados">Inicio Servicio</td>
     <td width="6%" align="center" class="columna_subtitulo_resultados">Fin Servicio</td>
-    <td width="6%" align="center" class="columna_subtitulo_resultados">Moneda</td>
-    <td width="8%" align="center" class="columna_subtitulo_resultados">Valor</td>
+    <td width="9%" align="center" class="columna_subtitulo_resultados">Valor COP</td>
+    <td width="9%" align="center" class="columna_subtitulo_resultados">Valor USD</td>
     <td width="8%" align="center" class="columna_subtitulo_resultados">Descuento</td>
-    <td width="8%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor Total</div></td>
-    <td width="13%" align="center" class="columna_subtitulo_resultados">Municipio</td>
+    <td width="8%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor Total COP</div></td>
+    <td width="8%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor Total USD</div></td>
     <td width="13%" align="center" class="columna_subtitulo_resultados"><div align="center">Proyecto</div></td>
   </tr>
   
@@ -237,20 +243,33 @@ $sql_q=query_db($select_proyect);
 			else
 								$version = "";
 
-		
+			$suma_ti_cop=0;
+			$suma_ti_usd=0;
+			$suma_ti_sin_descuento_cop = 0;
+			$suma_ti_sin_descuento_usd = 0;
 			$busca_valores = query_db("select cantidad, valor, t1_moneda_id from v_tarifas_reporte_tiqute_detalle where t6_tarifas_proveedor_prefactura_id = $ls_mr[0]");
 			while($l_valores = traer_fila_row($busca_valores)){//valores prefactura
-					$valor_tarifa=($l_valores[0]*$l_valores[1]);
-					$suma_ti+=$valor_tarifa;
+					if($l_valores[2]==1){//si es cop
+						$valor_tarifa=($l_valores[0]*$l_valores[1]);
+						$suma_ti_cop+=$valor_tarifa;
+					}elseif($l_valores[2]==2){//si es usd
+						$valor_tarifa=($l_valores[0]*$l_valores[1]);
+						$suma_ti_usd+=$valor_tarifa;
+					}
 					$modeda_tiquete=$l_valores[2];
 				
 				}//valores prefactura
 
 			$busca_descuento = traer_fila_row(query_db("select * from $t21ta where t6_tarifas_proveedor_prefactura_id = $ls_mr[0]"));
 
-			$suma_ti_sin_descuento = $suma_ti;
-			
-			$suma_ti = ($suma_ti-$busca_descuento[2]);
+			$suma_ti_sin_descuento_cop = $suma_ti_cop;
+			$suma_ti_sin_descuento_usd = $suma_ti_usd;
+			if($suma_ti_cop>0){
+				$suma_ti_cop = ($suma_ti_cop-$busca_descuento[2]);
+			}
+			if($suma_ti_usd>0){
+				$suma_ti_usd = ($suma_ti_usd-$busca_descuento[2]);
+			}
 			
 
 			
@@ -276,9 +295,10 @@ $aiu_u_p=$busca_aiu[7];
 			 
 			 if($aiu_a==1) $op_a= "+";
 			 if($aiu_a==2) $op_a= "-";
-			 
-			 $porcentaje_a = ($suma_ti*$aiu_a_p)/100; 
-			 $total_admini = $op_a.$porcentaje_a;
+			 $porcentaje_a_cop = ($suma_ti_cop*$aiu_a_p)/100;
+			 $porcentaje_a_usd = ($suma_ti_usd*$aiu_a_p)/100;
+			 $total_admini_cop = $op_a.$porcentaje_a_cop;
+			 $total_admini_usd = $op_a.$porcentaje_a_usd;
 		 }
 	
 	 if( ($aiu_i==1) || ($aiu_i==2) ) {
@@ -286,23 +306,30 @@ $aiu_u_p=$busca_aiu[7];
 			 if($aiu_i==1) $op_i= "+";
 			 if($aiu_i==2) $op_i= "-";
 			 
-			 $porcentaje_i = ($suma_ti*$aiu_i_p)/100; 
-			 $total_impr = $op_i.$porcentaje_i;
+			 $porcentaje_i_cop = ($suma_ti_cop*$aiu_i_p)/100; 
+			 $total_impr_cop = $op_i.$porcentaje_i_cop;
+			 $porcentaje_i_usd = ($suma_ti_usd*$aiu_i_p)/100; 
+			 $total_impr_usd = $op_i.$porcentaje_i_usd;
 	 }
 	 
  if( ($aiu_u==1) || ($aiu_u==2) ) {
 			 
 			 if($aiu_u==1) $op_u= "+";
 			 if($aiu_u==2) $op_u= "-";
+			 $porcentaje_u_cop = ($suma_ti_cop*$aiu_u_p)/100; 
+			 $total_utilidad_cop = $op_u.$porcentaje_u_cop;
 			 
-			 $porcentaje_u = ($suma_ti*$aiu_u_p)/100; 
-			 $total_utilidad = $op_u.$porcentaje_u;
+			 $porcentaje_u_usd = ($suma_ti_usd*$aiu_u_p)/100; 
+			 $total_utilidad_usd = $op_u.$porcentaje_u_usd;
 			 
  }
 		
-		$suma_ti = ($suma_ti+	$total_admini+	$total_impr+	$total_utilidad);	
+		$suma_ti_cop = ($suma_ti_cop+	$total_admini_cop+	$total_impr_cop+	$total_utilidad_cop);
+		$suma_ti_usd = ($suma_ti_usd+	$total_admini_usd+	$total_impr_usd+	$total_utilidad_usd);	
+
 		
-		$suma_ti_sin_descuento = ($suma_ti_sin_descuento+	$total_admini+	$total_impr+	$total_utilidad);	
+		$suma_ti_sin_descuento_cop=($suma_ti_sin_descuento_cop+	$total_admini_cop+	$total_impr_cop+	$total_utilidad_cop);
+		$suma_ti_sin_descuento_usd=($suma_ti_sin_descuento_usd+	$total_admini_usd+	$total_impr_usd+	$total_utilidad_usd);
 		
 		$suma_total+=$suma_ti;
 
@@ -327,11 +354,11 @@ $fecha_cre= explode("-",$ls_mr[2]);
     <td ><?=$ls_mr[2];?></td>
     <td ><?=$ls_mr[14];?></td>
     <td ><?=$ls_mr[15];?></td>
-    <td align="right" ><?=$monde_tiquete_arr;?></td>
-    <td align="right" ><?=decimales_estandar($suma_ti_sin_descuento,2);?></td>
-    <td align="right" ><?=decimales_estandar($busca_descuento[2],0);?></td>
-    <td align="right" ><div align="right"><?=decimales_estandar($suma_ti,2);?></div></td>
-    <td><?=$ex_municipio[2];?></td>
+	<td align="right" ><?=number_format($suma_ti_sin_descuento_cop,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></td>
+    <td align="right" ><?=number_format($suma_ti_sin_descuento_usd,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></td>
+    <td align="right" ><?=number_format($busca_descuento[2],$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></td>
+    <td style="<?=$stilo_excel;?>"  ><div align="center"><?=number_format($suma_ti_cop,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></div></td>
+    <td style="<?=$stilo_excel;?>"  ><div align="center"><?=number_format($suma_ti_usd,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></div></td>
     <td><div align="center"><?=$lista_proyectos;?></div></td>
   </tr>
   
