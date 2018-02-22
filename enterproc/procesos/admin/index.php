@@ -775,8 +775,8 @@ function cambia_fecha_srev(i)
 </form>
 <?
 
-$tam=0;
-if($_SESSION["id_us_session"]==18131){
+$tam=800;
+if($_SESSION["id_us_session"]==32){
 	$tam=800;
 	}
 
