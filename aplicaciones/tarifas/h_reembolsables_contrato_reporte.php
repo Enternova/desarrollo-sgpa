@@ -45,8 +45,8 @@ if($b_tiquete!="")
 	
 /*ERREGLO PAGINADOR*/
 	
-	$factor_b_c = 30;
-	$factor_b = 30;
+	$factor_b_c = 50;
+	$factor_b = 50;
 	if($pagina<=1){//si no tiene pagina seleccionada
 		$inicio = 0;
 		
@@ -57,7 +57,7 @@ if($b_tiquete!="")
 		$factor_b =( $factor_b * ($pagina-1)) + $factor_b;
 		}
 
- 	 $sql_cuenta2 = "select count(*) from $v_t_11 where tarifas_contrato_id =  $id_contrato_arr  and estado = 1";
+ 	 $sql_cuenta2 = "select  count(*) from   $v_t_11 where tarifas_contrato_id =  $id_contrato_arr and estado = 1";
 	 $sql_cuenta=traer_fila_row(query_db($sql_cuenta2));
 	 $lista_pagina = ceil( ( $sql_cuenta[0] / $factor_b_c ) );
 	
@@ -113,7 +113,8 @@ if($b_tiquete!="")
     <td width="19%" align="center" class="columna_subtitulo_resultados">Gerente</td>
     <td width="22%" align="center" class="columna_subtitulo_resultados">Consecutivo reembolsables</td>
     <td width="18%" align="center" class="columna_subtitulo_resultados"><div align="center">Fecha de creaci&oacute;n</div></td>
-    <td width="19%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor</div></td>
+    <td width="19%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor COP</div></td>
+    <td width="19%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor USD</div></td>
     <td width="10%" align="center" class="columna_subtitulo_resultados">%_admin</td>
   </tr>
   
@@ -143,22 +144,35 @@ where rownum > $inicio and rownum <= $factor_b";
 
 
 		
+			$suma_ti_cop=0;
+			$suma_ti_usd=0;
 			$busca_valores = query_db("select us_id, valor, moneda from $ta25 where t6_tarifas_reembolables_datos_id = $ls_mr[0]");
 			while($l_valores = traer_fila_row($busca_valores)){//valores prefactura
+				if($l_valores[2]==1){//si es cop
 					$valor_tarifa=($l_valores[1]);
-					$suma_ti+=$valor_tarifa;
-					$modeda_tiquete=$l_valores[2];
+					$suma_ti_cop+=$valor_tarifa;
+				}elseif($l_valores[2]==2){//si es usd
+					$valor_tarifa=($l_valores[1]);
+					$suma_ti_usd+=$valor_tarifa;
+				}
+
+				$modeda_tiquete=$l_valores[2];
 				
-				}//valores prefactura
+			}//valores prefactura
 
 	$busca_item = "select porcentaje_administracion
 	from $v_t_11  where t6_tarifas_reembolables_datos_id =  $ls_mr[0] ";	  
 	$sql_ex_admin_ree = traer_fila_row(query_db($busca_item));
 
 
-			$arreglo_administracion =  ($suma_ti*$sql_ex_admin_ree[0]) / 100;
-			
-			$suma_ti = ($suma_ti+$arreglo_administracion);
+			if($suma_ti_cop>0){
+				$arreglo_administracion =  ($suma_ti_cop*$sql_ex_admin_ree[0]) / 100;
+				$suma_ti_cop = ($suma_ti_cop+$arreglo_administracion);
+			}
+			if($suma_ti_usd>0){
+				$arreglo_administracion =  ($suma_ti_usd*$sql_ex_admin_ree[0]) / 100;
+				$suma_ti_usd = ($suma_ti_usd+$arreglo_administracion);
+			}
 			 if($modeda_tiquete==1)
 			 		$monde_tiquete_arr="COP";
 			 if($modeda_tiquete==2)
@@ -184,23 +198,25 @@ $fecha_cre= explode("-",$ls_mr[2]);
     <td ><?=$ls_mr[10];?></td>
     <td >R-<?=$ls_mr[5];?>-<?=$fecha_cre[0];?> <?=$version;?></td>
     <td ><?=$ls_mr[2];?></td>
-    <td ><div align="center"><?=$monde_tiquete_arr;?> <?=decimales_estandar($suma_ti,2);?></div></td>
+    <td ><div align="center"><?=decimales_estandar($suma_ti_cop,2);?></div></td>
+    <td ><div align="center"><?=decimales_estandar($suma_ti_usd,2);?></div></td>
     <td ><?
-    	if($busca_descuneto_im[1]=="-1")
+    	if($sql_ex_admin_ree[0]=="-1")
 			$valor_admin = "No Aplica";
 		else
-			$valor_admin = $busca_descuneto_im[1]."%";
+			$valor_admin = $sql_ex_admin_ree[0]."%";
 			
 			echo $valor_admin;
 	?></td>
   </tr>
   
   <? $num_fila++;
-  $suma_ti=0;
+  $suma_ti_cop=0;
+  $suma_ti_usd=0;
   } ?>
   
   <tr>
-    <td colspan="6" class="columna_titulo_resultados">&nbsp;</td>
+    <td colspan="7" class="columna_titulo_resultados">&nbsp;</td>
   </tr>
 </table>
 <table width="100%" border="0">

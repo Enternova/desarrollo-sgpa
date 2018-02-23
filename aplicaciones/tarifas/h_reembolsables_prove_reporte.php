@@ -147,7 +147,7 @@ if($con_reembolsa == 2){
 <br />
 <table width="100%" border="0" cellpadding="2" cellspacing="2" class="tabla_lista_resultados">
   <tr>
-    <td colspan="8" class="columna_titulo_resultados"><table width="100%" border="0" cellspacing="2" cellpadding="2" class="tabla_paginador">
+    <td colspan="9" class="columna_titulo_resultados"><table width="100%" border="0" cellspacing="2" cellpadding="2" class="tabla_paginador">
       <tr>
         <td width="3%">P&aacute;gina</td>
         <td width="9%"><label>
@@ -175,16 +175,15 @@ if($con_reembolsa == 2){
     <td width="18%" align="center" class="columna_subtitulo_resultados">Gerente</td>
     <td width="8%" align="center" class="columna_subtitulo_resultados">Consecutivo reembolsables</td>
     <td width="11%" align="center" class="columna_subtitulo_resultados"><div align="center">Fecha de creaci&oacute;n</div></td>
-    <td width="11%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor</div></td>
+    <td width="11%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor COP</div></td>
+    <td width="11%" align="center" class="columna_subtitulo_resultados"><div align="center">Valor USD</div></td>
     <td width="10%" align="center" class="columna_subtitulo_resultados">%_admin</td>
   </tr>
   
 <?  $busca_item = "select * from (
 select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, estado,  municipo, consecutivo, editado, numero_ediciones, consecutivo_contreto,razon_social,nombre_administrador, ROW_NUMBER() OVER(ORDER BY t6_tarifas_reembolables_datos_id desc) AS rownum from $v_t_11 where  $complemento_busqueda   ) as sub
-where rownum > $inicio and rownum <= $factor_b order by consecutivo desc";	  
-//echo $busca_item;
-
-
+where rownum > $inicio and rownum <= $factor_b order by consecutivo desc";
+	
 
 	$sql_ex = query_db($busca_item);
 	while($ls_mr=traer_fila_row($sql_ex)){
@@ -193,7 +192,8 @@ where rownum > $inicio and rownum <= $factor_b order by consecutivo desc";
 	elseif($ls_mr[3]==2) $estado="temporal";
 	elseif($ls_mr[3]==1) $estado="En firme";	
 
-	$busca_descuneto_im = traer_fila_row(query_db("select t6_tarifas_reembosables1_contrato_id, porcentaje_administracion, nombre_administrador, fecha_creacion, estado from $v_t_9 where t6_tarifas_contratos_id = $ls_mr[1]  order by fecha_creacion desc"));
+	
+		$busca_descuneto_im = traer_fila_row(query_db("select t6_tarifas_reembosables1_contrato_id, porcentaje_administracion, nombre_administrador, fecha_creacion, estado from $v_t_9 where t6_tarifas_contratos_id = $ls_mr[1]  order by fecha_creacion desc"));
 
 	if($ls_mr[7]>=1)
 				$version = " V".$ls_mr[7];
@@ -204,25 +204,34 @@ where rownum > $inicio and rownum <= $factor_b order by consecutivo desc";
                             $class="filas_resultados";
                         else
                             $class="";
-
-
-		
+			$suma_ti_cop=0;
+			$suma_ti_usd=0;
 			$busca_valores = query_db("select us_id, valor, moneda from $ta25 where t6_tarifas_reembolables_datos_id = $ls_mr[0]");
 			while($l_valores = traer_fila_row($busca_valores)){//valores prefactura
+				if($l_valores[2]==1){//si es cop
 					$valor_tarifa=($l_valores[1]);
-					$suma_ti+=$valor_tarifa;
-					$modeda_tiquete=$l_valores[2];
-				
-				}//valores prefactura
+					$suma_ti_cop+=$valor_tarifa;
+				}elseif($l_valores[2]==2){//si es usd
+					$valor_tarifa=($l_valores[1]);
+					$suma_ti_usd+=$valor_tarifa;
+				}
+
+				$modeda_tiquete=$l_valores[2];
+
+			}//valores prefactura
 
 	$busca_item = "select porcentaje_administracion
 	from $v_t_11  where t6_tarifas_reembolables_datos_id =  $ls_mr[0] ";	  
 	$sql_ex_admin_ree = traer_fila_row(query_db($busca_item));
 
-
-			$arreglo_administracion =  ($suma_ti*$sql_ex_admin_ree[0]) / 100;
-			
-			$suma_ti = ($suma_ti+$arreglo_administracion);
+			if($suma_ti_cop>0){
+				$arreglo_administracion =  ($suma_ti_cop*$sql_ex_admin_ree[0]) / 100;
+				$suma_ti_cop = ($suma_ti_cop+$arreglo_administracion);
+			}
+			if($suma_ti_usd>0){
+				$arreglo_administracion =  ($suma_ti_usd*$sql_ex_admin_ree[0]) / 100;
+				$suma_ti_usd = ($suma_ti_usd+$arreglo_administracion);
+			}
 			 if($modeda_tiquete==1)
 			 		$monde_tiquete_arr="COP";
 			 if($modeda_tiquete==2)
@@ -254,14 +263,15 @@ $fecha_cre= explode("-",$ls_mr[2]);
     <td ><?=$ls_mr[10];?></td>
     <td >R-<?=$ls_mr[5];?>-<?=$fecha_cre[0];?> <?=$version;?></td>
     <td ><?=$ls_mr[2];?></td>
-    <td ><div align="center"><?=$monde_tiquete_arr;?> <?=decimales_estandar($suma_ti,2);?></div></td>
+	<td><div align="center"><?=decimales_estandar($suma_ti_cop,2)?></div></td>
+    <td ><div align="center"><?=decimales_estandar($suma_ti_usd,2)?></div></td>
     <td >
     
     <?
-    	if($busca_descuneto_im[1]=="-1")
+    	if($sql_ex_admin_ree[0]=="-1")
 			$valor_admin = "No Aplica";
 		else
-			$valor_admin = $busca_descuneto_im[1]."%";
+			$valor_admin = $sql_ex_admin_ree[0]."%";
 			
 			echo $valor_admin;
 	?>
@@ -269,11 +279,12 @@ $fecha_cre= explode("-",$ls_mr[2]);
   </tr>
   
   <? $num_fila++;
-  $suma_ti=0;
+  $suma_ti_cop=0;
+  $suma_ti_usd=0;
   } ?>
   
   <tr>
-    <td colspan="8" class="columna_titulo_resultados">&nbsp;</td>
+    <td colspan="9" class="columna_titulo_resultados">&nbsp;</td>
   </tr>
 </table>
 <table width="100%" border="0">

@@ -25,7 +25,7 @@ include("../../librerias/php/funciones_lista.php");
 	$busca_reembolsables = "select * from t6_tarifas_reembosables1_contrato where t6_tarifas_contratos_id = ".$sql_con[0]. " and estado = 1";
 	$busca_ree = traer_fila_row(query_db($busca_reembolsables));
 	
-	  echo $busca_item = "select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, estado, fecha_ini, fecha_fin, municipo, municipo ,porcentaje_administracion,consecutivo,tipo_contrato,orden_trabajo
+	   $busca_item = "select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, estado, fecha_ini, fecha_fin, municipo, municipo ,porcentaje_administracion,consecutivo,tipo_contrato,orden_trabajo
 	from $v_t_11  where tarifas_contrato_id =  $id_contrato_arr ";	  
 	$sql_ex = traer_fila_row(query_db($busca_item));
 
@@ -93,15 +93,21 @@ include("../../librerias/php/funciones_lista.php");
 
   	$busca_lista_ree = "select * from v_tarifas_reembolsables_excel_todos where tarifas_contrato_id = $id_contrato_arr and estado_datos = 1 order by t6_tarifas_reembolables_datos_id ";
 	$sql_ree = query_db($busca_lista_ree);
+	$total_con_porcentaje=0;
 	while($l_ree=traer_fila_row($sql_ree)){//lista reembola
 
 	$busca_lista_ree_proyecto = "select distinct t6_tarifas_municipios_proyectos_id, proyecto  from v_tarifas_reemblosables_detalle where t6_tarifas_reembolables_datos_id = $l_ree[1] and
 	 t6_tarifas_reembolables_datos_detalle_id = $l_ree[0]";
 	$sql_ree_poyecto = traer_fila_row(query_db($busca_lista_ree_proyecto));
-	
-	
+		$busca_item22 = "select porcentaje_administracion
+		from $v_t_11  where t6_tarifas_reembolables_datos_id =  $l_ree[1] ";	  
+		$porcentaje_retencion = traer_fila_row(query_db($busca_item22));
 		$total+= ($l_ree[5]*1);
-	
+		if($porcentaje_retencion[0]!=-1 and $porcentaje_retencion[0]!="" and $porcentaje_retencion[0]!=" "){
+			$total_con_porcentaje= $total_con_porcentaje+($l_ree[5]*$porcentaje_retencion[0]);
+		}else{
+			$total_con_porcentaje= $total_con_porcentaje+($l_ree[5]);
+		}
 
 
 		$valor_unido_cop=0;
@@ -142,11 +148,11 @@ include("../../librerias/php/funciones_lista.php");
 	elseif($l_ree[16]==2) $estado="temporal";
 	elseif($l_ree[16]==1) $estado="En firme";
 	if($valor_unido_cop>0){
-		$porcentaje=($valor_unido_cop*$sql_ex[8]) / 100;
+		$porcentaje=($valor_unido_cop*$porcentaje_retencion[0]) / 100;
 		$valor_unido_cop=$valor_unido_cop+$porcentaje;
 	}
 	if($valor_unido_usd>0){
-		$porcentaje=($valor_unido_usd*$sql_ex[8]) / 100;
+		$porcentaje=($valor_unido_usd*$porcentaje_retencion[0]) / 100;
 		$valor_unido_usd=$valor_unido_usd+$porcentaje;
 	}
 	?>
@@ -163,7 +169,7 @@ include("../../librerias/php/funciones_lista.php");
     <td width="5%" align="center" ><div align="center"><?=$l_ree[8];?></div></td>
     <td width="5%" align="right" style="<?=$stilo_excel;?>" ><div align="right"><?=number_format($valor_unido_cop,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></div></td>
     <td width="5%" align="right" style="<?=$stilo_excel;?>" ><div align="right"><?=number_format($valor_unido_usd,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></div></td>
-    <td width="5%" align="right" style="<?=$stilo_excel;?>" ><div align="right">%<?=$sql_ex[8];?></div></td>
+    <td width="5%" align="right" style="<?=$stilo_excel;?>" ><div align="right">%<?=$porcentaje_retencion[0];?></div></td>
 
 											</tr>
 
@@ -195,7 +201,7 @@ include("../../librerias/php/funciones_lista.php");
 
 	?>
           <? 
-		$valor_admin = ($total*$sql_ex[8])/100;
+		$valor_admin = ($total_con_porcentaje)/100;
 		$valor_unido_5=0;
 		$valor_arr_5 = explode(".",$valor_admin);
 		$unidades_5 =$valor_arr_5[0];
@@ -214,7 +220,7 @@ include("../../librerias/php/funciones_lista.php");
         <?=$valor_unido_4;?></span></td>
     </tr -->
           <? 
-		$valor_admin = ($total*$sql_ex[8])/100;
+		$valor_admin = ($total_con_porcentaje)/100;
 		$valor_unido_5=0;
 		$valor_arr_5 = explode(".",$valor_admin);
 		$unidades_5 =$valor_arr_5[0];

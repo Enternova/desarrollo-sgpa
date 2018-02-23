@@ -65,7 +65,7 @@ $busca_contrato = "select * from $v_t_1 where tarifas_contrato_id = $id_contrato
     <td width="13%" align="center" class="columna_subtitulo_resultados">%_admin</td>
   </tr>
  <?
- $busca_item = " select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, estado,  municipo, consecutivo, editado, numero_ediciones, consecutivo_contreto,razon_social,nombre_administrador from $v_t_11 where tarifas_contrato_id =  $id_contrato_arr  and estado = 1 ORDER BY t6_tarifas_reembolables_datos_id desc";
+ $busca_item = " select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, estado,  municipo, consecutivo, editado, numero_ediciones, consecutivo_contreto,razon_social,nombre_administrador, porcentaje_administracion from $v_t_11 where tarifas_contrato_id =  $id_contrato_arr  and estado = 1 ORDER BY t6_tarifas_reembolables_datos_id desc";
 
 	$sql_ex = query_db($busca_item);
 	while($ls_mr=traer_fila_row($sql_ex)){
@@ -143,7 +143,7 @@ $fecha_cre= explode("-",$ls_mr[2]);
     <td  style="<?=$stilo_excel;?>"><div align="right"><?=number_format($suma_ti_usd,$cantidad_decimales,$formato_numeros_miles,$formato_numeros_decimales);?></div></td>
     
     <td >%
-    <?=$busca_descuneto_im[1];?></td>
+    <?=$sql_ex_admin_ree[0];?></td>
   </tr>
   
   <? $num_fila++; 

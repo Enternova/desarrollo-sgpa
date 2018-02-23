@@ -189,7 +189,7 @@ select t6_tarifas_reembolables_datos_id, tarifas_contrato_id, fecha_creacion, es
     <td ><?=$ls_mr[2];?></td>
     <td ><div align="center"><?=number_format($suma_ti_cop,2);?></div></td>
     <td ><div align="center"><?=number_format($suma_ti_usd,2);?></div></td>
-    <td >% <?=$busca_descuneto_im[1];?></td>
+    <td >% <?=$sql_ex_admin_ree[0];?></td>
   </tr>
   
   <? $num_fila++;
