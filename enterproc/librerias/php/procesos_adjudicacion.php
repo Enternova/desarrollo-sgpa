@@ -699,10 +699,10 @@ if($_POST["accion"]=="canfirma_notificacion")
 					echo "<br><br> 3. Envio a: ".$busca_provee_lp[2];
 					//if($id_invitacion != 5328){
 						//Envia email al correo principal del proveedor
-					if($id_invitacion!=6062){
+					//if($id_invitacion!=6062){
 						$confirma_envio= envio_correos_php($asunto_2,$busca_provee_lp[2],$id_subastas_arrglo_usuario);
-					}else{$confirma_envio="1";
-						 }
+					//}else{$confirma_envio="1";
+						// }
 					//}
 					registro_email_enviado_nuevo($id_invitacion, $busca_provee_lp[2], $asunto_2, $id_subastas_arrglo_usuario,$confirma_envio,1,6,$busca_provee_lp[0]);
 					auditor(46,$id_invitacion,$busca_provee_lp[1]." Proveedor adjudicado ", "");
@@ -714,10 +714,10 @@ if($_POST["accion"]=="canfirma_notificacion")
 							echo "<br><br> 4. Envio a: ".$lp_contactos[0];
 							//if($id_invitacion != 5328){
 								//envia Email a los contactos del proveedor
-							if($id_invitacion!=6062){
+						//	if($id_invitacion!=6062){
 							$confirma_envio=envio_correos_php($asunto_2,$lp_contactos[0],$id_subastas_arrglo_usuario);	
-								}else{$confirma_envio="1";
-						 }
+						//		}else{$confirma_envio="1";
+						 //}
 							//}
 							registro_email_enviado_nuevo($id_invitacion, $lp_contactos[0], $asunto_2, $id_subastas_arrglo_usuario,$confirma_envio,1,6,$busca_provee_lp[0]);
 						
@@ -808,10 +808,10 @@ $proveedor_no_ad="";
 					$id_subastas_arrglo_usuario = str_replace("---proveedor---",$lp[1], $id_subastas_arrglo);
 					$id_subastas_arrglo_usuario = str_replace('---usuario---', $lp[2], $id_subastas_arrglo_usuario);				
 					
-						if($id_invitacion!=6062){
+						//if($id_invitacion!=6062){
 					$confirma_envio=envio_correos_php($asunto_2,$lp[2],$id_subastas_arrglo_usuario);
-					}else{$confirma_envio="1";
-						 }
+					//}else{$confirma_envio="1";
+						// }
 					registro_email_enviado_nuevo($id_invitacion, $lp[2], $asunto_2, $id_subastas_arrglo_usuario,$confirma_envio,1,7,$lp[0]);
 					auditor(47,$id_invitacion,$busca_provee_lp[1]." Proveedor NO adjudicado ", "");
 				
@@ -871,10 +871,10 @@ $asunto_hocol = "ADJUDICACION O NO ADJUDICACION DEL PROCESO ".$datos_invita[22];
 
 $busca_provee = query_db("select email from us_usuarios where us_id in ('".$datos_invita[16]."', 19207, '".$datos_invita[33]."')");//19207 es vedeliveth
 				while($lp = traer_fila_row($busca_provee)){
-						if($id_invitacion!=6062){
+						//if($id_invitacion!=6062){
 				    $confirma_envio=envio_correos_php($asunto_hocol,$lp[0],$cuerpo_mensaje_hocol);
-							}else{$confirma_envio="1";
-						 }
+							//}else{$confirma_envio="1";
+						// }
 					registro_email_enviado_nuevo($id_invitacion, $lp[0], $asunto_hocol, $cuerpo_mensaje_hocol,$confirma_envio,1,7,$lp[0]);
 					
 				}

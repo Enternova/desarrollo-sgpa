@@ -394,7 +394,7 @@ if($id_proceso!=""){
                 <td><select name="respo_juridico" id="respo_juridico">
       <? 
 					if($_SESSION["pv_principal"] != 150)
-						$traer_tecnicos_compras = " tipo_usuario <> 2 and tipo_usuario <> 10 and estado = 1 and  us_id IN (3, 4, 9, 18131, 20452, 21572, 21893, 21919, 22100, 22269, 22273, 22890, 24320)  ";
+						$traer_tecnicos_compras = " pv_principal =100 and estado = 1  ";
 					elseif($_SESSION["pv_principal"] == 150)
 						$traer_tecnicos_compras = " pv_principal = 150 ";
 						
@@ -459,13 +459,7 @@ if($id_proceso!=""){
   <tr>
     <td width="250"><div align="right">Persona de Contacto:</div></td>
     <td><div align="left">
-  <? 
-					if($_SESSION["pv_principal"] != 150)
-						$traer_tecnicos_compras = " tipo_usuario <> 2 and tipo_usuario <> 10 and us_id <> 597 and estado =1  ";
-					elseif($_SESSION["pv_principal"] == 150)
-						$traer_tecnicos_compras = " pv_principal = 150 ";
-						
-					?>
+  
                     
       <select name="k" id="k">
         <?=listas_mayus($t1, $traer_tecnicos_compras ,$busca_contacto,'nombre_administrador', 1);?>
