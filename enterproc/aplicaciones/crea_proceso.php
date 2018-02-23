@@ -460,7 +460,12 @@ if($id_proceso!=""){
     <td width="250"><div align="right">Persona de Contacto:</div></td>
     <td><div align="left">
   
-                    
+                 <?
+		if($_SESSION["pv_principal"] != 150)
+						$traer_tecnicos_compras = " pv_principal =100 and estado = 1  ";
+					elseif($_SESSION["pv_principal"] == 150)
+						$traer_tecnicos_compras = " pv_principal = 150 ";
+		?>   
       <select name="k" id="k">
         <?=listas_mayus($t1, $traer_tecnicos_compras ,$busca_contacto,'nombre_administrador', 1);?>
       </select>
