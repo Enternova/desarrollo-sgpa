@@ -304,11 +304,23 @@ if($cuenta_arr>=2)
 		$var2=0;
 		
 		}
+	
+	if(is_numeric($var1)) {
+		$var1=$var1;
+	}else{
+		$var1=0;
+	}
+	
+	if(is_numeric($var2)) {
+		$var2=$var2;
+	}else{
+		$var2=0;
+	}
 		
 
- $inserta_data = "insert into pro34_registro_correos (us_id, fecha_envio, pro1_id, id_primario_otros_email, id_secundario_otros_email,
+ echo $inserta_data = "insert into pro34_registro_correos (us_id, fecha_envio, pro1_id, id_primario_otros_email, id_secundario_otros_email,
  email_envio, asunto_envio, texto_envio, enviado,tipo_envio,tp17_id) values (
-".$_SESSION["id_us_session"].",'$fecha $hora', $pro1_id, $var1,$var2,'$email','$asunto_envio','$texto_envio','$enviado',$tipo,$modulo) ";
+".$_SESSION["id_us_session"].",'$fecha $hora', $pro1_id, '$var1','$var2','$email','$asunto_envio','$texto_envio','$enviado',$tipo,$modulo) ";
 
 $in_mail = query_db($inserta_data);
 

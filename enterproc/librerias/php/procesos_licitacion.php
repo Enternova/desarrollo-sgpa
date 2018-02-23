@@ -2430,7 +2430,7 @@ echo "insert into  $t16 (pro7_id,tipo_preg_respuesta ,us_id ,pv_id ,fecha_foro ,
 			
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 			$confirma_envio= envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);	
-			//registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,3,$id_p_archivo."|".$lp[0]);	
+			registro_email_enviado_nuevo($id_invitacion, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,3,$id_p_archivo."|".$lp[0]);	
 			
 			}
 			
@@ -2447,7 +2447,7 @@ echo "insert into  $t16 (pro7_id,tipo_preg_respuesta ,us_id ,pv_id ,fecha_foro ,
 			
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 			$confirma_envio = envia_correos($lp[0],$asunto,$mensaje_envio,$cabesa);	
-			//registro_email_enviado_nuevo($id_invitacion, $lp[0], $asunto, $mensaje_envio,$confirma_envio,1,3,$id_p_archivo."|".$lp[0]);	
+			registro_email_enviado_nuevo($id_invitacion, $lp[0], $asunto, $mensaje_envio,$confirma_envio,1,3,$id_p_archivo."|".$lp[0]);	
 			
 			}
 			/****envio de correo a los contactos*/
@@ -3172,7 +3172,7 @@ if($accion=="modifica_fecha_limite_final")
 			
 			$confirma_envio = envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);	
 			
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lp[4], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 				
 			
 /****envio de correo a los contactos*/
@@ -3188,7 +3188,7 @@ if($accion=="modifica_fecha_limite_final")
 			$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 			
 			$confirma_envio = envia_correos($lis_contactos[0],$asunto,$mensaje_envio,$cabesa);	
-			//registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
+			registro_email_enviado_nuevo($id_invitacion_ar, $lis_contactos[0], "Solicitud de aclaración final", $mensaje_envio,$confirma_envio,1,5,$id_p_archivo."|".$lp[0]);
 			
 				}
 	
@@ -3405,7 +3405,7 @@ if($_POST["accion"]=="poner_firme_evaluacion_tecnica"){
 		$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33], $sql_e[44],17)");
 		while($destinatario = traer_fila_row($busca_dueno)){
 			$confirma_envio=envia_correos($destinatario[0],$asunto,$cuerpo_confirmacion_envio,$cabesa);
-			//registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,15,0);
+			registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,15,0);
 			
 			}
 			auditor(56,$id_invitacion,"", "");
@@ -3483,7 +3483,7 @@ if($_POST["accion"]=="devolver_poner_firme_evaluacion_tecnica"){
 		$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_busca_encargado_tecnico[0])");
 		while($destinatario = traer_fila_row($busca_dueno)){
 			$confirma_envio=envia_correos($destinatario[0],$asunto,$cuerpo_confirmacion_envio,$cabesa);
-			//registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,17,0);
+			registro_email_enviado_nuevo($id_invitacion, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,17,0);
 			
 			}
 
@@ -3567,7 +3567,7 @@ echo $_POST["accion"];
 					
 					$mensaje_envio = $id_subastas_arrglo_usuario."<br>";
 					$confirma_envio= envia_correos($lp[4],$asunto,$mensaje_envio,$cabesa);
-					//registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,14,$lp[0]);
+					registro_email_enviado_nuevo($id_proceso, $lp[4], $asunto, $mensaje_envio,$confirma_envio,1,14,$lp[0]);
 				//alertas_bitacora(8,$id_proceso,$lp[0],"",0);
 
 					
@@ -3579,7 +3579,7 @@ echo $_POST["accion"];
 						while($lp_contactos = traer_fila_row($busca_provee_contactos)){// contactos
 						
 						$confirma_envio= envia_correos($lp_contactos[0],$asunto,$mensaje_envio,$cabesa);
-						//registro_email_enviado_nuevo($id_invitacion, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,14,$lp[0]);
+						registro_email_enviado_nuevo($id_invitacion, $lp_contactos[0], $asunto, $mensaje_envio,$confirma_envio,1,14,$lp[0]);
 						$graba_correo_pro.=$lp_contactos[0]."</br>";
 						$graba_correo_pro2.=$lp_contactos[0].", ";
 						
@@ -3604,7 +3604,7 @@ echo $_POST["accion"];
 		$busca_dueno=query_db("select distinct email  from us_usuarios where us_id  in ($sql_e[15], $sql_e[33], $sql_e[44],17)");
 		while($destinatario = traer_fila_row($busca_dueno)){
 			$confirma_envio=envia_correos($destinatario[0],$asunto,$cuerpo_confirmacion_envio,$cabesa);
-			//registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,15,0);
+			registro_email_enviado_nuevo($id_proceso, $destinatario[0], $asunto, $cuerpo_confirmacion_envio, $confirma_envio,1,15,0);
 			
 			}
 
