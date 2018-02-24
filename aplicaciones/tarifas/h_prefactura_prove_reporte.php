@@ -84,9 +84,7 @@ if($con_tiquetes == 2){
 <div id="carga_reporte">
 <table width="100%" border="0" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="91%" class="titulos_secciones_tarifas">SECCION:<span class="titulos_resaltado_procesos_tarifas"> HISTORICO DE REEMBOLSABLES &gt;&gt; CONTRATO:
-       <?=numero_cotnrato_tarifas($id_contrato_arr);?>
-    </span></td>
+    <td width="91%" class="titulos_secciones_tarifas">&nbsp;</td>
     <td width="9%" ><input type="button" name="button" class="boton_volver"  id="button" value="Volver al contrato" onclick="ajax_carga('../aplicaciones/tarifas/v_contratos.php?id_contrato=<?=arreglo_pasa_variables($id_contrato);?>','carga_acciones_permitidas')" /></td>
   </tr>
   <tr class="titulos_secciones">
@@ -168,20 +166,19 @@ if($con_tiquetes == 2){
   <tr>
     <td colspan="14" class="columna_titulo_resultados"><table width="100%" border="0" cellspacing="2" cellpadding="2" class="tabla_paginador">
       <tr>
-        <td width="78%"><div align="left">Registros encontrados: <?=$sql_cuenta[0];?></div></td>
-        <td width="7%"><div align="center"><a href="javascript:busqueda_paginador_nuevo(<?=$anterior;?>,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">Anterior</a></div></td>
-        <td width="8%"><label>
-          <select name="pagina" id="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">
-            <? 
+        <td width="3%">P&aacute;gina</td>
+        <td width="9%"><select name="pagina" id="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">
+          <? 
 		  for($i=1;$i<=$lista_pagina;$i++){
 		   ?>
-            <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
-              <?=$i;?>
-              </option>
-            <? } ?>
-          </select>
-        </label></td>
-        <td width="7%"><a href="javascript:busqueda_paginador_nuevo(<?=$proxima;?>,'../aplicaciones/tarifas/h_prefactura_prove_reporte.php','contenidos')">Siguiente</a></td>
+          <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
+            <?=$i;?>
+            </option>
+          <? } ?>
+        </select></td>
+        <td><span class="letra-descuentos">Total de Tiquetes de Servicio:
+          <?=$sql_cuenta[0];?>
+        </span></td>
       </tr>
     </table></td>
   </tr>

@@ -175,7 +175,7 @@ if($id_proceso!=""){
   if(($sql_e[2]==30 or $sql_e[2]=="") and $jeision=="Esto no esta cirbiendo por eso toco inhabilitarl, tampoco entiendo para que manda un area 999") {
   ?>
   <tr>
-    <td ><div align="right"><strong>??rea Usuaria:</strong></div></td>
+    <td ><div align="right"><strong>&oacute;rea Usuaria:</strong></div></td>
     <td><div align="left">
       <select name="id_tipo_proceso" id="id_tipo_proceso">
         <option selected="selected" value="0">Seleccione</option>

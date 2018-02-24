@@ -141,7 +141,11 @@ $hora_log = date("G:i:s");
 				$monto_usd=valida_numero_imp($id_gerente_antiguo[1]);
 				$fecha_inicio=$id_gerente_antiguo[3];
 				$fecha_fin=$id_gerente_antiguo[6];
+				if( $tipo_id==1){
+					$id_gerente=$lista_contrato[9];
+				}else{
 				$id_gerente=$id_gerente_antiguo[0];
+				}
 				$numero_modificacion=$id_gerente_antiguo[4];
 				$objeto_modificacion=$id_gerente_antiguo[5];
 				if($fecha_inicio=="" or $fecha_inicio==null){

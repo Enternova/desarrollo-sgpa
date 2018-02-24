@@ -608,8 +608,12 @@ if($sel_p_sist[0] == 46){//SI ES EL ROL GERENTE de item 2
 	
 	/* FIN validacion si despues de configurar las firmas incluso con los reemplazos el solicitante queda en alguna instancia de aprobacion*/
 	
+	/*valida si es de prosidencia*/
+	
+	$sel_rol_presidente = traer_fila_row(query_db("select count(*) from t2_agl_secuencia_solicitud where  id_item_pecc = ".$sel_item[0]." and id_rol in (48)"));
+	
 	/*Valida si es una reclasificacion cambia al Viceprecidente por Andres Montoya.*/
-	if($sel_item[6] == 12 and ($sel_item[2]==522 or $sel_item[2]==525 or $sel_item[2]==528 or $sel_item[2]==531) ){//si es reclasificacion y va para comite, se sabe por el ANs que toma
+	if($sel_item[6] == 12 and ($sel_item[2]==522 or $sel_item[2]==525 or $sel_item[2]==528 or $sel_item[2]==531 or $sel_rol_presidente[0]>=1) ){//si es reclasificacion y va para comite, se sabe por el ANs que toma
 	$id_vp_finanzas = 17935;
 
 	$sel_rol_vicepresidente_director = query_db("update t2_agl_secuencia_solicitud set id_rol = 20, orden = 15 where  id_item_pecc = ".$sel_item[0]." and id_rol in (43,20,48)");			

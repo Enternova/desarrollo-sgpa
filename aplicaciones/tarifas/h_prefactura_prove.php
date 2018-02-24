@@ -57,20 +57,19 @@ $busca_contrato = "select * from $v_t_1 where tarifas_contrato_id = $id_contrato
   <tr>
     <td colspan="12" class="columna_titulo_resultados"><table width="100%" border="0" cellspacing="2" cellpadding="2" class="tabla_paginador">
       <tr>
-        <td width="78%"><div align="left">Tiquetes encontrados: <?=$sql_cuenta[0];?></div></td>
-        <td width="7%"><div align="center"><a href="javascript:busqueda_paginador_nuevo(<?=$anterior;?>,'../aplicaciones/tarifas/h_prefactura_prove.php','contenidos')">Anterior</a></div></td>
-        <td width="8%"><label>
-          <select name="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove.php','contenidos')">
-            <? 
+        <td width="4%"><div align="center">P&aacute;gina</div></td>
+        <td width="12%"><select name="pagina" onchange="javascript:busqueda_paginador_nuevo(this.value,'../aplicaciones/tarifas/h_prefactura_prove.php','contenidos')">
+          <? 
 		  for($i=1;$i<=$lista_pagina;$i++){
 		   ?>
-            <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
-              <?=$i;?>
-              </option>
-            <? } ?>
-          </select>
-        </label></td>
-        <td width="10%"><a href="javascript:busqueda_paginador_nuevo(<?=$proxima;?>,'../aplicaciones/tarifas/h_prefactura_prove.php','contenidos')">Siguiente</a></td>
+          <option value="<?=$i;?>"  <? if($i==$pagina) echo "selected"; ?>>Pagina
+            <?=$i;?>
+            </option>
+          <? } ?>
+        </select></td>
+        <td width="86%"><span class="letra-descuentos">Total de Tiquetes:
+          <?=$sql_cuenta[0];?>
+        </span></td>
       </tr>
     </table></td>
   </tr>
