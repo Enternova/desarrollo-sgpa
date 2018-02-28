@@ -128,7 +128,7 @@ if($sel_si_tiene_presu[0]<=0){
 					
 					}
 		}else{
-			if($sel_item[56] > 1 and $sel_item[72] == 2 and ($sel_item[6] != 1 and $sel_item[6] != 2) and $sel_item[69] != 1){//si es de pecc y no requiere aprobacion del nivel de aprobacion	
+			if($sel_item[56] > 1 and $sel_item[72] == 2 and ($sel_item[6] != 1 and $sel_item[6] != 2) and $sel_item[24] != 1){//si es de pecc y no requiere aprobacion del nivel de aprobacion	
 					$solicitud_pecc = "SI";						
 					$sel_estado_resultado_pecc = traer_fila_row(query_db("select t2.id from t1_estado_resultado_pecc t1, t2_nivel_servicio_actividades t2 where id_tipo_proceso = ".$sel_item[6]." and t1.id_actividad_resultado = t2.id"));
 						configuracion_de_firmas($id_item_pecc, 2,"PECC");
@@ -305,7 +305,9 @@ $sel_si_gernte_area = traer_fila_row(query_db("select count(*) from t2_agl_secue
 				}
 				}
 			
-			$sel_real_us_aprueba = traer_fila_row(query_db("select  id_secuencia_solicitud, id_item_pecc, id_rol, orden, nombre_administrador, rol, tipo_adj_permiso, id_usuario_aprobador, estado, us_id, id_usuario_original from $vpeec15 where id_item_pecc = ".$id_item_pecc." and id_rol = ".$sel_p_real[0]." and tipo_adj_permiso = 2 and estado = 1 and (us_id in (".$_SESSION["usuarios_con_reemplazo"].") or id_usuario_original in (".$_SESSION["usuarios_con_reemplazo"].")) and id_rol not in (8,15) order by nombre_administrador"));
+			/*del siguiente query se quito  del not in el rol 15, para que pueda firmar el solicitante en caso que no halla registrado la firma.*/
+			
+			$sel_real_us_aprueba = traer_fila_row(query_db("select  id_secuencia_solicitud, id_item_pecc, id_rol, orden, nombre_administrador, rol, tipo_adj_permiso, id_usuario_aprobador, estado, us_id, id_usuario_original from $vpeec15 where id_item_pecc = ".$id_item_pecc." and id_rol = ".$sel_p_real[0]." and tipo_adj_permiso = 2 and estado = 1 and (us_id in (".$_SESSION["usuarios_con_reemplazo"].") or id_usuario_original in (".$_SESSION["usuarios_con_reemplazo"].")) and id_rol not in (8) order by nombre_administrador"));
 				   	
 
 			
