@@ -708,6 +708,10 @@ if($sel_presu[13] == 6) echo "Aceptacion de Oferta Mercantil"; elseif($sel_presu
           <td align="center">2017</td>
           <td align="center"><?=number_format(trm_presupuestal(2017),0)?></td>
         </tr>
+        <tr>
+          <td align="center">2018</td>
+          <td align="center"><?=number_format(trm_presupuestal(2018),0)?></td>
+        </tr>
       </table></td>
     </tr>
     <tr>

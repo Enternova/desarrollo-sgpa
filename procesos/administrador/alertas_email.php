@@ -351,18 +351,22 @@ $sel_aprobadores_de_firmas = traer_fila_row(query_db("select id_item_pecc,id_rol
 		if($sel_item[9] == 34 ){
 			$sel_aprobaciones_cargue_manual = traer_fila_row(query_db("select id, us_aprueba1,aprobacion1, us_aprueba2,aprobacion2, us_aprueba3, aprobacion3 from t2_verificacion_modificacion_manual where id_item = ".$sel_item[0]." "));
 			if($sel_aprobaciones_cargue_manual[0]>0){//si el usuario esta en alguna de las firmas
-					if($sel_aprobaciones_cargue_manual[1]==$id_us_alerta and ($sel_aprobaciones_cargue_manual[2] == "" or $sel_aprobaciones_cargue_manual[2] == "0")){//si es el primer validador
+					if($sel_aprobaciones_cargue_manual[1]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[2] == "" or $sel_aprobaciones_cargue_manual[2] == "0")){//si es el primer validador
 					$es_encargado = "SI";
 					}
-					if($sel_aprobaciones_cargue_manual[3]==$id_us_alerta and ($sel_aprobaciones_cargue_manual[4] == "" or $sel_aprobaciones_cargue_manual[4] == "0") and ($sel_aprobaciones_cargue_manual[2] != "" and $sel_aprobaciones_cargue_manual[2] != "0")){//si es el segundo validador
+					if($sel_aprobaciones_cargue_manual[3]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[4] == "" or $sel_aprobaciones_cargue_manual[4] == "0") and ($sel_aprobaciones_cargue_manual[2] =="1")){//si es el segundo validador y el primero ya aprobo
 					$es_encargado = "SI";
 					}
-					if($sel_aprobaciones_cargue_manual[5]==$id_us_alerta and ($sel_aprobaciones_cargue_manual[6] == "" or $sel_aprobaciones_cargue_manual[6] == "0") and ($sel_aprobaciones_cargue_manual[2] != "" and $sel_aprobaciones_cargue_manual[2] != "0") and ($sel_aprobaciones_cargue_manual[4] != "" and $sel_aprobaciones_cargue_manual[4] != "0") ){//si es el tercero validador
+					if($sel_aprobaciones_cargue_manual[5]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[6] == "" or $sel_aprobaciones_cargue_manual[6] == "0") and ($sel_aprobaciones_cargue_manual[2] == "1" ) and ($sel_aprobaciones_cargue_manual[4] == "1") ){//si es el tercero validador y el primero y el segundo ya aprobaron
 					$es_encargado = "SI";
 					}
 				
 				}
-//			
+				if(($sel_aprobaciones_cargue_manual[2] == 2 or $sel_aprobaciones_cargue_manual[4] == 2 or $sel_aprobaciones_cargue_manual[6] == 2) and $id_us_alerta == 32 ){//agrega alerta de devoluviones de cargues manuales, para el admin del SGPA
+									
+					$inserta_datos = query_db("insert into alertas_email (id_proceso,destino,modulo,consecutivo,detalle,fecha_recibido,numero_modulo,id_us_alerta) values (".$sel_item[0].",'../aplicaciones/".$link_aplica_modulo.".php?id_item_pecc=".$sel_item[0]."&id_tipo_proceso_pecc=".$id_tipo_proceso_pecc."','".$modulo_aplica."','".$numero."','Sección: Validación de Cargue Manual. Tarea: Un usuario aprobador devolvió este cargue manual', '".$sel_item[4]."',2,'$id_us_alerta')");
+					}
+//			if()
 			}
 		
 				if($es_encargado == "SI"){
@@ -790,34 +794,29 @@ $conte_tex.= '<tr style="background:#DBFBDC">
 
 //Envio_email
 $correo_destino=$sel_us[4];
-//$correo_destino="abastecimiento@hcl.com.co";
 $asunto_msn="SGPA Notificaciones $fecha";
 $cuerpo =$conte_tex;
 echo $correo_destino;
 echo $cuerpo;
-$mail = new PHPMailer();
-$mail->IsSMTP(); 
-$mail->SMTPAuth = false; 
-$mail->SMTPSecure = "";
-$mail->Port       = 25; 
-$mail->Username = $correo_autentica_phpmailer; 
-$mail->Password = $contrasena_autentica_phpmailer; 
-$mail->Host = $servidor_phpmailer;
-$mail->From = $correo_from_phpmiler;
-$mail->FromName = $nombre_from_phpmiler;
+$mail2 = new PHPMailer();
+$mail2->IsSMTP(); 
+$mail2->SMTPAuth = false; 
+$mail2->SMTPSecure = "";
+$mail2->Port       = 25; 
+$mail2->Username = $correo_autentica_phpmailer; 
+$mail2->Password = $contrasena_autentica_phpmailer; 
+$mail2->Host = $servidor_phpmailer;
+$mail2->From = $correo_from_phpmiler;
+$mail2->FromName = $nombre_from_phpmiler;
 
 
-$mail->Subject = $asunto_msn;
-$mail->AddAddress($correo_destino,$nombre);
-//$mail->AddAddress("ferney.sterling@enternova.net","Nombre 02");
-//$mail->AddCC("ferney.sterling@enternova.net");
-$mail->AddBCC("sgpa-notificaciones@enternova.net");//copia oculta
-//$mail->AddBCC($correo_dvrnet2);//copia oculta
-//$mail->AddAttachment("images/foto.jpg", "foto.jpg");
-//$mail->AddAttachment("files/demo.zip", "demo.zip");
-$mail->Body = $cuerpo;
-$mail->AltBody = "SGPA Informaciones";
-$mail->Send();//JEISON comentariar para no enviar ningun email de prueba
+$mail2->Subject = $asunto_msn;
+//$mail2->AddAddress($correo_destino,$nombre);
+//$mail2->AddBCC("sgpa-notificaciones@enternova.net");//copia oculta
+$mail2->AddAddress("josef.fodor@enternova.net",$nombre);
+$mail2->Body = $cuerpo;
+$mail2->AltBody = "SGPA Informaciones";
+$mail2->Send();//JEISON comentariar para no enviar ningun email de prueba
 // FIN Envio_email
 
 
@@ -825,6 +824,16 @@ $mail->Send();//JEISON comentariar para no enviar ningun email de prueba
 
 	}
 }//for
+	
+	
+	
+	
+	if($_GET["frac_carga"] == 1){ 
+		
+		/*
+		https://abastecimiento.hocol.com.co/sgpa/procesos/administrador/alertas_email.php?frac_carga=1
+		*/
+	}
 ?>
 </body>
 </html>

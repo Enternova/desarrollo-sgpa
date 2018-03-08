@@ -1315,12 +1315,14 @@ if($_SESSION["id_us_session"]==18245 or $_SESSION["id_us_session"]==19401){
          <?
 		 
 	  }
+		if($_SESSION["id_us_session"]!=24516 and $_SESSION["id_us_session"] !=24515 )  {//temporal mientras se agrega a los roles
 	?>
 	  <tr>
     	<td width="17%" class="fondo_1" align="center">9</td>
     	<td width="83%" class="fondo_2" onClick="taer_menu('menu-desempeno.html','contenido_menu')">M&oacute;dulo DESEMPE&Ntilde;O</td>
       </tr>
 	  <?
+		}
 	  $sele_permiso_profesional = traer_fila_row(query_db("select count(*) from $v_seg1 where us_id in (".$_SESSION["usuarios_con_reemplazo"].") and id_premiso = 8"));
 	  
 	   if($sele_permiso_profesional[0]>0 or $_SESSION["id_us_session"] == "32"  or $_SESSION["id_us_session"] == "4" or $_SESSION["id_us_session"] == "7" or $_SESSION["id_us_session"] == "30"  or $_SESSION["id_us_session"] == "21107"  ){//si es profesional

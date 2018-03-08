@@ -686,7 +686,7 @@ if($edicion_datos_generales == "SI"){
 			echo listas($g13, " estado = 1 and t1_tipo_proceso_id not in (".$quita_pone_adjudica_directo."7,8,5)",$sel_item[6] ,'nombre', 1);
 				}else{
 				if($sel_item[85] == 'SI'){//si alguna vez a sido SM
-						echo listas($g13, " estado = 1 and t1_tipo_proceso_id in (2, 16, 6, 2, 5)",$sel_item[6] ,'nombre', 1);
+						echo listas($g13, " estado = 1 and t1_tipo_proceso_id in (2, 6, 2, 5)",$sel_item[6] ,'nombre', 1);
 						}else{
 							echo listas($g13, " estado = 1 and t1_tipo_proceso_id not in (".$quita_pone_adjudica_directo."7,8)",$sel_item[6] ,'nombre', 1);
 						}

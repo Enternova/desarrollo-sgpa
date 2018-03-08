@@ -543,7 +543,7 @@
 						
 //			$sele_items_historico_codigo = "select id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id, t1_tipo_contratacion_id, congelado,id_us_preparador from v_peec_historico where estado <> 33  $completar_filtros $comple_sql_histo $comple_sq_us group by id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id,t1_tipo_contratacion_id, congelado,id_us_preparador order by id_item desc";
 			
-			$sele_items_historico_codigo = "select * from ( select id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id, t1_tipo_contratacion_id, congelado,id_us_preparador,ROW_NUMBER()Over(order by id_item desc) As RowNum,solicitud_rechazada,solicitud_desierta, ob_solicitud_adjudica, fecha_creacion, es_modificacion,fecha_en_firme from v_peec_historico where estado <> 35  $completar_filtros $comple_sql_histo $comple_sq_us and t1_area_id > 0 group by id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id,t1_tipo_contratacion_id, congelado,id_us_preparador,solicitud_rechazada,solicitud_desierta, ob_solicitud_adjudica,  fecha_creacion, es_modificacion,fecha_en_firme ) as resultado_paginado WHERE RowNum BETWEEN $regis_inicial AND $regis_final";
+			$sele_items_historico_codigo = "select * from ( select id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id, t1_tipo_contratacion_id, congelado,id_us_preparador,ROW_NUMBER()Over(order by id_item desc) As RowNum,solicitud_rechazada,solicitud_desierta, ob_solicitud_adjudica, fecha_creacion, es_modificacion,fecha_en_firme, fue_sm from v_peec_historico where estado <> 35  $completar_filtros $comple_sql_histo $comple_sq_us and t1_area_id > 0 group by id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id,t1_tipo_contratacion_id, congelado,id_us_preparador,solicitud_rechazada,solicitud_desierta, ob_solicitud_adjudica,  fecha_creacion, es_modificacion,fecha_en_firme, fue_sm ) as resultado_paginado WHERE RowNum BETWEEN $regis_inicial AND $regis_final";
 
 if($_SESSION["id_us_session"]==32){
 	//echo $sele_items_historico_codigo;
@@ -672,7 +672,7 @@ if($sel_para_insert[8] == 15){
       <td><?=$numero_proceso?></td>
       <td align="center"><?=$fecha_puso_firme?></td>
       <td  align="center"><?=$fecha_requiere?></td>
-      <td><? if($sel_para_insert[22]==1){echo "Modificaci&oacute;n";}else {echo $nom_tipo_proceso;}?></td>
+      <td><? if($sel_para_insert[22]==1 and $sel_para_insert[24] != "SI" ){echo "Modificaci&oacute;n";}else {echo $nom_tipo_proceso;}?></td>
       <td><?=$contratos_relacionados?></td>
       <td><?=$nom_us_solicitante?></td>
       <td><? echo saca_nombre_lista($g1,$sel_para_insert[12],'nombre_administrador','us_id');?></td>

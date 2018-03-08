@@ -110,7 +110,7 @@ if($sel_si_tiene_presu[0]<=0){
 
 	if($sel_si_ya_se_creo[0] == 0 and ($edicion_datos_generales_permiso == "SI" or $_SESSION["id_us_session"] == 32)){
 		$sele_tipo_doc_desierto = traer_fila_row(query_db("select t2_item_pecc_id, razon_social, consecutivo, creacion_sistema, ano, nombre, valor_usd, valor_cop, adjunto, tipo_documento, t1_proveedor_id, t2_presupuesto_id, nit, t1_tipo_documento_id, id_contrato, vigencia_mes, t1_campo_id, apellido, Expr1, t1_proveedor_id_2, estado from $vpeec18 where t2_item_pecc_id ='".$id_item_pecc."'"));
-				$sel_secuencia_solicitud_si_tiene_firmar_permiso = query_db("select count(*) from t2_agl_secuencia_solicitud where id_item_pecc = ".$id_item_pecc." and tipo_adj_permiso = 1 and estado = 1 and por_sistema = 2");
+				$sel_secuencia_solicitud_si_tiene_firmar_permiso = traer_fila_row(query_db("select count(*) from t2_agl_secuencia_solicitud where id_item_pecc = ".$id_item_pecc." and tipo_adj_permiso = 1 and estado = 1 and por_sistema = 2"));
 
 		if($sele_tipo_doc_desierto[13]==4 and $sel_secuencia_solicitud_si_tiene_firmar_permiso[0]>0){//si es adjudicacion desierta trae las firmas del permiso
 			$dele_pro_sistem = query_db("delete from $pi14 where id_item_pecc =".$id_item_pecc." and tipo_adj_permiso = 2");

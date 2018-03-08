@@ -232,7 +232,7 @@ $busca_detalle = "select * from ( select   t6_tarifas_lista_id, tarifas_contrato
 		
 		if($lista_detalle[13]==3 and ($lista_detalle[22]==4 or $lista_detalle[22]==2)){
 		 $modificada = "NO";
-		 $sql_ap=" t6_tarifas_estados_tarifas_id in (1,4)";
+		 $sql_ap=" t6_tarifas_estados_tarifas_id in (1,4)";// lista de opciones para el gerente del contrato y Profesional de Abastecimineto
 			
 			
 			
@@ -252,7 +252,7 @@ $busca_detalle = "select * from ( select   t6_tarifas_lista_id, tarifas_contrato
 		 }
 		else{
 		$modificada = "SI";
-		$sql_ap=" t6_tarifas_estados_tarifas_id in (1,4,5)";
+		$sql_ap=" t6_tarifas_estados_tarifas_id in (1,4)";//lista de opciones para el jefe
 		}
 	
 			

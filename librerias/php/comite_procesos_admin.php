@@ -1058,7 +1058,19 @@ if($_POST["accion"]=="edita_comite_info_gen"){
 $id_comite = elimina_comillas(arreglo_recibe_variables($_POST["id_comite"]));
 /**** PARA EL INCIDENTE DE APERTURA SIN VALIDAR CONFLICTOS DE INTERÉS  ****/
 if($_POST["estado_comite_abre_cierra"]==3){//CUANDO SE ABRE A LOS ASISTENTES PARA LA APROBACIÓN
-    $query_falta_descarga_comflicto=traer_fila_row(query_db("SELECT count(*) FROM t3_comite_relacion_item WHERE id_comite=".$id_comite." and (descarga_archivo_conflicto != 1 or revisa_archivo_conflicto != 2)"));//revisa que todas las solicitudes tengan revisados los conflictos de interes.
+    
+	$query_falta_descarga_comflicto=traer_fila_row(query_db("SELECT count(*) FROM t3_comite_relacion_item WHERE id_comite=".$id_comite.""));//revisa que todas las solicitudes tengan revisados los conflictos de interes.
+    if($query_falta_descarga_comflicto[0] == 0){
+        ?>
+            <script>
+                window.parent.muestra_alerta_error_solo_texto('', 'Error', '<?=utf8_encode("* Debe relacionar por lo menos una solicitud antes de enviar el e-mail")?>', 40, 5, 12);
+                window.parent.ajax_carga('../aplicaciones/comite/edicion-comite.php?id_comite=<?= $id_comite ?>', 'contenidos');
+            </script>
+        <?
+        exit();
+    }
+	
+	$query_falta_descarga_comflicto=traer_fila_row(query_db("SELECT count(*) FROM t3_comite_relacion_item WHERE id_comite=".$id_comite." and (descarga_archivo_conflicto != 1 or revisa_archivo_conflicto != 2)"));//revisa que todas las solicitudes tengan revisados los conflictos de interes.
     if($query_falta_descarga_comflicto[0] >0){
         ?>
             <script>

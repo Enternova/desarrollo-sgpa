@@ -947,6 +947,10 @@ $trm_actual=trm_presupuestal($sel_item[17]);
           <td align="center">2017</td>
           <td align="center"><?=number_format(trm_presupuestal(2017),0)?></td>
         </tr>
+        <tr>
+          <td align="center">2018</td>
+          <td align="center"><?=number_format(trm_presupuestal(2018),0)?></td>
+        </tr>
       </table>
       <br />
 

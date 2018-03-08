@@ -4540,7 +4540,7 @@ $recoemndacion = elimina_comillas_2($_POST["recomendacion_ad_sm"]);
 $reajustes = elimina_comillas_2($_POST["reajuste"]);
 $antecedentes_permiso = elimina_comillas_2($_POST["antecedentes_texto"]);
 
-$sql_uoda = "update t2_item_pecc set t1_tipo_proceso_id =".$_POST["tipo_proceso"].", ob_solicitud_adjudica='".$objeto_solicitud."', ob_contrato_adjudica='".$objeto_orden_Servicio."', alcance_adjudica='".$alcance."', justificacion_adjudica='".$justificacion_comercial."', equipo_negociador='".$equipo_negociador."', recomendacion_adjudica='".$recoemndacion."', tiene_reajuste='".$reajustes."', antecedentes_permiso = '".$antecedentes_permiso."'
+$sql_uoda = "update t2_item_pecc set ob_solicitud_adjudica='".$objeto_solicitud."', ob_contrato_adjudica='".$objeto_orden_Servicio."', alcance_adjudica='".$alcance."', justificacion_adjudica='".$justificacion_comercial."', equipo_negociador='".$equipo_negociador."', recomendacion_adjudica='".$recoemndacion."', tiene_reajuste='".$reajustes."', antecedentes_permiso = '".$antecedentes_permiso."'
  where id_item =".$id_item_pecc;
  
 $update = query_db($sql_uoda);
@@ -4583,16 +4583,39 @@ $actualiza_archivo= query_db("update $pi9 set adjunto = '".$nombre_file."' where
 
 $sel_datos_actuales = traer_fila_row(query_db("select num1, t1_tipo_proceso_id, t1_tipo_contratacion_id, num2, num3 from t2_item_pecc where id_item = ".$id_item_pecc));
 if($sel_datos_actuales[1] == 16 and $sel_datos_actuales[0]!= "SM"){
-	$update_num1 = query_db("update t2_item_pecc set num1='SM', estado = 6 where id_item = ".$id_item_pecc);
+	$update_num1 = query_db("update t2_item_pecc set num1='SM' where id_item = ".$id_item_pecc);
 	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, 16);
 	}
-if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] == 1 and $sel_datos_actuales[0]== "SM"){
-	$update_num1 = query_db("update t2_item_pecc set num1='S', estado = 6 where id_item = ".$id_item_pecc);
-	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, $sel_datos_actuales[2]);
+	echo "<br><br>".$sel_datos_actuales[1]." - ".$_POST["tipo_proceso"]." - ".$sel_datos_actuales[2]." - ".$sel_datos_actuales[0]."<br><br>";
+if($sel_datos_actuales[1] == 16 and $_POST["tipo_proceso"] !=16 and $sel_datos_actuales[2] == 1 and $sel_datos_actuales[0]== "SM"){//si era un SM y paso a Servicios
+	//$update_num1 = query_db("update t2_item_pecc set num1='S' where id_item = ".$id_item_pecc);
+	
 	echo " profe: ".$profesional_seleccionado_funct."<br>";
+	
+	/*Inserta una nueva solicitud*/echo $insert = "insert into $pi2 (id_pecc,t2_nivel_servicio_id,id_us,t1_tipo_contratacion_id,t1_area_id,t1_tipo_proceso_id,fecha_se_requiere,objeto_solicitud,objeto_contrato,alcance,proveedores_sugeridos,justificacion,recomendacion,estado,t1_trm_id,contrato_id,fecha_creacion,aprobacion_comite_adicional,dondeo_adicional,id_item_peec_aplica, aprobado,t2_pecc_proceso_id,id_us_preparador,num_solped,cargo_contable, destino_ots, duracion_ots,id_gerente_ot,id_solicitud_relacionada,justificacion_tecnica,criterios_evaluacion, convirte_marco, id_proveedor_relacionado, par_tecnico, gerente_contrato) values (1,0,0,".$id_tipo_contratacion.",".$_POST["area_usuaria"].",".$_POST["tipo_proceso"].",'$fecha_requiere','$objeto_solicitud','$objeto_contrato','$alcance','$proveedores_sugeridos','$justificacion','$recomendacion',31,1,'".$id_contrato_otro_si."','".$fecha." ".$hora."','".$requiere_comite_extra."',2,'".$id_item_pecc."',2,".$id_tipo_proceso_pecc.",".$_SESSION["id_us_session"].",'".$num_solped_comp."','".$cargo_contable."', '".$destino_ots."', '".$duracion_ots."','".$id_gerente_ot."','".$solicitud_relacionada."','$justificacion2','$criterios_evaluacion','".$convierte_marco."', '".$id_proveedor_relacionado."', '".$id_partecnico_bus_us."', '".$id_gerente_contrato_bus_us."')";
+	$sql_ex=query_db($insert.$trae_id_insrte);
+	$id_ingreso_solici = id_insert($sql_ex);//id de Solicitud
+	
+	
+	
+	
+$original=$id_item_pecc;
+$destino=$id_ingreso_solici;
+	$tp_pro_destino=$_POST["tipo_proceso"];
+funcion_duplicar_solicitud(16, $original, $destino,$tp_pro_destino);
+	$no_mostrar_alerta_final ="NO";
+	
+	$sel_profesional = traer_fila_row(query_db("select nombre_administrador from t2_item_pecc,  t1_us_usuarios  where t2_item_pecc.id_us_profesional_asignado= t1_us_usuarios.us_id  and id_item = ".$id_ingreso_solici));
+	?>
+	<script>
+    
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Se ha creado una solicitud de servicio mayor asignada al profesional de abastecimiento <?=$sel_profesional[0]?>', 40, 5, 12)
+    window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=<?= $id_ingreso_solici ?>&id_tipo_proceso_pecc=1', 'contenidos');
+</script>
+	<?
 	}
-if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_actuales[0]== "SM"){
-	$update_num1 = query_db("update t2_item_pecc set num1='B', estado = 6 where id_item = ".$id_item_pecc);
+if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_actuales[0]== "SM"){// si era un SM y paso a un Bien
+	$update_num1 = query_db("update t2_item_pecc set num1='B' where id_item = ".$id_item_pecc);
 	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, $sel_datos_actuales[2]);
 	}
 	
@@ -4601,13 +4624,14 @@ if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_a
 		$update_num1 = query_db("update t2_item_pecc set id_us_profesional_asignado='".$profesional_seleccionado_funct."' where id_item = ".$id_item_pecc);	
 	}
 /* FIN ajusta numero de proceso SM servicio Menor*/
-
+if($no_mostrar_alerta_final!="NO"){
 ?>
 <script>
     //alert("El numero de solped se grabo con exito");
 	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Los Datos se Almacenarón con Éxito', 40, 5, 12)
 </script>
 <?
+}
 
 }
 if($_POST["accion"]=="graba_presupuesto_item_edita_profesional"){
@@ -4758,7 +4782,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 			$mensaje_err.= "* La fecha de inicio de la OT no puede ser mayor a la fecha de finalización de la OT.";
 		}
 	}
-}elseif($_POST["tipo_proceso"]==16){ //si servicios servicios se inserta fecha inicio y fecha fin
+}elseif($_POST["tipo_proceso_anterior"]==16){ //si servicios menores se inserta fecha inicio y fecha fin // No almacena el tipo de proceso, por que mas adelante se duplica
 	 // comentariado las fechas de inicio y fin del servicio menor   inicio
 	//se comenta la validacion del servicio menor para las fechas inicio y fin
 	/*if($_POST["fecha_inicio_ot"]=="" or $_POST["fecha_fin_ot"]=="" or $_POST["fecha_inicio_ot"]==" " or $_POST["fecha_fin_ot"]==" "){
@@ -4780,7 +4804,7 @@ if($_POST["tipo_proceso"]==8 and $id_tipo_contratacion==1){ //si es ot de servic
 				
 				
 				
-		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",t1_tipo_proceso_id=".$_POST["tipo_proceso"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."'  where id_item = $id_item_pecc");
+		$insert = query_db("update $pi2 set id_pecc=$id_pecc,t1_area_id=".$_POST["area_usuaria"].",fecha_se_requiere='$fecha_requiere',objeto_solicitud='$objeto_solicitud',objeto_contrato='$objeto_contrato',alcance='$alcance',justificacion='".$justificacion."', justificacion_tecnica='".$justificacion2."',recomendacion='$recomendacion', id_us_profesional_asignado='$us_prof', aprobacion_comite_adicional='".$requiere_comite_extra."', dondeo_adicional='".$_POST["req_sondeo"]."', contrato_id = '$id_contrato_otro_si', cargo_contable = '".$cargo_contable."', destino_ots='".$destino_ots."', duracion_ots='".$duracion_ots."',  t2_pecc_proceso_id = $id_tipo_proceso_pecc, id_gerente_ot = '".$id_gerente_ot."', id_solicitud_relacionada= '".$solicitud_relacionada."', criterios_evaluacion='$criterios_evaluacion', convirte_marco='$convierte_marco', num_solped='".$num_solped."', conflicto_intereses='".$conflicto_interes."', id_proveedor_relacionado='".$id_proveedor_relacionado."', antecedentes_permiso = '".$antecedentes_texto."', origen_pecc = '".$_POST["origen_pecc"]."',req_contra_mano_obra_local='".$_POST["req_contra_mano_obra_local"]."', req_contra_serv_bien_local='".$_POST["req_cont_bien_ser_local"]."', req_crear_otro_si='".$_POST["req_crear_otro_si"]."', par_tecnico = '".$id_partecnico_bus_us."', gerente_contrato= '".$id_gerente_contrato_bus_us."', equipo_negociador ='".$equipo_negociador."', pecc_linea ='".$linea_pecc."', pecc_modificado ='".$pecc_modificado."',  pecc_modificado_observacion ='".$pecc_observacion_modificacion."', id_urna = '".$_POST["llena_lista_sondeos_l"]."', numero_urna ='".$_POST["llena_lista_sondeos_2"]."', tiene_reembolsable='".$_POST["reembolsable"]."', tiene_reajuste ='".$_POST["reajuste"]."'  where id_item = $id_item_pecc");
 	 // comentariado las fechas de inicio y fin del servicio menor   inicio
 	//}
 	 // comentariado las fechas de inicio y fin del servicio menor   fin
@@ -4795,12 +4819,34 @@ if($sel_datos_actuales[1] == 16 and $sel_datos_actuales[0]!= "SM"){
 	$update_num1 = query_db("update t2_item_pecc set num1='SM' where id_item = ".$id_item_pecc);
 	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, 16);
 	}
-if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] == 1 and $sel_datos_actuales[0]== "SM"){
-	$update_num1 = query_db("update t2_item_pecc set num1='S' where id_item = ".$id_item_pecc);
-	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, $sel_datos_actuales[2]);
+	echo "<br><br>".$sel_datos_actuales[1]." - ".$_POST["tipo_proceso"]." - ".$sel_datos_actuales[2]." - ".$sel_datos_actuales[0]."<br><br>";
+if($sel_datos_actuales[1] == 16 and $_POST["tipo_proceso"] !=16 and $sel_datos_actuales[2] == 1 and $sel_datos_actuales[0]== "SM"){//si era un SM y paso a Servicios
+	//$update_num1 = query_db("update t2_item_pecc set num1='S' where id_item = ".$id_item_pecc);
+	
 	echo " profe: ".$profesional_seleccionado_funct."<br>";
+	
+	/*Inserta una nueva solicitud*/echo $insert = "insert into $pi2 (id_pecc,t2_nivel_servicio_id,id_us,t1_tipo_contratacion_id,t1_area_id,t1_tipo_proceso_id,fecha_se_requiere,objeto_solicitud,objeto_contrato,alcance,proveedores_sugeridos,justificacion,recomendacion,estado,t1_trm_id,contrato_id,fecha_creacion,aprobacion_comite_adicional,dondeo_adicional,id_item_peec_aplica, aprobado,t2_pecc_proceso_id,id_us_preparador,num_solped,cargo_contable, destino_ots, duracion_ots,id_gerente_ot,id_solicitud_relacionada,justificacion_tecnica,criterios_evaluacion, convirte_marco, id_proveedor_relacionado, par_tecnico, gerente_contrato) values ($id_pecc,0,0,".$id_tipo_contratacion.",".$_POST["area_usuaria"].",".$_POST["tipo_proceso"].",'$fecha_requiere','$objeto_solicitud','$objeto_contrato','$alcance','$proveedores_sugeridos','$justificacion','$recomendacion',31,1,'".$id_contrato_otro_si."','".$fecha." ".$hora."','".$requiere_comite_extra."',2,'".$id_item_pecc."',2,".$id_tipo_proceso_pecc.",".$_SESSION["id_us_session"].",'".$num_solped_comp."','".$cargo_contable."', '".$destino_ots."', '".$duracion_ots."','".$id_gerente_ot."','".$solicitud_relacionada."','$justificacion2','$criterios_evaluacion','".$convierte_marco."', '".$id_proveedor_relacionado."', '".$id_partecnico_bus_us."', '".$id_gerente_contrato_bus_us."')";
+	$sql_ex=query_db($insert.$trae_id_insrte);
+	$id_ingreso_solici = id_insert($sql_ex);//id de Solicitud
+	
+	
+	
+	
+$original=$id_item_pecc;
+$destino=$id_ingreso_solici;
+	$tp_pro_destino=$_POST["tipo_proceso"];
+funcion_duplicar_solicitud(16, $original, $destino,$tp_pro_destino);
+	
+	$sel_profesional = traer_fila_row(query_db("select nombre_administrador from t2_item_pecc,  t1_us_usuarios  where t2_item_pecc.id_us_profesional_asignado= t1_us_usuarios.us_id  and id_item = ".$id_ingreso_solici));
+	?>
+	<script>
+    
+	window.parent.muestra_alerta_iformativa_solo_texto_guardado_exito('', 'Proceso Correcto', 'Se ha creado una solicitud de servicio mayor asignada al profesional de abastecimiento <?=$sel_profesional[0]?>', 40, 5, 12)
+    window.parent.ajax_carga('../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=<?= $id_ingreso_solici ?>&id_tipo_proceso_pecc=1', 'contenidos');
+</script>
+	<?
 	}
-if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_actuales[0]== "SM"){
+if($sel_datos_actuales[1] != 16 and $sel_datos_actuales[2] != 1 and $sel_datos_actuales[0]== "SM"){// si era un SM y paso a un Bien
 	$update_num1 = query_db("update t2_item_pecc set num1='B' where id_item = ".$id_item_pecc);
 	$profesional_seleccionado_funct = selecciona_profesional($_POST["gerente_contra"], $_POST["area_usuaria"], $id_item_pecc, $sel_datos_actuales[2]);
 	}
@@ -6155,7 +6201,7 @@ if($_POST["tipo_proceso"] == 15){//si es modificacion duplica la solicitud inici
 
 $original=$_POST["id_solicitud_relacionada"];
 $destino=$id_ingreso;
-funcion_duplicar_solicitud(15, $original, $destino);
+funcion_duplicar_solicitud(15, $original, $destino,0);
 
 }
 if($tipo_graba == 2){

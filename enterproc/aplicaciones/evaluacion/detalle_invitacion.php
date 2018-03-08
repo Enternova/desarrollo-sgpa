@@ -443,7 +443,13 @@ if(tiene_criterios($id_invitacion,2)==1){//si tiene requerimientos tecnicos
     <td><div align="right"><strong><?=LENG_282;?>:</strong></div></td>
     <td><?=detalle_aspecto(2,"nombre_administrador");?></td>
     <td><?=detalle_aspecto(2,"fecha_apertura");?></td>
-    <td><?=apertura_criterios($id_invitacion,2,$fecha_cierre_tecnica);?></td>
+    <td><?
+	
+			if((detalle_aspecto(2,"fecha_apertura") != "" and detalle_aspecto(2,"fecha_apertura") != " " and detalle_aspecto(2,"fecha_apertura") !="Sin apertura") or  $_SESSION["tipo_usuario"] ==4){
+			echo apertura_criterios($id_invitacion,2,$fecha_cierre_tecnica);
+			}
+		
+		?></td>
   </tr>
 
   <tr>
@@ -480,7 +486,11 @@ if(tiene_criterios($id_invitacion,1)==1){//si tiene requerimientos economicos
     <td><div align="right"><strong><?=LENG_279;?>:</strong></div></td>
     <td><?=detalle_aspecto(1,"nombre_administrador");?></td>
     <td><?=detalle_aspecto(1,"fecha_apertura");?></td>
-    <td><?=apertura_criterios($id_invitacion,1,$fecha_cierre_economica);?></td>
+    <td><? 
+			if((detalle_aspecto(1,"fecha_apertura") != "" and detalle_aspecto(1,"fecha_apertura") != " " and detalle_aspecto(1,"fecha_apertura") !="Sin apertura") or  $_SESSION["tipo_usuario"] ==4){
+			echo apertura_criterios($id_invitacion,1,$fecha_cierre_economica);
+			}
+		?></td>
     </tr>
  <tr>
     <td>&nbsp;</td>

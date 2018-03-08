@@ -274,15 +274,15 @@ $texto_comite_incluido="";
 					if($sel_aprobaciones_cargue_manual[1]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[2] == "" or $sel_aprobaciones_cargue_manual[2] == "0")){//si es el primer validador
 					$es_encargado = "SI";
 					}
-					if($sel_aprobaciones_cargue_manual[3]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[4] == "" or $sel_aprobaciones_cargue_manual[4] == "0") and ($sel_aprobaciones_cargue_manual[2] != "" and $sel_aprobaciones_cargue_manual[2] != "0")){//si es el segundo validador
+					if($sel_aprobaciones_cargue_manual[3]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[4] == "" or $sel_aprobaciones_cargue_manual[4] == "0") and ($sel_aprobaciones_cargue_manual[2] =="1")){//si es el segundo validador y el primero ya aprobo
 					$es_encargado = "SI";
 					}
-					if($sel_aprobaciones_cargue_manual[5]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[6] == "" or $sel_aprobaciones_cargue_manual[6] == "0") and ($sel_aprobaciones_cargue_manual[2] != "" and $sel_aprobaciones_cargue_manual[2] != "0") and ($sel_aprobaciones_cargue_manual[4] != "" and $sel_aprobaciones_cargue_manual[4] != "0") ){//si es el tercero validador
+					if($sel_aprobaciones_cargue_manual[5]==$_SESSION["id_us_session"] and ($sel_aprobaciones_cargue_manual[6] == "" or $sel_aprobaciones_cargue_manual[6] == "0") and ($sel_aprobaciones_cargue_manual[2] == "1" ) and ($sel_aprobaciones_cargue_manual[4] == "1") ){//si es el tercero validador y el primero y el segundo ya aprobaron
 					$es_encargado = "SI";
 					}
 				
 				}
-				if(($sel_aprobaciones_cargue_manual[1] == 2 or $sel_aprobaciones_cargue_manual[2] == 2 or $sel_aprobaciones_cargue_manual[3] == 2) and $_SESSION["id_us_session"] == 32 ){//agrega alerta de devoluviones de cargues manuales, para el admin del SGPA
+				if(($sel_aprobaciones_cargue_manual[2] == 2 or $sel_aprobaciones_cargue_manual[4] == 2 or $sel_aprobaciones_cargue_manual[6] == 2) and $_SESSION["id_us_session"] == 32 ){//agrega alerta de devoluviones de cargues manuales, para el admin del SGPA
 					$inserta_datos = query_db("insert into #alertas (id_proceso,destino,modulo,consecutivo,detalle,fecha_recibido,numero_modulo,id_usuario,nivel_aprobacion) values (".$sel_item[0].",'../aplicaciones/".$link_aplica_modulo.".php?id_item_pecc=".$sel_item[0]."&id_tipo_proceso_pecc=".$id_tipo_proceso_pecc."','".$modulo_aplica."','".$numero."','Sección: Validación de Cargue Manual. Tarea: Un usuario aprobador devolvió este cargue manual', '".$sel_item[4]."',2, '".$sel_item[13]."','".$aprobacion_nivel."')");
 					}
 //			if()

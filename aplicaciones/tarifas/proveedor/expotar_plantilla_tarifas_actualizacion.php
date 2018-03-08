@@ -62,7 +62,7 @@
   </tr>
   
   <?
-  	$busca_tarifas_contrato = "select t6_tarifas_lista_id, categoria, grupo, codigo_proveedor, detalle, unidad_medida, t1_moneda_id, valor, fecha_inicio_vigencia,fecha_fin_vigencia from t6_tarifas_lista where tarifas_contrato_id = $id_contrato_arr and t6_tarifas_listas_lista_id = $lista_existentes and t6_tarifas_estados_tarifas_id = 1  )";
+  	$busca_tarifas_contrato = "select t6_tarifas_lista_id, categoria, grupo, codigo_proveedor, detalle, unidad_medida, t1_moneda_id, valor, fecha_inicio_vigencia,fecha_fin_vigencia from t6_tarifas_lista where tarifas_contrato_id = $id_contrato_arr and t6_tarifas_listas_lista_id = $lista_existentes and t6_tarifas_estados_tarifas_id = 1";
 	$sql_ex_lis = query_db($busca_tarifas_contrato);
 	while($lista_tarifas = traer_fila_row($sql_ex_lis)){//inicio lista
 	$moneda_t="";

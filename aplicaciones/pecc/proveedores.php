@@ -205,7 +205,7 @@ if($_SESSION["tipo_carga"]=="1"){//si es del modal de consulta bloquea edicion
 			while($se_prove = traer_fila_db($sel_proveedores)){
 				
 				
-				if ($se_prove[6] == "SI"){
+				if ($se_prove[6] == "SI" or $se_prove[6] == "Si"){
 					$estado_muestra = "SI";
 					}else{
 						$estado_muestra = "NO";

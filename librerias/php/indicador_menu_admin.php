@@ -138,11 +138,14 @@ if(permiso_ingreso(80) == "SI"){
           <td class="fondo_2" onclick="ajax_carga(\'../aplicaciones/reportes/alertas_contratos.php\',\'contenidos\')">Vencimiento Contratos</td>
       </tr>' ;
 }
+
+if(permiso_ingreso(63) == "SI"){//temporal mientras se agrega a los roles
 	  $menu.='
       <tr>
           <td align="center" class="fondo_1">22</td>
           <td class="fondo_2" onclick="ajax_carga(\'../aplicaciones/reportes/variacion_tarifas_general.php\',\'contenidos\')">Variaci&oacute;n de Tarifas Global</td>
       </tr>' ;
+}
 		if($es_local=="NO"){
       $menu.='<tr>
           <td class="fondo_1">

@@ -1306,6 +1306,10 @@ if(solicitud_bienes($sel_item[26]) == "SI" and ($sel_item[6] == 7)){
           <td align="center">2017</td>
           <td align="center"><?=number_format(trm_presupuestal(2017),0)?></td>
         </tr>
+        <tr>
+          <td align="center">2018</td>
+          <td align="center"><?=number_format(trm_presupuestal(2018),0)?></td>
+        </tr>
     
   </table>
 <?

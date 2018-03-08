@@ -686,13 +686,17 @@ if($edicion_datos_generales == "SI" and ($sel_item[75] == "" or $sel_item[75] ==
             <? 
 			
 			if($sel_item[4]==2 or $sel_item[4]==3 or $sel_item[4]==4){
-			echo listas($g13, " estado = 1 and t1_tipo_proceso_id  not in (".$quita_pone_adjudica_directo." 7, 8, 5, 15, 12, 16)",$sel_item[6] ,'nombre', 1);	
+			echo listas($g13, " estado = 1 and t1_tipo_proceso_id  not in (".$quita_pone_adjudica_directo." 7, 8, 5, 15, 12)",$sel_item[6] ,'nombre', 1);	
 			?><option value="8">Contrato Marco / Lista de Precios</option><?
 				}else{
-					if($sel_item[85] == 'SI'){//si alguna vez a sido SM
-						echo listas($g13, " estado = 1 and t1_tipo_proceso_id in (2, 16, 6, 2, 5)",$sel_item[6] ,'nombre', 1);
+					if($sel_item[85] == 'SI' and $sel_item[14]<>31 ){//si alguna vez a sido SM
+						echo listas($g13, " estado = 1 and t1_tipo_proceso_id in (2, 6, 2, 5, 16)",$sel_item[6] ,'nombre', 1);
 						}else{
-							echo listas($g13, " estado = 1 and t1_tipo_proceso_id not in (".$quita_pone_adjudica_directo." 7,8, 15)",$sel_item[6] ,'nombre', 1);
+							if($sel_item[6]==16){
+							echo listas($g13, " estado = 1 and t1_tipo_proceso_id in (16)",$sel_item[6] ,'nombre', 1);	
+							}else{
+							echo listas($g13, " estado = 1 and t1_tipo_proceso_id not in (".$quita_pone_adjudica_directo." 7,8, 15, 16)",$sel_item[6] ,'nombre', 1);
+							}
 						}
 				}
 			?>
@@ -1000,7 +1004,11 @@ if($edicion_datos_generales == "SI" and ($sel_item[75] == "" or $sel_item[75] ==
 			if($edicion_datos_generales == "SI" and $select_contra[5]==""){
 				if($sel_item[43]>0 and $sel_item[69]==1){
 				$sel_item_relacionado = traer_fila_row(query_db("select num1, num2, num3 from $pi2 where id_item=".$sel_item[43]));
+					if($sel_item[85] == "SI" and $sel_item[6]!=16){
+				echo "<font color ='#ff0000'> Atenci&oacute;n: El servicio menor original es el ".numero_item_pecc($sel_item_relacionado[0],$sel_item_relacionado[1],$sel_item_relacionado[2])."</font>";
+					}else{
 				echo "<font color ='#ff0000'> Atenci&oacute;n: Esta solicitud es una modificaci&oacute;n a la solicitud ".numero_item_pecc($sel_item_relacionado[0],$sel_item_relacionado[1],$sel_item_relacionado[2])."</font>";
+					}
 				}else{
 		?>
         <strong class="windowPopup" onclick='window.parent.document.getElementById("div_carga_busca_sol").style.display="block";ajax_carga("../aplicaciones/pecc/busca-solicitudes.php","div_carga_busca_sol")'>Buscar solicitud para relacionar a este informativo <img src="../imagenes/botones/aler-interro.gif" width="3"/></strong> <span id="solicitud_relacionada_actual">
@@ -1024,7 +1032,12 @@ if($edicion_datos_generales == "SI" and ($sel_item[75] == "" or $sel_item[75] ==
 				/*$sel_item_relacionado = traer_fila_row(query_db("select num1, num2, num3 from $pi2 where id_item=".$sel_item[43]));
 				echo "<font color ='#ff0000'> Atenci&oacute;n: Esta solicitud es una modificaci&oacute;n a la solicitud ".numero_item_pecc($sel_item_relacionado[0],$sel_item_relacionado[1],$sel_item_relacionado[2])."</font>";*/
 				$sel_item_relacionado = traer_fila_row(query_db("select num1, num2, num3, id_item from $pi2 where id_item=".$sel_item[43]));
+				if($sel_item[85] == "SI" and $sel_item[6]!=16){
+			
+					echo "<font color ='#ff0000'> Atenci&oacute;n: El servicio menor original es el <a onclick='document.getElementById(&quot;carga_modal_pecc&quot;).style.display=&quot;block&quot;;ajax_carga(&quot;../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=".$sel_item_relacionado[3]."&id_tipo_proceso_pecc=1&tipo_carga=99&quot;,&quot;carga_modal_pecc&quot;)' style='cursor:pointer;' > ".numero_item_pecc($sel_item_relacionado[0],$sel_item_relacionado[1],$sel_item_relacionado[2])." </a></font>";
+					}else{
 				echo "<font color ='#ff0000'> Atenci&oacute;n: Esta solicitud es una modificaci&oacute;n a la solicitud <a onclick='document.getElementById(&quot;carga_modal_pecc&quot;).style.display=&quot;block&quot;;ajax_carga(&quot;../aplicaciones/pecc/edicion-item-pecc.php?id_item_pecc=".$sel_item_relacionado[3]."&id_tipo_proceso_pecc=1&tipo_carga=99&quot;,&quot;carga_modal_pecc&quot;)' style='cursor:pointer;' > ".numero_item_pecc($sel_item_relacionado[0],$sel_item_relacionado[1],$sel_item_relacionado[2])." </a></font>";
+				}
 				}
 			}
 		}
@@ -1862,7 +1875,7 @@ if($edicion_datos_generales == "SI"){
       
      <?
 		if($sel_item[4]==1 and $sel_item[6]==8){ //si es ot de servicios se piden dos fechas => fecha inicio, fecha fin 
-			if($sel_item[41]!=NULL or $sel_item[41]!=""){//para las que ya han sido creadas antes de la actulaizaci贸n ?>
+			if($sel_item[41]!=NULL or $sel_item[41]!=""){//para las que ya han sido creadas antes de la actulaizacin ?>
 			 <tr>
 					<td align="right">Duraci&oacute;n de la Orden de Trabajo:</td>
 					<td colspan="3">
@@ -1879,14 +1892,14 @@ if($edicion_datos_generales == "SI"){
 			  </tr>
         <input name="fecha_inicio_ot" type="hidden" id="fecha_inicio_ot" size="5" value="<?=date('Y-m-d');?>"/>
         <input name="fecha_fin_ot" type="hidden" id="fecha_fin_ot" size="5" value="<?=date('Y-m-d');?>"/>
-		<?	}else{//para las que se crean despues de la actualizaci贸n ?>
+		<?	}else{//para las que se crean despues de la actualizacin ?>
 		<?
 			if($edicion_datos_generales == "SI"){
 		?>
 		<tr>
 			<td align="right" ></td>
-			<td align="left" colspan="3"><p><img src="../imagenes/botones/icono_ayuda.png"></img>&nbsp;<span style="color: #229BFF; font-family: roboto; font-size: 11pt; font-weight: 900;">Por favor diligenciar la fecha de finalizaci贸n de los trabajos, recuerde que esta no <br />
-			</span><span style="color: #229BFF; font-family: roboto; font-size: 11pt; font-weight: 900;">debe ser superior a la fecha de finalizaci贸n del contrato</span></p></td>
+			<td align="left" colspan="3"><p><img src="../imagenes/botones/icono_ayuda.png"></img>&nbsp;<span style="color: #229BFF; font-family: roboto; font-size: 11pt; font-weight: 900;">Por favor diligenciar la fecha de finalizaci髇 de los trabajos, recuerde que esta no <br />
+			</span><span style="color: #229BFF; font-family: roboto; font-size: 11pt; font-weight: 900;">debe ser superior a la fecha de finalizaci髇 del contrato</span></p></td>
 		</tr>
 		<?
 			}
@@ -1919,7 +1932,7 @@ if($edicion_datos_generales == "SI"){
 			?>
        		</td>
         </tr>
-		<?	}// fin para las que se crean despues de la actualizaci贸n
+		<?	}// fin para las que se crean despues de la actualizacin
 		}else{ //si no es ot de servicios sigue normal
 		?>
 			  <tr>

@@ -31,7 +31,7 @@
 		$comple_sql_histo =" and id_pecc <> 1 ";
 		}
 			$_SESSION['id_peccs'] = $_GET["id_pecc"];
-		$selec_las_areas_del_usuario = traer_fila_row(query_db("select count(*) from tseg3_usuario_areas where id_usuario = ".$_SESSION["id_us_session"]." and id_area = 1 and id_usuario !=53 and estado = 1"));
+		$selec_las_areas_del_usuario = traer_fila_row(query_db("select count(*) from tseg3_usuario_areas where id_usuario = ".$_SESSION["id_us_session"]." and id_area in (1,44) and id_usuario !=53 and estado = 1"));
 	
 		$areas_in = "0";
 
@@ -300,7 +300,7 @@
    <td width="8%" align="center" class="columna_subtitulo_resultados">Justificacion de la modificacion</td>
  </tr>
     <?php
-   $sele_items_historico_codigo = "select id_item, num1, num2, num3, fecha_se_requiere, nombre, CAST(objeto_solicitud AS text), Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id, t1_tipo_contratacion_id, congelado,id_us_preparador,ROW_NUMBER()Over(order by id_item desc) As RowNum,solicitud_rechazada,solicitud_desierta,id_gerente_ot, de_historico, ob_solicitud_adjudica, fecha_creacion, origen_pecc, pecc_linea, pecc_modificado, pecc_modificado_id_solicitud_aprobacion, pecc_modificado_observacion,id_solicitud_relacionada,es_modificacion from v_peec_historico where estado <> 0  $completar_filtros $comple_sql_histo $comple_sq_us and t1_area_id > 0 group by id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id,t1_tipo_contratacion_id, congelado,id_us_preparador,solicitud_rechazada,solicitud_desierta,id_gerente_ot, de_historico, ob_solicitud_adjudica, fecha_creacion, origen_pecc, pecc_linea, pecc_modificado, pecc_modificado_id_solicitud_aprobacion, pecc_modificado_observacion,id_solicitud_relacionada,es_modificacion";
+   $sele_items_historico_codigo = "select id_item, num1, num2, num3, fecha_se_requiere, nombre, CAST(objeto_solicitud AS text), Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id, t1_tipo_contratacion_id, congelado,id_us_preparador,ROW_NUMBER()Over(order by id_item desc) As RowNum,solicitud_rechazada,solicitud_desierta,id_gerente_ot, de_historico, ob_solicitud_adjudica, fecha_creacion, origen_pecc, pecc_linea, pecc_modificado, pecc_modificado_id_solicitud_aprobacion, pecc_modificado_observacion,id_solicitud_relacionada,es_modificacion, fue_sm from v_peec_historico where estado <> 0  $completar_filtros $comple_sql_histo $comple_sq_us and t1_area_id > 0 group by id_item, num1, num2, num3, fecha_se_requiere, nombre, objeto_solicitud, Expr1, t1_tipo_proceso_id, id_pecc, estado, id_us, id_us_profesional_asignado, t1_area_id,t1_tipo_contratacion_id, congelado,id_us_preparador,solicitud_rechazada,solicitud_desierta,id_gerente_ot, de_historico, ob_solicitud_adjudica, fecha_creacion, origen_pecc, pecc_linea, pecc_modificado, pecc_modificado_id_solicitud_aprobacion, pecc_modificado_observacion,id_solicitud_relacionada,es_modificacion, fue_sm";
 
 if($_SESSION["id_us_session"]==32){
 	//echo $sele_items_historico_codigo;
@@ -407,7 +407,7 @@ $select_minmima_gestion = traer_fila_row(query_db("select MIN(fecha_real) from t
       <td align="center"><? if($sel_para_insert[26]==1) echo "SI"; if($sel_para_insert[26]==2) echo "NO";?></td>
       <td align="center"><? if($sel_para_insert[28]!="") echo $sel_para_insert[28];?></td>
       <td align="center"><?=$fecha_requiere?></td>
-      <td><? if($sel_para_insert[30]==1){echo "Modificaci&oacute;n";}else {echo $nom_tipo_proceso;}?></td>
+      <td><? if($sel_para_insert[30]==1 and $sel_para_insert[31]!="SI"){echo "Modificaci&oacute;n";}else {echo $nom_tipo_proceso;}?></td>
       <td><? echo saca_nombre_lista($g1,$sel_para_insert[12],'nombre_administrador','us_id');?></td>
       <td><?=$sel_para_insert[23]?></td>
       <td><?=$select_minmima_gestion[0]?></td>

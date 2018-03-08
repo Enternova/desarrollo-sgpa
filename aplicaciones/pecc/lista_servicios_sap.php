@@ -101,7 +101,6 @@
 		
 	  ?>
       <tr class="<?=$clase?>">
-        <td><?=$sel_so[4]?></td>
         <td><?=$sel_so[5]?></td>
         <td><?=$sel_so[6]?></td>
         <td><?=$sel_so[7]?></td>
@@ -111,10 +110,11 @@
         <td><?=$sel_so[11]?></td>
         <td><?=$sel_so[12]?></td>
         <td><?=$sel_so[13]?></td>
-        <td><?=$sel_so[14]?></td>
+        <td><?=number_format($sel_so[14],0,"","")?></td>
         <td><?=$sel_so[15]?></td>
-        <td><?=$sel_so[18]?></td>
-        <td><?=$sel_so[21]?></td>
+        <td><?=$sel_so[16]?></td>
+        <td><?=$sel_so[17]?></td>
+        <td><?=$sel_so[28]?></td>
       </tr>
       <?
 	  }
