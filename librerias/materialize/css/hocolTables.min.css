@@ -1,0 +1,35 @@
+.icon-order{
+	/*margin-top: -15% !important;*/
+	/*margin-left: 15% !important;*/
+	cursor: pointer !important;
+	float: left;
+	display: inline;
+}
+.icon-order-left{
+	cursor: pointer !important;
+	margin-top: 50% !important;
+}
+.icon-order-right{
+	cursor: pointer !important;
+	margin-top: -50% !important;
+}
+.icon-order-active{
+	color: #229BFF;
+}
+.color-blue-light-hocol{
+	background: #229BFF !important;
+	color: #FFF !important;
+}
+.color-blue-light-hocol-hover:hover{
+	background: #229BFF !important;
+	color: #FFF !important;
+}
+.color-blue-light-hocol-hover:hover a{
+	color: #FFF !important;
+}
+.color-blue-light-hocol a{
+	color: #FFF !important;
+}
+tfoot > tr > th{
+	text-align: center !important;
+}

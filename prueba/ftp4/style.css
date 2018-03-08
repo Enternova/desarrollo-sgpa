@@ -1,0 +1,105 @@
+/*##################################################
+
+# Class Name 	: myFTP								#
+# Author 		: HUSSON KEVIN						#
+# Email 		: husson.kevin@gmail.com			#
+# Version		: 1.0								#
+
+###################################################*/*
+
+body
+	{
+	background-color: #FFF;
+	width: 900px;
+	height: 100%;
+	color: #669BFF;
+	margin: auto;
+	}
+
+#headerFTP
+	{
+	padding: 10px;
+	width: 400px;
+	height: 50px;
+	margin: auto;
+	text-align: center;
+	background-color: #ccc;
+	float: center;
+	}
+
+#Login
+	{
+	width: 300px;
+	margin: auto;
+	height: 200px;
+	background-color: #EEE;
+	margin-top: 10px;
+	border: 1px dashed #299fba;
+	}
+
+#menu
+	{
+	padding: 5px;
+	border: 1px solid black;
+	margin: 20px 0 0 20px;
+	width: 210px;
+	height: 330px;
+	background-color: #ddd;
+	float: left;
+	}
+
+#contenuFTP
+	{
+	margin: 20px 0 0 30px;
+	width: 600px;
+	height: auto;
+	padding: 5px;
+	float: left;
+	background-color: #333;
+	border: 1px solid #dec564;
+	}
+a
+	{
+	color: #295;
+	text-decoration: none;
+	}
+a:hover
+	{
+	color: #F0F;
+	text-decoration: none;
+	}
+#contenuFTP table
+	{
+	border-collapse:collapse;
+	width: 600px;
+	}
+td
+	{
+	padding: 5px;
+	}
+
+
+input[type=radio],input[type=checkbox]
+	{
+	background: none;
+	border-width: 0px;
+	}
+input[type=submit],input[type=reset]
+	{
+	cursor:pointer;
+	overflow: visible;
+	padding: 1px 6px 1px 6px;
+	}
+input:hover
+	{
+	border: 1px solid #299FBA;
+	}
+input,select
+	{
+	margin: 3px 3px 3px 3px;
+	padding: 1px 3px 1px 3px;
+	border: 1px dashed #000000;
+	color: #299FBA;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	}

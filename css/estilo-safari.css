@@ -1,0 +1,21 @@
+
+.boton_flotante{/*para colocar los botones flotantes*/
+	position: fixed;
+	margin-top: -170%;
+}
+.boton_flotante > input{/*para colocar los botones flotantes*/	
+	margin-left: 100%;
+}
+.fondo_cabecera {
+
+		/*behavior:url(http://localhost/cliente-ebiding/css/border-radius.htc); */
+		display:block;
+/*		background:url(../imagenes/imagen/cubo_fondo.jpg);*/
+		border-radius: 15px ;
+		padding:5px 20px 10px 20px;
+		height:100%;
+		border: 1px solid #C6E6FF;
+		color:#015697;
+		font-size:22px;
+		
+}

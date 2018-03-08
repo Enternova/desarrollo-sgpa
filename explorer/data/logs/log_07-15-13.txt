@@ -1,0 +1,10 @@
+07-15-13 9:17:25	2.2.2.6	INFO	shared	Create User	user_id=rene.sterling
+07-15-13 9:17:25	2.2.2.6	INFO	shared	Create User	user_id=admin
+07-15-13 9:17:56	2.2.2.6	INFO	rene.sterling	Log In	
+07-15-13 9:19:46	2.2.2.6	INFO	rene.sterling	error	message=Primera indexación de esta carpeta, por favor espere y reintente más tarde su búsqueda
+07-15-13 9:28:59	190.67.2.206	INFO	rene.sterling	Log In	
+07-15-13 9:33:05	190.67.2.206	INFO	rene.sterling	Log In	
+07-15-13 9:34:12	190.67.2.206	INFO	rene.sterling	Upload File	file=/app/sgpa/aplicaciones/contratos/c_poliza-1.php
+07-15-13 9:34:33	190.67.2.206	INFO	rene.sterling	Move	files=/app/sgpa/aplicaciones/contratos/c_poliza.php;destination=/recycle_bin
+07-15-13 9:34:42	190.67.2.206	INFO	rene.sterling	Rename	original=/app/sgpa/aplicaciones/contratos/c_poliza-1.php;new=c_poliza.php
+07-15-13 9:50:50	190.67.2.206	INFO	rene.sterling	Upload File	file=/app/sgpa/librerias/php/mail_contratos-1.php

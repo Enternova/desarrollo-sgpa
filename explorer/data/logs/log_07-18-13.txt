@@ -1,0 +1,18 @@
+07-18-13 0:10:39	190.67.2.206	INFO	rene.sterling	Log In	
+07-18-13 0:11:05	190.67.2.206	INFO	rene.sterling	Get_content	files=/app/sgpa/librerias/php/funciones_general.php
+07-18-13 0:14:20	190.67.2.206	INFO	rene.sterling	Online Edition	file=/app/sgpa/librerias/php/funciones_general.php
+07-18-13 0:14:20	190.67.2.206	INFO	rene.sterling	error	message=Wrong parameter count for clearstatcache()
+07-18-13 11:08:01	190.67.2.206	INFO	rene.sterling	Log In	
+07-18-13 11:08:10	190.67.2.206	INFO	rene.sterling	Log In	
+07-18-13 11:08:40	190.67.2.206	INFO	rene.sterling	Get_content	files=/app/sgpa/procesos/administrador/index.php
+07-18-13 11:09:20	190.67.2.206	INFO	rene.sterling	Online Edition	file=/app/sgpa/procesos/administrador/index.php
+07-18-13 11:09:20	190.67.2.206	INFO	rene.sterling	error	message=Wrong parameter count for clearstatcache()
+07-18-13 13:12:37	190.67.2.206	INFO	rene.sterling	Log In	
+07-18-13 13:12:48	190.67.2.206	INFO	rene.sterling	Log In	
+07-18-13 13:13:07	190.67.2.206	INFO	rene.sterling	Get_content	files=/app/sgpa/procesos/administrador/index.php
+07-18-13 13:13:27	190.67.2.206	INFO	rene.sterling	Online Edition	file=/app/sgpa/procesos/administrador/index.php
+07-18-13 13:13:27	190.67.2.206	INFO	rene.sterling	error	message=Wrong parameter count for clearstatcache()
+07-18-13 13:16:00	2.2.2.12	INFO	rene.sterling	Get_content	files=/app/sgpa/procesos/administrador/alertas_email.php
+07-18-13 13:16:10	2.2.2.12	INFO	rene.sterling	Get_content	files=/app/sgpa/procesos/administrador/alertas_email.php
+07-18-13 13:16:21	2.2.2.12	INFO	rene.sterling	Online Edition	file=/app/sgpa/procesos/administrador/alertas_email.php
+07-18-13 13:16:21	2.2.2.12	INFO	rene.sterling	error	message=Wrong parameter count for clearstatcache()
