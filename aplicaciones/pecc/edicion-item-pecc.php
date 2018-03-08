@@ -621,7 +621,7 @@ if($edicion_datos_generales == "SI" and ($sel_item[75] == "" or $sel_item[75] ==
         
 		$sel_si_es_comite = traer_fila_row(query_db("select COUNT(*) from t2_nivel_servicio, t2_nivel_servicio_tiempos where t2_nivel_servicio.t2_nivel_servicio_id = t2_nivel_servicio_tiempos.t2_nivel_servicio_id and t2_nivel_servicio.t2_nivel_servicio_id = '".$sel_item[2]."' and t2_nivel_servicio_tiempos.t2_nivel_servicio_actividad_id in (8,17)"));
 		
-		if($sel_si_es_comite[0] > 0 and ($sel_item[24] == 2 or $sel_item[24] == 3)){
+		if($sel_si_es_comite[0] > 0 and ($sel_item[24] == 2 or $sel_item[24] == 3) and  $sel_item[56] <=1){
 			echo "Esta solicitud debe ir a comit&eacute; obligatoriamente";
 			?><input type="hidden" name="req_comite" id="req_comite" value="2" /><?
 			}else{

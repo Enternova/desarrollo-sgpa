@@ -34,15 +34,30 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 
 	$asunto="PENDIENTE APROBACION DE CRITERIOS SERVICIO MENOR";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
 	$nombre_emisor="ABASTECIMIENTO";
 	
+	$anno=date('Y');
+	$mes=date('m');
+	$dia=date('d');
+		if($mes<7){
+			
+			$periodo=$anno."-01-01 / ".$anno."-06-30";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
+		if($mes>6){
+			
+			$periodo=$anno."-07-01 / ".$anno."-12-31";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
 	
-$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '2017-10-01' AND '2018-04-01'";
+$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '".$fecha_ini."' AND '".$fecha_fi."'";
 
 $query1=query_db($select_tabla1);	
 
@@ -60,20 +75,20 @@ $query=query_db($select_tabla);
 										</table>
 										<br>
 										<table>
-										<tr>Durante el periodo comprendido entre el '.$periodo_evaluacion.' , Sr(a). '.$solicitante.', solicit&oacute; y ejecut&oacute; los servicios menores <br>
+										<tr>Durante el periodo comprendido entre el '.$periodo.' , Sr(a). '.$solicitante.', solicit&oacute; y ejecut&oacute; los servicios menores <br>
 										que se se&ntilde;alan en la tabla a continuaci&oacute;n, con el proveedor '.$nombre_proveedor.'</tr>
 										</table>
 										<br>
 										<table border="1" >
 										<tr bgcolor="#1F497D"><td><font color="ffffff">N de Servicio Menor</td><td><font color="ffffff">Objeto</td><td><font color="ffffff">Valor</td><td><font color="ffffff">Fecha Fin</td>  </tr>';
-											
+										$mensaje_envio2="";		
 										while($lt1=traer_fila_db($query1)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										
 										</table>									
 									<br><br><br>
@@ -85,18 +100,18 @@ $query=query_db($select_tabla);
 									<br><br><br>
 									<table border="1">
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
-									
+									$mensaje_envio2="";	
 										$total=0;	
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										</table>
 										<br>
-										<br>Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')	
+										
 									</body>
 								</html>';
 sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
@@ -136,14 +151,30 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 
 	$asunto="CRITERIOS APROBADOS PARA EVALUACION SERVICIO MENOR";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
 	$nombre_emisor="ABASTECIMIENTO";
 	
-$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '2017-10-01' AND '2018-04-01'";
+	$anno=date('Y');
+	$mes=date('m');
+	$dia=date('d');
+		if($mes<7){
+			
+			$periodo=$anno."-01-01 / ".$anno."-06-30";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
+		if($mes>6){
+			
+			$periodo=$anno."-07-01 / ".$anno."-12-31";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
+	
+$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '"$fecha_ini"' AND '".$fecha_fi."'";
 
 $query1=query_db($select_tabla1);	
 
@@ -161,20 +192,20 @@ $query=query_db($select_tabla);
 										</table>
 										<br>
 										<table >
-										<tr>Durante el periodo comprendido entre el '.$periodo_evaluacion.' , usted ejecut&oacute; para HOCOL S.A, los servicios menores 
+										<tr>Durante el periodo comprendido entre el '.$periodo.' , usted ejecut&oacute; para HOCOL S.A, los servicios menores 
 										que se se&ntilde;alan en la tabla a continuaci&oacute;n, los cuales fueron solicitados por el Sr(a). '.$solicitante.'.</tr>
 										</table>
 										<br>
 										<table border="1">
 										<tr bgcolor="#1F497D"><td ><font color="ffffff">N de Servicion Menor</td><td><font color="ffffff">Objeto</td><td><font color="ffffff">Valor</td><td><font color="ffffff">Fecha Fin</td>  </tr>';
-											
+										$mensaje_envio2="";		
 										while($lt1=traer_fila_db($query1)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										
 										</table>									
 									<br><br>
@@ -184,17 +215,17 @@ $query=query_db($select_tabla);
 										<br><br>
 									<table border="1">
 									<tr bgcolor="#1F497D"><td><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
-									
+									$mensaje_envio2="";	
 										$total=0;	
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										</table>
-										<br>Adjuntos:(Proveedor:'.$destino.',Gestor:'.$destino4.')	
+										
 									</body>
 								</html>';
 sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
@@ -232,15 +263,30 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 
 	$asunto="PENDIENTE APROBACION DE EVALUACION TECNICA SERVICIO MENOR";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
 	$nombre_emisor="ABASTECIMIENTO";
 	
+	$anno=date('Y');
+	$mes=date('m');
+	$dia=date('d');
+		if($mes<7){
+			
+			$periodo=$anno."-01-01 / ".$anno."-06-30";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
+		if($mes>6){
+			
+			$periodo=$anno."-07-01 / ".$anno."-12-31";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
 	
-$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '2017-10-01' AND '2018-04-01'";
+$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '".$fecha_ini."' AND '".$fecha_fi."'";
 
 $query1=query_db($select_tabla1);	
 
@@ -260,20 +306,20 @@ $query2=query_db($select_tabla2);
 										</table>
 										<br>
 										<table >
-										<tr>Durante el periodo comprendido entre el '.$periodo_evaluacion.' , el Sr(a). '.$solicitante.', solicit&oacute; y ejecut&oacute; 
+										<tr>Durante el periodo comprendido entre el '.$periodo.' , el Sr(a). '.$solicitante.', solicit&oacute; y ejecut&oacute; 
 										los servicios menores que se se&ntilde;alan en la tabla a continuaci&oacute;n con el proveedor, '.$nombre_proveedor.'  </tr>
 										</table>
 										<br>
 										<table border="1">
 										<tr bgcolor="#1F497D"><td><font color="ffffff">N de Servicion Menor</td><td><font color="ffffff">Objeto</td><td><font color="ffffff">Valor</td><td><font color="ffffff">Fecha  </td>  </tr>';
-											
+										$mensaje_envio2="";		
 										while($lt1=traer_fila_db($query1)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										
 
 										</table>	<br>								
@@ -286,36 +332,35 @@ $query2=query_db($select_tabla2);
 
 											<table border="1">
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
-									
+									$mensaje_envio2="";	
 										$total=0;	
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										<tr></tr>
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">OBSERVACION GENERAL</td><td><font color="ffffff">CLASIFICACION</td></tr>';
 									
-										
+										$mensaje_envio2="";	
 										while($lt2=traer_fila_db($query2)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt2[0].'</td><td>'.$lt2[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt2[0].'</td><td>'.$lt2[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										</table>
-										<br>Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')	
-									
+															
 									
 									</body>
 								</html>';
 sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }	
 
-
+/* se ha comentariado por instrucciones de maria cock y camila castañeda referente a recomendaciones de juridico
 //CORREO PROVEEDOR DE EVALUACION TECNICA
 function envia_aprobacion_proveedor_evaluacion_menor($id_evaluacion) {
 	
@@ -348,15 +393,31 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 
 	$asunto="RESULTADOS DE EVALUACION TECNICA SERVICIO MENOR";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
 	$nombre_emisor="ABASTECIMIENTO";
 	
+	$anno=date('Y');
+	$mes=date('m');
+	$dia=date('d');
+		if($mes<7){
+			
+			$periodo=$anno."-01-01 / ".$anno."-06-30";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
+		if($mes>6){
+			
+			$periodo=$anno."-07-01 / ".$anno."-12-31";
+			$fecha_ini=$anno."-01-01";
+			$fecha_fi=$anno."-06-30";
+		}
 	
-$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '2017-10-01' AND '2018-04-01'";
+	
+$select_tabla1="select numero_documento, convert(varchar(max), objeto) as objeto, '$'+convert(varchar(20), valor_cop)+'COP $'+convert(varchar(20), valor_usd)+'USD' AS valor, fecha_inicio_ot, fecha_fin_ot, id_gerente, id_proveedor   from vista_t9_servicio_menor_correo WHERE id_gerente='".$id_gerente."' AND id_proveedor='".$id_proveedor."' AND CONVERT(DATE, fecha_inicio_ot) BETWEEN '".$fecha_ini."' AND '".$fecha_fi."'";
 
 $query1=query_db($select_tabla1);	
 
@@ -376,20 +437,20 @@ $query2=query_db($select_tabla2);
 										</table>
 										<br>
 										<table >
-										<tr>Durante el periodo comprendido entre el '.$periodo_evaluacion.' , usted ejecut&oacute; para HOCOL S.A, los servicios menores
+										<tr>Durante el periodo comprendido entre el '.$periodo.' , usted ejecut&oacute; para HOCOL S.A, los servicios menores
 										que se se&ntilde;alan en la tabla a continuaci&oacute;n, los cuales fueron solicitados por el Sr '.$solicitante.'  </tr>
 										</table>
 										<br>
 										<table border="1">
 										<tr bgcolor="#1F497D"><td><font color="ffffff">N de Servicion Menor</td><td><font color="ffffff">Objeto</td><td><font color="ffffff">Valor</td><td><font color="ffffff">Fecha  </td>  </tr>';
-											
+										$mensaje_envio2="";		
 										while($lt1=traer_fila_db($query1)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt1[0].'</td><td>'.$lt1[1].'</td><td>'.$lt1[2].'</td><td>'.$lt1[4].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										
 
 										</table>	<br>								
@@ -401,35 +462,35 @@ $query2=query_db($select_tabla2);
 
 											<table border="1">
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
-									
+									$mensaje_envio2="";	
 										$total=0;
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										<tr></tr>
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">OBSERVACION GENERAL</td><td><font color="ffffff">CLASIFICACION</td></tr>';
 									
-										
+										$mensaje_envio2="";	
 										while($lt2=traer_fila_db($query2)){
 											
-										$mensaje_envio.='<tr> <td>'.$lt2[0].'</td><td>'.$lt2[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt2[0].'</td><td>'.$lt2[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='
+										$mensaje_envio.=$mensaje_envio2.'
 										</table>
-									<br>Adjuntos:(Proveedor:'.$destino.',Gestor:'.$destino4.')	
+							
 									
 									</body>
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }
 
-
+*/
 
 
 

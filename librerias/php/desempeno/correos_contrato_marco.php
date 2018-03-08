@@ -24,8 +24,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 	
 	$asunto="PENDIENTE APROBACION DE CRITERIOS CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -43,25 +43,25 @@ $query=query_db($select_tabla);
 										</table>
 										<br>
 										<table>
-										<tr>El '.$fecha_inicio_contrato.' , se suscribi&oacute; con '.$nombre_proveedor.', el contrato '.$numero_documento.', para la prestaci&oacute;n del servicio de  <br>
+										<tr>El '.$fecha_inicio_contrato.' ,se suscribi&oacute; con '.$nombre_proveedor.', el contrato '.$numero_documento.', para la prestaci&oacute;n del servicio de  <br>
 										'.$objeto.' el cual es gerenciado por el Sr(a). '.$nombre_gerente.'</tr>
 										</table>	
 									<br><br><br>
 									
 									<table border="1">
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
-									
+									$mensaje_envio2="";	
 										$total=0;
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										</table>
 										<br>
-										Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')
+										
 									</body>
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
@@ -91,8 +91,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 	
 	$asunto="CRITERIOS APROBADOS PARA EVALUACION CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -110,7 +110,7 @@ $query=query_db($select_tabla);
 										</table>
 										<br>
 										<table>
-										<tr>El '.$fecha_inicio_contrato.' , se suscribi&oacute; con '.$nombre_proveedor.', el contrato '.$numero_documento.', para la prestaci&oacute;n del servicio de  <br>
+										<tr>El '.$fecha_inicio_contrato.' ,se suscribi&oacute; con '.$nombre_proveedor.', el contrato '.$numero_documento.', para la prestaci&oacute;n del servicio de  <br>
 										'.$objeto.' Por favor tenga en cuenta que su desempe&ntilde;o en la ejecuci&oacute;n de este contrato ser&aacute; evaluado teniendo en cuenta los criterios 
 										que se relacionan a continuaci&oacute;n. </tr>
 										<table>
@@ -119,18 +119,18 @@ $query=query_db($select_tabla);
 									<table border="1">
 									<tr bgcolor="#1F497D"><td ><font color="ffffff">ASPECTOS DEFINIDOS</td><td><font color="ffffff">PUNTOS</td></tr>';
 									
-										
+									$mensaje_envio2="";		
 										$total=0;
 										while($lt=traer_fila_db($query)){
 											$total=$total+$lt[1];
-										$mensaje_envio.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
+										$mensaje_envio2.='<tr> <td>'.$lt[0].'</td><td>'.$lt[1].'</td> </tr>';
 											
 											}
 											
-										$mensaje_envio.='<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
+										$mensaje_envio.=$mensaje_envio2.'<tr bgcolor="#1F497D"> <td><font color="ffffff">TOTAL</td><td><font color="ffffff">'.$total.'</td> </tr>
 										</table>
 										<br>
-										Adjuntos:(Proveedor:'.$destino.',Gestor:'.$destino4.')	
+											
 									</body>
 								</html>';
 sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
@@ -174,8 +174,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 
 	$asunto="PENDIENTE APROBACION DE EVALUACION TECNICA CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -187,7 +187,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table>
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
 										el cual es gerenciado por el Sr(a). '.$nombre_gerente.'.Se requiere su aprobaci&oacute;n de la evaluaci&oacute;n para que la misma sea enviada para informaci&oacute;n del proveedor. </tr>
 										</table>
 										<br>
@@ -200,14 +200,14 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										</tr>
 										</table>
 										<br>
-										Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')	
+										
 									</body>
 								</html>';
 sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }
 
 
-
+/* se ha comentariado por instrucciones de maria cock y camila castañeda referente a recomendaciones de juridico
 //CORREO SOLICITUD ENVIO APROBACION PROVEEDOR
 function envia_aprobacion_proveedor_evaluacion_marco($id_evaluacion) {
 	
@@ -243,8 +243,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 	
 	$asunto="RESULTADOS DE EVALUACION TECNICA CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -256,7 +256,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table>
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
 										A continuaci&oacute;n se encuentra el resultado de su desempe&ntilde;o en la ejecuci&oacute;n del servicio. </tr>
 										</table>
 										<br>
@@ -268,12 +268,12 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<td>'.$observacion_general.'</td><td>'.$nombre_clasificacion.'</td><td>'.$total.'</td>
 										</tr>
 										</table><br> 
-										Adjuntos:(Proveedor:'.$destino.',Gestor:'.$destino4.')	
+										
 									</body>
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }
-
+*/
 
 //CORREO ENVIO DE EVALUACION
 function envia_aprobacion_evaluacion_marco_hse($id_evaluacion) {
@@ -311,8 +311,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];	
 		
 	$asunto="PENDIENTE APROBACION DE EVALUACION HSSE CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -324,7 +324,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table >
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
 										el cual es gerenciado por el Sr(a). '.$nombre_gerente.'.Se requiere su aprobaci&oacute;n de la evaluaci&oacute;n para que la misma sea enviada para informaci&oacute;n del proveedor. </tr>
 										</table>
 										<br>
@@ -337,7 +337,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										</tr>
 										</table>
 										<br>
-										Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')	
+											
 									</body>
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
@@ -382,8 +382,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];	
 		
 	$asunto="PENDIENTE APROBACION DE EVALUACION ADMINISTRATIVA CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -395,7 +395,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table >
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.'),
 										el cual es gerenciado por el Sr(a). '.$nombre_gerente.'.Se requiere su aprobaci&oacute;n de la evaluaci&oacute;n para que la misma sea enviada para informaci&oacute;n del proveedor. </tr>
 										</table>
 										<br>
@@ -408,13 +408,13 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										</tr>
 										</table>
 										<br>
-										Adjuntos:(Jefe:'.$destino.',Gestor:'.$destino4.')	
+									
 									</body>
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }
 
-
+/* se ha comentariado por instrucciones de maria cock y camila castañeda referente a recomendaciones de juridico
 //CORREO SOLICITUD ENVIO APROBACION PROVEEDOR
 function envia_aprobacion_proveedor_evaluacion_hsse_marco($id_evaluacion) {
 	
@@ -450,8 +450,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 	
 	$asunto="RESULTADOS DE EVALUACION HSSE CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -463,7 +463,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table>
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
 										A continuaci&oacute;n se encuentra el resultado de su desempe&ntilde;o en la ejecuci&oacute;n del servicio. </tr>
 										</table><br> 
 										Adjuntos:('.$destino.')	
@@ -518,8 +518,8 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 	$destino4=$result9[1];
 	
 	$asunto="RESULTADOS DE EVALUACION ADMINISTRATIVA CONTRATO MARCO";
-	
-	$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
+	$destino1=$destino.',,'.$destino4.",,";
+	//$destino1='josef.fovor@enternova.net,,jeison.rivera@enternova.net';
 	//$destino2="jeison.rivera@enternova.net";
 	//$destino3="camila.castaneda@hocol.com.co";
 	$emisor="abastecimiento@hcl.com.co";
@@ -531,7 +531,7 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 										<tr><td>Apreciado.</td><td>'.$usuario.'</td></tr>
 										</table><br>
 										<table>
-										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' , suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
+										<tr>Se ha realizado evaluaci&oacute;n del contrato N° '.$numero_documento.' ,suscrito con el proveedor '.$nombre_proveedor.',para el servicio de ('.$objeto.').
 										A continuaci&oacute;n se encuentra el resultado de su desempe&ntilde;o en la ejecuci&oacute;n del servicio. </tr>
 										</table><br> 
 										Adjuntos:('.$destino.')	
@@ -548,5 +548,5 @@ $result9=traer_fila_row(query_db("select nombre_administrador,email from t1_us_u
 								</html>';
  sent_mail_with_signature($destino1,$asunto,$mensaje_envio,$emisor,$nombre_emisor);
 }
-
+*/
 ?>

@@ -425,7 +425,7 @@ if($_POST["accion"]=="aceptar_criterio_aspecto"){
 		/**** PARA GUADAR TODAS LAS OBSERVACIONES *****/
 	}
 	
-	$tipo_evlauacion=traer_fila_row(query_db("select tipo_documento FROM t9_criterios_evaluacion where id_agregar_criterio=".$id_evaluacion));
+	$tipo_evlauacion=traer_fila_row(query_db("select tipo_documento,id_ot,id_agregar_criterio,id_criterio FROM t9_criterios_evaluacion where id_agregar_criterio=".$id_evaluacion));
 	if($tipo_evlauacion[0]==1){
 		include('correos_servicio_menor.php');
 		envio_aprobacion_aspecto_proveedor_menor($id_evaluacion);
@@ -433,8 +433,18 @@ if($_POST["accion"]=="aceptar_criterio_aspecto"){
 		include('correos_contrato_puntual.php');
 		envio_aprobacion_aspecto_proveedor_puntual($id_evaluacion);
 	}elseif($tipo_evlauacion[0]==3){
+		
+		
+		if($tipo_evlauacion[1]!="" and  $tipo_evlauacion[1]!="NULL" and $tipo_evlauacion[1]!=NULL and $tipo_evlauacion[3]=='3'){
+		
 		include('correos_contrato_marco.php');
 		envio_aprobacion_aspecto_proveedor_marco($id_evaluacion);
+		
+		}else{
+			
+			query_db("UPDATE t9_criterios_evaluacion SET id_estado='99' WHERE id_criterio='3' and id_agregar_criterio=".$tipo_evlauacion[2]);
+			
+		}
 	}
 			?>
 			<script>
@@ -479,23 +489,223 @@ if($_POST["accion"]=="aceptar_aprobacion_evaluacion"){
 			query_db("insert into t9_observacion (nombre_observacion,id_agrega_criterio,id_estado,estado, fecha, hora) values('".$_POST["observacion_evaluaion"]."','$id_evaluacion','8','3', '".$fecha."', '".$hora."')");
 		/**** PARA GUADAR TODAS LAS OBSERVACIONES *****/
 	}
-	
-	
-	$tipo_evlauacion=traer_fila_row(query_db("select tipo_documento FROM t9_criterios_evaluacion where id_agregar_criterio=".$id_evaluacion));
+			
+	$tipo_evlauacion=traer_fila_row(query_db("select tipo_documento,id_documento,id_criterio,id_proveedor FROM t9_criterios_evaluacion where id_agregar_criterio=".$id_evaluacion));
+	/* se ha comentariado por instrucciones de maria cock y camila castañeda referente a recomendaciones de juridico
 	if($tipo_evlauacion[0]==1){
-		include('correos_servicio_menor.php');
-		envia_aprobacion_proveedor_evaluacion_menor($id_evaluacion);
+		//include('correos_servicio_menor.php');
+		//envia_aprobacion_proveedor_evaluacion_menor($id_evaluacion);
 	}elseif($tipo_evlauacion[0]==2){
-		include('correos_contrato_puntual.php');
-		envia_aprobacion_proveedor_evaluacion_puntual($id_evaluacion);
+		//include('correos_contrato_puntual.php');
+		//envia_aprobacion_proveedor_evaluacion_puntual($id_evaluacion);
 	}elseif($tipo_evlauacion[0]==3){
+		
+		//include('correos_contrato_marco.php');
+		//envia_aprobacion_proveedor_evaluacion_marco($id_evaluacion);
+		
+	}  */
+	/*
+	if($tipo_evlauacion[0]==2 and ($tipo_evlauacion[0]==4 or $tipo_evlauacion[0]==6)){
+		include('correos_contrato_puntual.php');
+	}
+	if($tipo_evlauacion[0]==3 and ($tipo_evlauacion[0]==5 or $tipo_evlauacion[0]==7)){
 		include('correos_contrato_marco.php');
-		envia_aprobacion_proveedor_evaluacion_marco($id_evaluacion);
+	}
+	*/
+	
+	
+	if($tipo_evlauacion[0]==2){
+		$fecha_actual=date('Y-m-d');
+		$vigencia_puntual=traer_fila_row(query_db("select * FROM vista_t9_contratos_definicion_criterios where id_contrato=".$tipo_evlauacion[1]));
+				
+				$nuevafecha = strtotime ('+1 year' , strtotime($vigencia_puntual[2])); //Se añade un año mas
+				$nuevafecha1mas = date ('Y-m-d',$nuevafecha);
+					
+		if($vigencia_puntual[3]>$nuevafecha1mas){//si es mayor
+			
+			
+		}
+		
+		if($vigencia_puntual[3]<$nuevafecha1mas){//si es menor
+			
+			query_db("UPDATE t9_criterios_evaluacion SET fecha_solicitud='".$vigencia_puntual[3]."', fecha_creacion='".$vigencia_puntual[3]."' WHERE  id_documento=".$tipo_evlauacion[1]);
+						
+		}
 	}
 	
+	
+	$trae_id_insrte = " select SCOPE_IDENTITY() AS [SCOPE_IDENTITY]"; // para optener elid del insert into SQL SERVER
+	$vigencia=date("Y-m-d");
+	$ano_actual=date("y");
+	$mes_actual=date("n");
+	$dia_actual=date("j");
+	$un_ano_antes =strtotime ( '-1 year' , strtotime ($vigencia) );
+	$un_ano_antes=date('Y-m-d', $un_ano_antes);
+	$ano_cuatro_digitos=date("Y");
+	$mes_dos_digitos=date("m");
+	$dia_dos_digitos=date("d");
+	
+	if($tipo_evlauacion[0]==2){
+
+	
+	$cuenta_proveedor=traer_fila_row(query_db("SELECT count(*) FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor"));
+	
+	if($cuenta_proveedor[0]>0){
+	/*** INICIO PARA BUSCAR LOS CONTRATOS PUNTUALES EVALUACIÓN HSSE QUE YA ESTÁN LEGALIZADOS ***/
+	$query=query_db("SELECT id_proveedor FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor");
+	while($lz=traer_fila_db($query)){
+		echo "SELECT * FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor=".$lz[0]." order by fecha_inicio ASC<br><br>";
+		$query5=query_db("SELECT * FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor=".$lz[0]." order by fecha_inicio ASC");
+		$ls=traer_fila_row($query5);
+		//echo "SELECT COUNT(*) FROM t9_criterios_evaluacion where id_documento=".$ls[0]." and fecha_solicitud='".$vigencia."'<br>";
+		$consecutivo_num3=traer_fila_row(query_db("SELECT MAX(num3) from t9_criterios_evaluacion"));
+		if($consecutivo_num3[0]==""){
+			$consecutivo_num3[0]=1;
+		}else{
+			$consecutivo_num3[0]=$consecutivo_num3[0]+1;
+		}
+		if($ls[4]==2 and $ls[5]==29){//si es biciesto
+			$ls[5]=28;
+		}
+		$jefe=busca_jefe_area_contrato_id_contrato_mc($ls[0]);
+		$valida=traer_fila_row(query_db("SELECT COUNT(*) FROM t9_criterios_evaluacion where id_criterio=4 and  id_proveedor=".$lz[0]." and fecha_solicitud LIKE '%".($ano_cuatro_digitos)."%'"));
+		if($valida[0]==0){//evita repetir registros
+			//if($mes_actual==$ls[4] and $dia_actual==$ls[5]){//verifica si cumple el año
+				$evaluador=traer_fila_row(query_db("select id_usuario FROM tseg12_relacion_usuario_rol where id_rol_general =38"));
+				$query2="INSERT INTO t9_criterios_evaluacion(id_evaluador,id_estado,num1,num2,num3,id_criterio,fecha_solicitud,fecha_creacion,id_proveedor,id_documento,tipo_documento,id_crea_aspectos,id_jefe) VALUES(".$evaluador[0].", 5, 'E', '".$ano_actual."', '".$consecutivo_num3[0]."', 4, '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', ".$ls[12].", ".$ls[0].", 2, ".$ls[9].", ".$jefe.")";
+				$sql_ex=query_db($query2.$trae_id_insrte);
+				$id_ingreso = id_insert($sql_ex);//id del contrato
+				if($ls[7]==1){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=4 and tipo_servicio=0 and estado=1");
+				}elseif($ls[7]==2){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=4 and tipo_servicio=0 and estado=1");
+				}
+			//}
+		}
+	}
+	/*** FIN PARA BUSCAR LOS CONTRATOS PUNTUALES EVALUACIÓN HSSE QUE YA ESTÁN LEGALIZADOS ***/
+	
+	
 		
+		/*** INICIO PARA BUSCAR LOS CONTRATOS PUNTUALES EVALUACIÓN ADMINISTRATIVA QUE YA ESTÁN LEGALIZADOS ***/
+	$query=query_db("SELECT id_proveedor FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor");
+	while($lz=traer_fila_db($query)){
+		$query5=query_db("SELECT * FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=1 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor=".$lz[0]." order by fecha_inicio ASC");
+		$ls=traer_fila_row($query5);
+		//echo "SELECT COUNT(*) FROM t9_criterios_evaluacion where id_documento=".$ls[0]." and fecha_solicitud='".$vigencia."'<br>";
+		$consecutivo_num3=traer_fila_row(query_db("SELECT MAX(num3) from t9_criterios_evaluacion"));
+		if($consecutivo_num3[0]==""){
+			$consecutivo_num3[0]=1;
+		}else{
+			$consecutivo_num3[0]=$consecutivo_num3[0]+1;
+		}
+		if($ls[4]==2 and $ls[5]==29){//si es biciesto
+			$ls[5]=28;
+		}
+		$jefe=busca_jefe_area_contrato_id_contrato_mc($ls[0]);
+		$valida=traer_fila_row(query_db("SELECT COUNT(*) FROM t9_criterios_evaluacion where id_criterio=6 and  id_proveedor=".$lz[0]." and fecha_solicitud LIKE '%".($ano_cuatro_digitos)."%'"));
+		if($valida[0]==0){//evita repetir registros
+			//if($mes_actual==$ls[4] and $dia_actual==$ls[5]){//verifica si cumple el año
+				$evaluador=traer_fila_row(query_db("select id_usuario FROM tseg12_relacion_usuario_rol where id_rol_general =24"));
+				$query2="INSERT INTO t9_criterios_evaluacion(id_evaluador,id_estado,num1,num2,num3,id_criterio,fecha_solicitud,fecha_creacion,id_proveedor,id_documento,tipo_documento,id_crea_aspectos,id_jefe) VALUES(".$evaluador[0].", 5, 'E', '".$ano_actual."', '".$consecutivo_num3[0]."', 6, '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', ".$ls[12].", ".$ls[0].", 2, ".$ls[9].", ".$jefe.")";
+				$sql_ex=query_db($query2.$trae_id_insrte);
+				$id_ingreso = id_insert($sql_ex);//id del contrato
+				if($ls[7]==1){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=6 and tipo_servicio=0 and estado=1");
+				}elseif($ls[7]==2){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=6 and tipo_servicio=0 and estado=1");
+				}
+			//}
+		}
+	}
+	/*** FIN PARA BUSCAR LOS CONTRATOS PUNTUALES EVALUACIÓN ADMINISTRATIVA QUE YA ESTÁN LEGALIZADOS ***/
+		
+	}
+	}
+	}
 	
 	
+	
+	if($tipo_evlauacion[0]==3){
+
+	
+	$cuenta_proveedormac=traer_fila_row(query_db("SELECT count(*) FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=2 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor"));
+	
+	if($cuenta_proveedormac[0]>0){
+		
+		/*** INICIO PARA BUSCAR LOS CONTRATOS MARCO EVALUACIÓN HSSE QUE YA ESTÁN LEGALIZADOS ***/
+	$query=query_db("SELECT id_proveedor FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=2 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor");
+	while($lz=traer_fila_db($query)){
+		$query5=query_db("SELECT * FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=2 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor=".$lz[0]." order by fecha_inicio ASC");
+		$ls=traer_fila_row($query5);
+		//echo "SELECT COUNT(*) FROM t9_criterios_evaluacion where id_documento=".$ls[0]." and fecha_solicitud='".$vigencia."'<br>";
+		$consecutivo_num3=traer_fila_row(query_db("SELECT MAX(num3) from t9_criterios_evaluacion"));
+		if($consecutivo_num3[0]==""){
+			$consecutivo_num3[0]=1;
+		}else{
+			$consecutivo_num3[0]=$consecutivo_num3[0]+1;
+		}
+		if($ls[4]==2 and $ls[5]==29){//si es biciesto
+			$ls[5]=28;
+		}
+		$jefe=busca_jefe_area_contrato_id_contrato_mc($ls[0]);
+		$valida=traer_fila_row(query_db("SELECT COUNT(*) FROM t9_criterios_evaluacion where id_criterio=5 and  id_proveedor=".$lz[0]." and fecha_solicitud LIKE '%".($ano_cuatro_digitos)."%'"));
+		if($valida[0]==0){//evita repetir registros
+			//if($mes_actual==$ls[4] and $dia_actual==$ls[5]){//verifica si cumple el año
+				$evaluador=traer_fila_row(query_db("select id_usuario FROM tseg12_relacion_usuario_rol where id_rol_general =37"));
+				$query2="INSERT INTO t9_criterios_evaluacion(id_evaluador,id_estado,num1,num2,num3,id_criterio,fecha_solicitud,fecha_creacion,id_proveedor,id_documento,tipo_documento,id_crea_aspectos,id_jefe) VALUES(".$evaluador[0].", 5, 'E', '".$ano_actual."', '".$consecutivo_num3[0]."', 5, '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', ".$ls[12].", ".$ls[0].", 3, ".$ls[9].", ".$jefe.")";
+				$sql_ex=query_db($query2.$trae_id_insrte);
+				$id_ingreso = id_insert($sql_ex);//id del contrato
+				if($ls[7]==1){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=5 and tipo_servicio=0 and estado=1");
+				}elseif($ls[7]==2){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=5 and tipo_servicio=0 and estado=1");
+				}
+			//}
+		}
+	}
+	/*** FIN PARA BUSCAR LOS CONTRATOS MARCO EVALUACIÓN HSSE QUE YA ESTÁN LEGALIZADOS ***/
+	
+	
+	
+	/*** INICIO PARA BUSCAR LOS CONTRATOS MARCO EVALUACIÓN ADMINISTRATIVA QUE YA ESTÁN LEGALIZADOS ***/
+	$query=query_db("SELECT id_proveedor FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=2 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor='".$tipo_evlauacion[3]."' group by id_proveedor");
+	while($lz=traer_fila_db($query)){
+		$query5=query_db("SELECT * FROM vista_t9_contratos_definicion_criterios where t1_tipo_documento_id=2 and estado_contrato>=25 and estado_contrato<49 and vigencia_mes>='".$vigencia."' and tipo_servicio in(1,2) and id_proveedor=".$lz[0]." order by fecha_inicio ASC");
+		$ls=traer_fila_row($query5);
+		//echo "SELECT COUNT(*) FROM t9_criterios_evaluacion where id_documento=".$ls[0]." and fecha_solicitud='".$vigencia."'<br>";
+		$consecutivo_num3=traer_fila_row(query_db("SELECT MAX(num3) from t9_criterios_evaluacion"));
+		if($consecutivo_num3[0]==""){
+			$consecutivo_num3[0]=1;
+		}else{
+			$consecutivo_num3[0]=$consecutivo_num3[0]+1;
+		}
+		if($ls[4]==2 and $ls[5]==29){//si es biciesto
+			$ls[5]=28;
+		}
+		$jefe=busca_jefe_area_contrato_id_contrato_mc($ls[0]);
+		$valida=traer_fila_row(query_db("SELECT COUNT(*) FROM t9_criterios_evaluacion where id_criterio=7 and  id_proveedor=".$lz[0]." and fecha_solicitud LIKE '%".($ano_cuatro_digitos)."%'"));
+		if($valida[0]==0){//evita repetir registros
+			//if($mes_actual==$ls[4] and $dia_actual==$ls[5]){//verifica si cumple el año
+				$evaluador=traer_fila_row(query_db("select id_usuario FROM tseg12_relacion_usuario_rol where id_rol_general =24"));
+				$query2="INSERT INTO t9_criterios_evaluacion(id_evaluador,id_estado,num1,num2,num3,id_criterio,fecha_solicitud,fecha_creacion,id_proveedor,id_documento,tipo_documento,id_crea_aspectos,id_jefe) VALUES(".$evaluador[0].", 5, 'E', '".$ano_actual."', '".$consecutivo_num3[0]."', 7, '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', '".($ano_cuatro_digitos)."-".$ls[4]."-".$ls[5]."', ".$ls[12].", ".$ls[0].", 3, ".$ls[9].", ".$jefe.")";
+				$sql_ex=query_db($query2.$trae_id_insrte);
+				$id_ingreso = id_insert($sql_ex);//id del contrato
+				if($ls[7]==1){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=7 and tipo_servicio=0 and estado=1");
+				}elseif($ls[7]==2){//tipo de servicio
+					$query3=query_db("INSERT INTO t9_agregar_aspecto(nombre_aspectos,puntaje_maximo, nombre_descripcion, id_estado, id_agregar_criterio, puntaje_obtenido) select nombre_aspectos, puntos_aspectos, nombre_descripcion, 1, $id_ingreso, NULL from t9_aspectos_criterio where id_criterio=7 and tipo_servicio=0 and estado=1");
+				}
+			//}
+		}
+	}
+	/*** FIN PARA BUSCAR LOS CONTRATOS MARCO EVALUACIÓN ADMINISTRATIVA QUE YA ESTÁN LEGALIZADOS ***/
+		
+		
+	}
+	
+	}
+	/*
 			?>
 			<script>
 			//alert("El archivo se cargo con exito")
@@ -503,7 +713,7 @@ if($_POST["accion"]=="aceptar_aprobacion_evaluacion"){
 			window.parent.ajax_carga('../aplicaciones/desempeno/principal.php?function1=muestra_historico_desempeno', 'contenidos');
 			window.parent.$('html, body').animate({scrollTop:0}, 'slow');
 			</script>
-			<?
+			<? */
 	
 	}
 	

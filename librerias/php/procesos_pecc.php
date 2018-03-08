@@ -3272,7 +3272,7 @@ $insert_aprobacion = query_db("insert into $pi16 (id_secuencia_solicitud,id_us,f
 if($estado_actual == 6 and ($sel_item[6] == 1 or $sel_item[6] == 2 or $sel_item[6] == 3)){
 	$sel_roles_niveles_aprobacion = query_db("select t1.id_rol, t2.id_usuario  from t2_agl_secuencia_solicitud as t1, t2_agl_secuencia_solicitud_usuario as t2 where t1.id_item_pecc= ".$sel_item[0]." and  t1.id_secuencia_solicitud = t2.id_secuencia_solicitud and t1.id_rol in (35,45,9,20,43) and t1.tipo_adj_permiso = 1 and t2.estado = 1 and t1.estado = 1");
 }
-	if($sel_roles_niveles_aprobacion!=""){
+	if($sel_roles_niveles_aprobacion!="" and $solicitud_pecc!= "SI"){
 	while($sel_n_apro = traer_fila_db($sel_roles_niveles_aprobacion)){
 		$id_solicitante = $sel_item[3];
 		if($sel_item[6] == 8){
@@ -3462,7 +3462,7 @@ if(($estado_actual == 6  and ($sel_item[6] != 1 and $sel_item[6] != 2 and $sel_i
 	echo "adjudicacion";
 	$sel_roles_niveles_aprobacion = query_db("select t1.id_rol, t2.id_usuario  from t2_agl_secuencia_solicitud as t1, t2_agl_secuencia_solicitud_usuario as t2 where t1.id_item_pecc= ".$sel_item[0]." and  t1.id_secuencia_solicitud = t2.id_secuencia_solicitud and t1.id_rol in (35,45,9,20,43) and t1.tipo_adj_permiso = 2 and t2.estado = 1 and t1.estado = 1");
 }
-	if($sel_roles_niveles_aprobacion!=""){
+	if($sel_roles_niveles_aprobacion!=""  and $solicitud_pecc!= "SI"){
 	while($sel_n_apro = traer_fila_db($sel_roles_niveles_aprobacion)){
 		$id_solicitante = $sel_item[3];
 		if($sel_item[6] == 8){
